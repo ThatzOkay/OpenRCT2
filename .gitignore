@@ -310,3 +310,4 @@ discord-rpc
 
 # CMake
 cmake-build-*/
+/vita-build/
