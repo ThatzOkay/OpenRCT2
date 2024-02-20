@@ -38,6 +38,23 @@ if (APPLE)
         message("Unknown macOS architecture: ${ARCH}. Behavior may be unexpected.")
     endif()
 endif ()
+
+option(VITA "Build for PS Vita")
+
+if (VITA)
+    if (NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+        if(DEFINED ENV{VITASDK})
+            set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+        else()
+            message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+        endif()
+    endif()
+
+    set(SHORT_NAME openrct2)
+
+    include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
+endif()
+
 project(openrct2 CXX)
 
 if (APPLE)
@@ -363,6 +380,8 @@ endif ()
 
 # Include sub-projects
 include("${ROOT_DIR}/src/openrct2/CMakeLists.txt" NO_POLICY_SCOPE)
+if(NOT VITA)
+endif ()
 include("${ROOT_DIR}/src/openrct2-cli/CMakeLists.txt" NO_POLICY_SCOPE)
 if(NOT DISABLE_GUI)
     include("${ROOT_DIR}/src/openrct2-ui/CMakeLists.txt" NO_POLICY_SCOPE)

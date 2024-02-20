@@ -13,12 +13,15 @@
 #include "../scripting/ScriptEngine.h"
 #include "InteractiveConsole.h"
 
+#ifndef __vita__
 #include <linenoise.hpp>
+#endif
 
 using namespace OpenRCT2;
 
 void StdInOutConsole::Start()
 {
+#ifndef __vita__
     // Only start if stdin/stdout is a TTY
     if (!isatty(fileno(stdin)) || !isatty(fileno(stdout)))
     {
@@ -58,6 +61,7 @@ void StdInOutConsole::Start()
         }
     });
     replThread.detach();
+#endif
 }
 
 std::future<void> StdInOutConsole::Eval(const std::string& s)
@@ -95,7 +99,9 @@ void StdInOutConsole::ProcessEvalQueue()
 
 void StdInOutConsole::Clear()
 {
+#ifndef __vita__
     linenoise::linenoiseClearScreen();
+#endif
 }
 
 void StdInOutConsole::Close()
@@ -145,7 +151,9 @@ void StdInOutConsole::WriteLine(const std::string& s, FormatToken colourFormat)
 
             std::printf("\r%s%s\x1b[0m\x1b[0K\r\n", formatBegin.c_str(), mainString);
             std::fflush(stdout);
+#ifndef __vita__
             linenoise::linenoiseEditRefreshLine();
+#endif
         }
         else
         {

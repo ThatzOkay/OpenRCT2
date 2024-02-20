@@ -9,6 +9,11 @@ option(DISABLE_FLAC     "Disable FLAC support.")
 option(DISABLE_VORBIS   "Disable OGG/VORBIS support.")
 option(DISABLE_OPENGL   "Disable OpenGL support.")
 
+if (VITA)
+    set(DISABLE_OPENGL ON)
+    set(ENABLE_LIGHTFX OFF)
+endif()
+
 # Third party libraries
 if (MSVC)
     find_package(SDL2 REQUIRED)

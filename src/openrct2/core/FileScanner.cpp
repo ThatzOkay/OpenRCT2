@@ -13,7 +13,7 @@
 #    include <windows.h>
 #endif
 
-#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__) || defined(__vita__))
 #    include <dirent.h>
 #    include <sys/stat.h>
 #    include <sys/types.h>
@@ -253,7 +253,7 @@ private:
 
 #endif // _WIN32
 
-#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__) || defined(__vita__))
 
 class FileScannerUnix final : public FileScannerBase
 {
@@ -292,7 +292,15 @@ private:
     {
         DirectoryChild result;
         result.Name = std::string(node->d_name);
-        if (node->d_type == DT_DIR)
+        bool isDir = false;
+
+#ifdef __vita__
+        isDir = S_ISDIR(node->d_stat.st_mode);
+#else
+        isDir = node->d_type == DT_DIR;
+#endif
+
+        if (isDir)
         {
             result.Type = DIRECTORY_CHILD_TYPE::DC_DIRECTORY;
         }
@@ -322,13 +330,13 @@ private:
     }
 };
 
-#endif // defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+#endif // defined(__unix__) || (defined(__APPLE__) && defined(__MACH__) || defined(__vita__))
 
 std::unique_ptr<IFileScanner> Path::ScanDirectory(const std::string& pattern, bool recurse)
 {
 #ifdef _WIN32
     return std::make_unique<FileScannerWindows>(pattern, recurse);
-#elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
+#elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__) || defined(__vita__))
     return std::make_unique<FileScannerUnix>(pattern, recurse);
 #endif
 }

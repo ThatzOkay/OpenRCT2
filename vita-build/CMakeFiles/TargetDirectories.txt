@@ -1,0 +1,11 @@
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/libopenrct2.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/libopenrct2-headers-check.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/openrct2-cli.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/openrct2.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/g2.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/edit_cache.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/rebuild_cache.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/list_install_components.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/install.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/install/local.dir
+/home/thatzokay/vita/ThatzOkay/OpenRCT2/vita-build/CMakeFiles/install/strip.dir

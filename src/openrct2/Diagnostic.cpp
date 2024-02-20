@@ -18,12 +18,16 @@
 #ifdef __ANDROID__
 #    include <android/log.h>
 #endif
+#ifdef __vita__
+#include <psp2/kernel/clib.h>
+#endif
 
 [[maybe_unused]] static bool _log_location_enabled = true;
 bool _log_levels[static_cast<uint8_t>(DiagnosticLevel::Count)] = {
     true, true, true, false, true,
 };
 
+#ifndef __vita__
 static FILE* diagnostic_get_stream(DiagnosticLevel level)
 {
     switch (level)
@@ -35,6 +39,7 @@ static FILE* diagnostic_get_stream(DiagnosticLevel level)
             return stderr;
     }
 }
+#endif
 
 #ifdef __ANDROID__
 
@@ -68,6 +73,52 @@ void DiagnosticLogWithLocation(
     va_start(args, format);
     __android_log_vprint(_android_log_priority[static_cast<uint8_t>(diagnosticLevel)], file, format, args);
     va_end(args);
+}
+
+
+#elif defined(__vita__)
+
+static constexpr const char * _level_strings[] = {
+    "FATAL",
+    "ERROR",
+    "WARNING",
+    "VERBOSE",
+    "INFO"
+};
+
+void DiagnosticLog(DiagnosticLevel diagnosticLevel, const char* format, ...)
+{
+    static char buf[4096];
+    va_list args;
+
+    if (!_log_levels[static_cast<uint8_t>(diagnosticLevel)])
+        return;
+
+    va_start(args, format);
+    vsnprintf(buf, 4096, format, args);
+    va_end(args);
+
+    sceClibPrintf("[%s] %s\n", _level_strings[static_cast<uint8_t>(diagnosticLevel)], buf);
+}
+
+void DiagnosticLogWithLocation(
+    DiagnosticLevel diagnosticLevel, const char* file, const char* function, int32_t line, const char* format, ...)
+{
+    va_list args;
+    char bufa[1024];
+    char bufb[4096];
+
+    if (!_log_levels[static_cast<uint8_t>(diagnosticLevel)])
+        return;
+    snprintf(bufa, 1024, "[%s:%d (%s)]: ", file, line, function);
+
+    sceClibPrintf("%s", bufa);
+
+    va_start(args, format);
+    vsnprintf(bufb, 4096, format, args);
+    va_end(args);
+
+    sceClibPrintf("[%s] %s\n", _level_strings[static_cast<uint8_t>(diagnosticLevel)], bufb);
 }
 
 #else

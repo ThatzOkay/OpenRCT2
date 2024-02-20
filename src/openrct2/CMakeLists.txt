@@ -37,6 +37,12 @@ endif ()
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 SET_CHECK_CXX_FLAGS(${PROJECT_NAME})
 
+if (VITA)
+    target_link_libraries(${PROJECT_NAME} c
+            stdc++
+    )
+endif ()
+
 if (NOT DISABLE_NETWORK OR NOT DISABLE_HTTP)
     if (WIN32)
         target_link_libraries(${PROJECT_NAME} bcrypt)
@@ -180,8 +186,14 @@ if (NOT MINGW AND NOT MSVC)
         
     if (STATIC)
         target_link_libraries(${PROJECT_NAME} ${ICU_STATIC_LIBRARIES})
+        if (VITA)
+            target_link_libraries(${PROJECT_NAME} icuuc icudata)
+        endif ()
     else ()
         target_link_libraries(${PROJECT_NAME} ${ICU_LIBRARIES})
+        if (VITA)
+            target_link_libraries(${PROJECT_NAME} icuuc icudata)
+        endif ()
     endif ()
 endif ()
 

@@ -49,7 +49,7 @@
 #ifdef _WIN32
 #    define OPENRCT2_PLATFORM "Windows"
 #endif
-#if defined(__linux__) && !defined(__ANDROID__)
+#if defined(__linux__) && !defined(__ANDROID__) && !defined(__vita__)
 #    define OPENRCT2_PLATFORM "Linux"
 #endif
 #if (defined(__APPLE__) && defined(__MACH__))
@@ -63,6 +63,9 @@
 #endif
 #ifdef __ANDROID__
 #    define OPENRCT2_PLATFORM "Android"
+#endif
+#ifdef __vita__
+#    define OPENRCT2_PLATFORM "PS Vita"
 #endif
 #ifdef __OpenBSD__
 #    define OPENRCT2_PLATFORM "OpenBSD"
