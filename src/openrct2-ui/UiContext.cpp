@@ -209,17 +209,29 @@ public:
         return _fsResolutions;
     }
 
-    bool HasFocus() override
-    {
-        uint32_t windowFlags = GetWindowFlags();
-        return (windowFlags & SDL_WINDOW_INPUT_FOCUS) != 0;
-    }
+#if defined(__vita__)
+        bool HasFocus() override
+        {
+            return true;
+        }
 
-    bool IsMinimised() override
-    {
-        uint32_t windowFlags = GetWindowFlags();
-        return (windowFlags & SDL_WINDOW_MINIMIZED) || (windowFlags & SDL_WINDOW_HIDDEN);
-    }
+        bool IsMinimised() override
+        {
+            return false;
+        }
+#else
+        bool HasFocus() override
+        {
+            uint32_t windowFlags = GetWindowFlags();
+            return (windowFlags & SDL_WINDOW_INPUT_FOCUS) != 0;
+        }
+
+        bool IsMinimised() override
+        {
+            uint32_t windowFlags = GetWindowFlags();
+            return (windowFlags & SDL_WINDOW_MINIMIZED) || (windowFlags & SDL_WINDOW_HIDDEN);
+        }
+#endif
 
     bool IsSteamOverlayActive() override
     {

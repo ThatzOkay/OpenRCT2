@@ -7,7 +7,7 @@
  * OpenRCT2 is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-#if (defined(__unix__) || defined(__EMSCRIPTEN__)) && !defined(__ANDROID__) && !defined(__APPLE__)
+#if (defined(__unix__) || defined(__EMSCRIPTEN__)) && !defined(__ANDROID__) && !defined(__APPLE__)|| defined(__vita__)
 
 #    include "UiContext.h"
 
@@ -130,6 +130,7 @@ namespace OpenRCT2::Ui
             Platform::Execute(cmd);
         }
 
+#ifndef __vita__
         std::string ShowFileDialog(SDL_Window* window, const FileDialogDesc& desc) override
         {
             std::string result;
@@ -253,17 +254,21 @@ namespace OpenRCT2::Ui
             }
             return result;
         }
+#else
 
-        bool HasFilePicker() const override
+        std::string ShowFileDialog(SDL_Window * window, const FileDialogDesc &desc) override
         {
-            if (!_hasFilePicker.has_value())
-            {
-                std::string dummy;
-                _hasFilePicker = (GetDialogApp(&dummy) != DIALOG_TYPE::NONE);
-            }
-
-            return _hasFilePicker.value();
+            return nullptr;
         }
+
+        std::string ShowDirectoryDialog(SDL_Window * window, const std::string &title) override
+        {
+            LOG_INFO(title.c_str());
+
+            return "ux0:data/openrct2";
+        }
+
+#endif
 
         bool HasMenuSupport() override
         {
@@ -424,4 +429,4 @@ namespace OpenRCT2::Ui
     }
 } // namespace OpenRCT2::Ui
 
-#endif // (defined(__unix__) || defined(__EMSCRIPTEN__)) && !defined(__ANDROID__) && !defined(__APPLE__)
+#endif // (defined(__unix__) || defined(__EMSCRIPTEN__)) && !defined(__ANDROID__) && !defined(__APPLE__) || defined(__vita__

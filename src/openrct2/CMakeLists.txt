@@ -38,8 +38,42 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 SET_CHECK_CXX_FLAGS(${PROJECT_NAME})
 
 if (VITA)
-    target_link_libraries(${PROJECT_NAME} c
+    target_link_libraries(${PROJECT_NAME}
+            gcc
             stdc++
+            vitaGL
+            vorbisfile
+            vorbis
+            ogg
+            speexdsp
+            mpg123
+            vitashark
+            SceShaccCgExt
+            c
+            SceCommonDialog_stub
+            SceAudio_stub
+            SceLibKernel_stub
+            taihen_stub
+            SceNet_stub
+            SceNetCtl_stub
+            png
+            z
+            SceDisplay_stub
+            SceGxm_stub
+            SceSysmodule_stub
+            SceCtrl_stub
+            SceTouch_stub
+            SceMotion_stub
+            m
+            SceAppMgr_stub
+            SceAppUtil_stub
+            ScePgf_stub
+            jpeg
+            SceRtc_stub
+            ScePower_stub
+            mathneon
+            SceShaccCg_stub
+            SceKernelDmacMgr_stub
     )
 endif ()
 
