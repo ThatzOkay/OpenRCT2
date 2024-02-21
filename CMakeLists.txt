@@ -53,6 +53,9 @@ if (VITA)
     set(SHORT_NAME openrct2)
 
     include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
+
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 
 project(openrct2 CXX)
@@ -357,7 +360,7 @@ else ()
         set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     endif ()
 
-    if (APPLE AND NOT USE_MMAP)
+    if ((APPLE OR VITA) AND NOT USE_MMAP)
         set(CMAKE_POSITION_INDEPENDENT_CODE OFF)
     else ()
         set(CMAKE_POSITION_INDEPENDENT_CODE ON)

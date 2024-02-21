@@ -255,7 +255,6 @@ namespace OpenRCT2::Ui
             return result;
         }
 #else
-
         std::string ShowFileDialog(SDL_Window * window, const FileDialogDesc &desc) override
         {
             return nullptr;
@@ -268,6 +267,10 @@ namespace OpenRCT2::Ui
             return "ux0:data/openrct2";
         }
 
+        bool HasFilePicker() const override
+        {
+            return false;
+        }
 #endif
 
         bool HasMenuSupport() override

@@ -13,6 +13,25 @@ list(REMOVE_ITEM OPENRCT2_CORE_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/thirdparty/linenoise.hpp"
 )
 
+if (VITA)
+    if( NOT DEFINED CMAKE_TOOLCHAIN_FILE )
+        if(DEFINED ENV{VITASDK})
+            set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+        else()
+            message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+        endif()
+    endif()
+
+    include("${VITASDK}/share/vita.cmake" REQUIRED)
+
+    set(STATIC ON)
+    set(DISABLE_HTTP_TWITCH ON)
+    set(DISABLE_NETWORK ON)
+    set(DISABLE_TTF ON)
+    set(DISABLE_OPENGL ON)
+    set(ENABLE_LIGHTFX OFF)
+endif()
+
 if (APPLE)
     file(GLOB_RECURSE OPENRCT2_CORE_MM_SOURCES "${CMAKE_CURRENT_LIST_DIR}/*.mm")
     set_source_files_properties(${OPENRCT2_CORE_MM_SOURCES} PROPERTIES COMPILE_FLAGS "-x objective-c++ -fmodules")
@@ -315,3 +334,21 @@ endif ()
 if (UNIX)
     add_definitions(-D_FILE_OFFSET_BITS=64)
 endif ()
+
+if (VITA)
+    set(VITA_APP_NAME, "OpenRCT2")
+    set(VITA_TITLEID "OKAY00001")
+    set(VITA_VERSION "01.00")
+    set(VITA_MKSFOEX_FLAGS "${VITA_MKSFOEX_FLAGS} -d PARENTAL_LEVEL=1")
+
+    vita_create_self(${SHORT_NAME}.self ${SHORT_NAME})
+
+    vita_create_vpk(${SHORT_NAME}.vpk ${VITA_TITLEID} ${SHORT_NAME}.self
+            VERSION ${VITA_VERSION}
+            NAME ${VITA_APP_NAME}
+            FILE sce_sys/icon0.png sce_sys/icon0.png
+            FILE sce_sys/livearea/contents/bg.png sce_sys/livearea/contents/bg.png
+            FILE sce_sys/livearea/contents/startup.png sce_sys/livearea/contents/startup.png
+            FILE sce_sys/livearea/contents/template.xml sce_sys/livearea/contents/template.xml
+    )
+endif()

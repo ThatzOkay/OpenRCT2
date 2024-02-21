@@ -31,6 +31,11 @@
 #    include <sys/time.h>
 #    include <unistd.h>
 
+#ifdef __vita__
+#        include <psp2/apputil.h>
+#        include <psp2/system_param.h>
+#    endif
+
 // The name of the mutex used to prevent multiple instances of the game from running
 static constexpr const utf8* SINGLE_INSTANCE_MUTEX_NAME = u8"openrct2.lock";
 
@@ -60,6 +65,10 @@ namespace Platform
 
     std::string GetHomePath()
     {
+#ifdef __vita__
+        return "ux0:data/openrct2";
+#endif
+
         std::string path;
         auto pw = getpwuid(getuid());
         if (pw != nullptr)
@@ -118,6 +127,9 @@ namespace Platform
 
     int32_t Execute(std::string_view command, std::string* output)
     {
+#ifdef __vita__
+        return -1;
+#endif
 #    ifndef __EMSCRIPTEN__
         LOG_VERBOSE("executing \"%s\"...", std::string(command).c_str());
         FILE* fpipe = popen(std::string(command).c_str(), "r");
@@ -248,6 +260,11 @@ namespace Platform
 
     std::string GetUsername()
     {
+#ifdef __vita__
+        SceChar8 nick[SCE_SYSTEM_PARAM_USERNAME_MAXSIZE];
+        sceAppUtilSystemParamGetString(SCE_SYSTEM_PARAM_ID_USERNAME, nick, SCE_SYSTEM_PARAM_USERNAME_MAXSIZE);
+        return static_cast<std::string>(reinterpret_cast<const char*>(nick));
+#endif
         std::string result;
         auto pw = getpwuid(getuid());
         if (pw != nullptr)
@@ -279,6 +296,9 @@ namespace Platform
 
     TemperatureUnit GetLocaleTemperatureFormat()
     {
+#ifdef __vita__
+        return TemperatureUnit::Celsius;
+#endif
 // LC_MEASUREMENT is GNU specific.
 #    ifdef LC_MEASUREMENT
         const char* langstring = setlocale(LC_MEASUREMENT, "");
