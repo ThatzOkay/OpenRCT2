@@ -174,14 +174,16 @@ private:
         int32_t language, const ScanResult& scanResult, size_t rangeStart, size_t rangeEnd, std::vector<TItem>& items,
         std::atomic<size_t>& processed, std::mutex& printLock) const
     {
+        std::lock_guard<std::mutex> lock(printLock);
+        LOG_INFO("FileIndex: reversing item then looping through");
+
         items.reserve(rangeEnd - rangeStart);
         for (size_t i = rangeStart; i < rangeEnd; i++)
         {
             const auto& filePath = scanResult.Files.at(i);
-
+            
             if (_log_levels[static_cast<uint8_t>(DiagnosticLevel::Verbose)])
             {
-                std::lock_guard<std::mutex> lock(printLock);
                 LOG_VERBOSE("FileIndex:Indexing '%s'", filePath.c_str());
             }
 
@@ -198,8 +200,8 @@ private:
     {
         std::vector<TItem> allItems;
         #ifdef __vita__
-        LOG_INFO("Scanned %zu files", scanResult.Files.size());
-        LOG_INFO("Building %s (%zu items)", _name.c_str(), scanResult.Files.size());
+        LOG_INFO("Scanned %lu files", static_cast<unsigned long>(scanResult.Files.size()));
+        LOG_INFO("Building %s (%lu items)", _name.c_str(), static_cast<unsigned long>(scanResult.Files.size()));
         #else
         Console::WriteLine("Building %s (%zu items)", _name.c_str(), scanResult.Files.size());
         #endif
@@ -209,7 +211,7 @@ private:
         const size_t totalCount = scanResult.Files.size();
         if (totalCount > 0)
         {
-            JobPool jobPool;
+            //JobPool jobPool;
             std::mutex printLock; // For verbose prints.
 
             std::list<std::vector<TItem>> containers;
@@ -225,12 +227,13 @@ private:
             auto reportProgress = [&]() {
                 const size_t completed = processed;
                 #ifdef __vita__
-                LOG_INFO("File %5zu of %zu, done %3d%%\r", completed, totalCount, completed * 100 / totalCount);
+                LOG_INFO("File %s %5lu of %lu, done %3d%%\r", _name.c_str(), static_cast<unsigned long>(completed), static_cast<unsigned long>(totalCount), completed * 100 / totalCount);
                 #else
                 Console::WriteFormat("File %5zu of %zu, done %3d%%\r", completed, totalCount, completed * 100 / totalCount);
                 #endif
             };
 
+            LOG_INFO("FileIndex:Building %s", _name.c_str());
             for (size_t rangeStart = 0; rangeStart < totalCount; rangeStart += stepSize)
             {
                 if (rangeStart + stepSize > totalCount)
@@ -240,21 +243,28 @@ private:
 
                 auto& items = containers.emplace_back();
 
-                jobPool.AddTask([&, rangeStart, stepSize]() {
+                LOG_INFO("FileIndex:Adding range %lu to %lu to job pool", static_cast<unsigned long>(rangeStart), static_cast<unsigned long>(rangeStart + stepSize));
+                // jobPool.AddTask([&, rangeStart, stepSize]() {
+                    LOG_INFO("FileIndex:Building range %lu to %lu", static_cast<unsigned long>(rangeStart), static_cast<unsigned long>(rangeStart + stepSize));
                     BuildRange(language, scanResult, rangeStart, rangeStart + stepSize, items, processed, printLock);
-                });
+                // });
 
+                LOG_INFO("FileIndex: report progress");
                 reportProgress();
             }
 
-            jobPool.Join(reportProgress);
+            LOG_INFO("FileIndex:Joining job pool");
+            //jobPool.Join(reportProgress);
 
+            LOG_INFO("FileIndex: loop through containers");
             for (const auto& itr : containers)
             {
                 allItems.insert(allItems.end(), itr.begin(), itr.end());
             }
+            LOG_INFO("FileIndex: done loop through containers");
         }
 
+        LOG_INFO("FileIndex:Writing index file");
         WriteIndexFile(language, scanResult.Stats, allItems);
 
         auto endTime = std::chrono::high_resolution_clock::now();
@@ -326,8 +336,11 @@ private:
         {
             LOG_VERBOSE("FileIndex:Writing index: '%s'", _indexPath.c_str());
             Path::CreateDirectory(Path::GetDirectory(_indexPath));
+
+            LOG_INFO("FileIndex:Opening in wirte mode index: '%s'", _indexPath.c_str());  
             auto fs = OpenRCT2::FileStream(_indexPath, OpenRCT2::FILE_MODE_WRITE);
 
+            LOG_INFO("FileIndex:Writing header");
             // Write header
             FileIndexHeader header;
             header.MagicNumber = _magicNumber;
@@ -339,16 +352,23 @@ private:
             fs.WriteValue(header);
 
             DataSerialiser ds(true, fs);
+            LOG_INFO("FileIndex:Writing items");
             // Write items
             for (const auto& item : items)
             {
                 Serialise(ds, item);
             }
+
         }
         catch (const std::exception& e)
         {
+            #ifdef __vita__
+            LOG_ERROR("Unable to save index: '%s'.", _indexPath.c_str());
+            LOG_ERROR("%s", e.what());
+            #else
             Console::Error::WriteLine("Unable to save index: '%s'.", _indexPath.c_str());
             Console::Error::WriteLine("%s", e.what());
+            #endif
         }
     }
 

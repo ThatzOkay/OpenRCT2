@@ -349,13 +349,13 @@ if (VITA)
     set(VITA_APP_NAME, "OpenRCT2")
     set(VITA_TITLEID "OKAY00001")
     set(VITA_VERSION "01.00")
-    set(VITA_MKSFOEX_FLAGS "${VITA_MKSFOEX_FLAGS} -d PARENTAL_LEVEL=1")
+    set(VITA_MKSFOEX_FLAGS "${VITA_MKSFOEX_FLAGS} -d PARENTAL_LEVEL=1 -d NAME=OpenRCT2" )
 
     vita_create_self(${SHORT_NAME}.self ${SHORT_NAME})
 
     vita_create_vpk(${SHORT_NAME}.vpk ${VITA_TITLEID} ${SHORT_NAME}.self
             VERSION ${VITA_VERSION}
-            NAME ${VITA_APP_NAME}
+            NAME "OpenRCT2"
             FILE sce_sys/icon0.png sce_sys/icon0.png
             FILE sce_sys/livearea/contents/bg.png sce_sys/livearea/contents/bg.png
             FILE sce_sys/livearea/contents/startup.png sce_sys/livearea/contents/startup.png

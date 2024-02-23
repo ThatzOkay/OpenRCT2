@@ -200,7 +200,13 @@ bool GfxLoadG1(const IPlatformEnvironment& env)
     try
     {
         auto path = env.FindFile(DIRBASE::RCT2, DIRID::DATA, u8"g1.dat");
+
+        LOG_INFO("Loading g1.dat with open read from %s", path.c_str());
         auto fs = FileStream(path, FILE_MODE_OPEN);
+
+        LOG_INFO("Loading g1.dat from %s", path.c_str());
+
+        LOG_INFO("Reading g1.dat header");
         _g1.header = fs.ReadValue<RCTG1Header>();
 
         LOG_VERBOSE("g1.dat, number of entries: %u", _g1.header.num_entries);

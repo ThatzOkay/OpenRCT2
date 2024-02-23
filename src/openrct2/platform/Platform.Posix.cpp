@@ -66,7 +66,7 @@ namespace Platform
     std::string GetHomePath()
     {
 #ifdef __vita__
-        return "ux0:data/openrct2";
+        return "ux0:/data/OpenRCT2";
 #endif
 
         std::string path;

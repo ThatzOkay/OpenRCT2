@@ -24,7 +24,7 @@ namespace Platform
             case SPECIAL_FOLDER::USER_CONFIG:
             case SPECIAL_FOLDER::USER_DATA:
             case SPECIAL_FOLDER::USER_HOME:
-                return "ux0:data";
+                return "ux0:/data";
             default:
                 return std::string();
         }
@@ -37,7 +37,7 @@ namespace Platform
 
     std::string GetInstallPath()
     {
-        return "ux0:data/openrct2";
+        return "ux0:/data/OpenRCT2";
     }
 
     std::string GetCurrentExecutablePath()

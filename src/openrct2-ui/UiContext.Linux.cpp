@@ -264,7 +264,7 @@ namespace OpenRCT2::Ui
         {
             LOG_INFO(title.c_str());
 
-            return "ux0:data/openrct2";
+            return "ux0:/data/OpenRCT2";
         }
 
         bool HasFilePicker() const override

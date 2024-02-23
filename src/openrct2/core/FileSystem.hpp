@@ -21,6 +21,8 @@
 #    define HAVE_STD_FILESYSTEM 0
 #elif defined(__ANDROID__)
 #    define HAVE_STD_FILESYSTEM 1
+#elif defined(__vita__)
+#    define HAVE_STD_FILESYSTEM 1
 #elif defined(__has_include) // For GCC/Clang check if the header exists.
 #    if __has_include(<filesystem>)
 #        define HAVE_STD_FILESYSTEM 1

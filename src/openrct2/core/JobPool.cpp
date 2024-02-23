@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cassert>
+#    include "../Diagnostic.h"
 
 JobPool::TaskData::TaskData(std::function<void()> workFn, std::function<void()> completionFn)
     : WorkFn(workFn)
@@ -44,8 +45,11 @@ JobPool::~JobPool()
 
 void JobPool::AddTask(std::function<void()> workFn, std::function<void()> completionFn)
 {
+    LOG_INFO("ThatzOkay: Locking mutex in JobPool::AddTask()");
     unique_lock lock(_mutex);
+    LOG_INFO("ThatzOkay: Mutex locked in JobPool::AddTask() emplacing back to pending queue");
     _pending.emplace_back(workFn, completionFn);
+    LOG_INFO("ThatzOkay: Mutex locked in JobPool::AddTask() notifying condition variable");
     _condPending.notify_one();
 }
 

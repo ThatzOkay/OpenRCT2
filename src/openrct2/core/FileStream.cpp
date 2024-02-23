@@ -88,16 +88,19 @@ namespace OpenRCT2
             // Only allow regular files to be opened as its possible to open directories.
             if (stat(path, &fileStat) == 0 && S_ISREG(fileStat.st_mode))
             {
+                LOG_INFO("Opening file '%s' with mode '%s'", path, mode);
                 _file = fopen(path, mode);
             }
         }
         else
         {
+            LOG_INFO("Opening file '%s' with mode '%s'", path, mode);
             _file = fopen(path, mode);
         }
 #endif
         if (_file == nullptr)
         {
+            LOG_ERROR("Unable to open '%s'", path);
             throw IOException(String::StdFormat("Unable to open '%s'", path));
         }
 
@@ -105,6 +108,7 @@ namespace OpenRCT2
         _fileSize = _filelengthi64(_fileno(_file));
 #else
         std::error_code ec;
+        LOG_INFO("Getting file size of '%s'", path);
         _fileSize = fs::file_size(fs::u8path(path), ec);
 #endif
 
