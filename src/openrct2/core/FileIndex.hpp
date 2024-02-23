@@ -102,15 +102,20 @@ public:
     std::vector<TItem> LoadOrBuild(int32_t language) const
     {
         std::vector<TItem> items;
+        LOG_INFO("ThatzOkay: Scanning item");
         auto scanResult = Scan();
+        LOG_INFO("ThatzOkay: reading index item");
         auto readIndexResult = ReadIndexFile(language, scanResult.Stats);
+        LOG_INFO("ThatzOKay: Index was read");
         if (std::get<0>(readIndexResult))
         {
+            LOG_INFO("ThatzOkay: Index was loaded");
             // Index was loaded
             items = std::get<1>(readIndexResult);
         }
         else
         {
+            LOG_INFO("ThatzOkay: Index was not loaded");
             // Index was not loaded
             items = Build(language, scanResult);
         }
@@ -192,7 +197,12 @@ private:
     std::vector<TItem> Build(int32_t language, const ScanResult& scanResult) const
     {
         std::vector<TItem> allItems;
+        #ifdef __vita__
+        LOG_INFO("Scanned %zu files", scanResult.Files.size());
+        LOG_INFO("Building %s (%zu items)", _name.c_str(), scanResult.Files.size());
+        #else
         Console::WriteLine("Building %s (%zu items)", _name.c_str(), scanResult.Files.size());
+        #endif
 
         auto startTime = std::chrono::high_resolution_clock::now();
 
@@ -204,13 +214,21 @@ private:
 
             std::list<std::vector<TItem>> containers;
 
+            #ifdef __vita__
+            size_t stepSize = 50; // Vita is much slower, so we need to use a smaller step size.
+            #else
             size_t stepSize = 100; // Handpicked, seems to work well with 4/8 cores.
+            #endif
 
             std::atomic<size_t> processed = ATOMIC_VAR_INIT(0);
 
             auto reportProgress = [&]() {
                 const size_t completed = processed;
+                #ifdef __vita__
+                LOG_INFO("File %5zu of %zu, done %3d%%\r", completed, totalCount, completed * 100 / totalCount);
+                #else
                 Console::WriteFormat("File %5zu of %zu, done %3d%%\r", completed, totalCount, completed * 100 / totalCount);
+                #endif
             };
 
             for (size_t rangeStart = 0; rangeStart < totalCount; rangeStart += stepSize)
@@ -241,7 +259,11 @@ private:
 
         auto endTime = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration<float>(endTime - startTime);
+        #ifdef __vita__
+        LOG_INFO("Finished building %s in %.2f seconds.", _name.c_str(), duration.count());
+        #else
         Console::WriteLine("Finished building %s in %.2f seconds.", _name.c_str(), duration.count());
+        #endif
 
         return allItems;
     }
@@ -253,7 +275,9 @@ private:
         if (File::Exists(_indexPath))
         {
             try
-            {
+            {                
+                LOG_INFO("FileIndex:Loading index: '%s'", _indexPath.c_str());
+
                 LOG_VERBOSE("FileIndex:Loading index: '%s'", _indexPath.c_str());
                 auto fs = OpenRCT2::FileStream(_indexPath, OpenRCT2::FILE_MODE_OPEN);
 
@@ -283,8 +307,14 @@ private:
             }
             catch (const std::exception& e)
             {
+                #ifdef __vita__
+                LOG_ERROR("Unable to load index: '%s'.", _indexPath.c_str());
+                LOG_ERROR("%s", e.what());
+                #else
+
                 Console::Error::WriteLine("Unable to load index: '%s'.", _indexPath.c_str());
                 Console::Error::WriteLine("%s", e.what());
+                #endif
             }
         }
         return std::make_tuple(loadedItems, std::move(items));

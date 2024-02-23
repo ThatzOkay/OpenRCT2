@@ -39,6 +39,7 @@ RideId gPeepPathFindQueueRideIndex;
 #if defined(DEBUG_LEVEL_1) && DEBUG_LEVEL_1
 // Use to guard calls to log messages
 static bool _pathFindDebug = false;
+static bool gPathFindDebug = false;
 // Use to put the peep name in the log message
 static utf8 _pathFindDebugPeepName[256];
 #endif // defined(DEBUG_LEVEL_1) && DEBUG_LEVEL_1

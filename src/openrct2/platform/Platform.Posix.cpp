@@ -261,9 +261,7 @@ namespace Platform
     std::string GetUsername()
     {
 #ifdef __vita__
-        SceChar8 nick[SCE_SYSTEM_PARAM_USERNAME_MAXSIZE];
-        sceAppUtilSystemParamGetString(SCE_SYSTEM_PARAM_ID_USERNAME, nick, SCE_SYSTEM_PARAM_USERNAME_MAXSIZE);
-        return static_cast<std::string>(reinterpret_cast<const char*>(nick));
+        return "openrct2";
 #endif
         std::string result;
         auto pw = getpwuid(getuid());
@@ -319,7 +317,9 @@ namespace Platform
 
     bool ProcessIsElevated()
     {
-#    ifndef __EMSCRIPTEN__
+#    ifdef __vita__
+        return false;
+#    elif  !defined(__EMSCRIPTEN__)
         return (geteuid() == 0);
 #    else
         return false;

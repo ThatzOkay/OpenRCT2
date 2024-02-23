@@ -32,6 +32,16 @@ if (VITA)
     set(ENABLE_LIGHTFX OFF)
 endif()
 
+if (WIIU)
+
+set(STATIC ON)
+set(DISABLE_HTTP ON)
+set(DISABLE_NETWORK ON)
+set(DISABLE_TTF ON)
+set(DISABLE_OPENGL ON)
+set(ENABLE_LIGHTFX OFF)
+endif()
+
 if (APPLE)
     file(GLOB_RECURSE OPENRCT2_CORE_MM_SOURCES "${CMAKE_CURRENT_LIST_DIR}/*.mm")
     set_source_files_properties(${OPENRCT2_CORE_MM_SOURCES} PROPERTIES COMPILE_FLAGS "-x objective-c++ -fmodules")

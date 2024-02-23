@@ -55,10 +55,12 @@ int main(int argc, const char** argv)
         else
         {
             // Run OpenRCT2 with a UI context
+            LOG_INFO("ThatzOkay: Running OpenRCT2 with UI context");
             auto env = ToShared(CreatePlatformEnvironment());
             std::shared_ptr<IAudioContext> audioContext;
             try
             {
+                LOG_INFO("ThatzOkay: Creating audio context");
                 audioContext = ToShared(CreateAudioContext());
             }
             catch (const SDLException& e)
@@ -66,9 +68,13 @@ int main(int argc, const char** argv)
                 LOG_WARNING("Failed to create audio context. Using dummy audio context. Error message was: %s", e.what());
                 audioContext = ToShared(CreateDummyAudioContext());
             }
+
+            LOG_INFO("ThatzOkay: Creating UI context");
             auto uiContext = ToShared(CreateUiContext(env));
             context = CreateContext(env, audioContext, uiContext);
         }
+
+        LOG_INFO("ThatzOkay: Running OpenRCT2");
         rc = context->RunOpenRCT2(argc, argv);
     }
     else if (runGame == EXITCODE_FAIL)

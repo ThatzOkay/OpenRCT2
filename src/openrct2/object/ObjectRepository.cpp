@@ -99,6 +99,7 @@ public:
 public:
     std::optional<ObjectRepositoryItem> Create([[maybe_unused]] int32_t language, const std::string& path) const override
     {
+        LOG_INFO("ThatzOkay:: Scanning object: %s", path.c_str());
         std::unique_ptr<Object> object;
         auto extension = Path::GetExtension(path);
         if (String::IEquals(extension, ".json"))
@@ -198,8 +199,13 @@ public:
 
     void LoadOrConstruct(int32_t language) override
     {
+        LOG_INFO("ThatzOkay:: Loading or constructing object repository for language: %d", language);
+
+        LOG_INFO("ThatzOkay:: Clearing object rep");
         ClearItems();
+        LOG_INFO("ThatzOkay:: Loading or constructing object rep");
         auto items = _fileIndex.LoadOrBuild(language);
+        LOG_INFO("ThatzOkay:: Adding items to object rep");
         AddItems(items);
         SortItems();
     }

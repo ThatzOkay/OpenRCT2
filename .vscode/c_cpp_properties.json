@@ -79,6 +79,33 @@
             },
             "cStandard": "c11",
             "cppStandard": "c++17"
+        },
+        {
+            "name": "Vita",
+            "includePath": [
+                "/usr/local/vitasdk/arm-vita-eabi/include/",
+                "/usr/local/vitasdk/arm-vita-eabi/include/SDL2",
+                "/usr/local/include",
+                "${workspaceRoot}",
+                "${workspaceRoot}/src"
+            ],
+            "defines": [
+                "ENABLE_SCRIPTING"
+            ],
+            "intelliSenseMode": "linux-gcc-arm",
+            "browse": {
+                "path": [
+                    "/usr/local/vitasdk/arm-vita-eabi/include/",
+                    "/usr/local/vitasdk/arm-vita-eabi/include/SDL2",
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/src"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/local/vitasdk/bin/arm-vita-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4

@@ -432,18 +432,26 @@ namespace OpenRCT2
                 _uiContext->CreateWindow();
             }
 
+            LOG_INFO("ThatzOkay: Ensuring User Content Directories Exist");
             EnsureUserContentDirectoriesExist();
 
             // TODO Ideally we want to delay this until we show the title so that we can
             //      still open the game window and draw a progress screen for the creation
             //      of the object cache.
+            LOG_INFO("ThatzOkay: Loading or constructing Objects");
             _objectRepository->LoadOrConstruct(_localisationService->GetCurrentLanguage());
+            LOG_INFO("ThatzOkay: Loading or constructing Objects - Done");
 
             if (!gOpenRCT2Headless)
             {
+                LOG_INFO("ThatzOkay: scanning Asset Packs");
                 _assetPackManager->Scan();
+                LOG_INFO("ThatzOkay: loading enabled Asset Packs");
                 _assetPackManager->LoadEnabledAssetPacks();
+                LOG_INFO("ThatzOkay: reloading Asset Packs");
                 _assetPackManager->Reload();
+
+                LOG_INFO("ThatzOkay: loading enabled Asset Packs - Done");
             }
 
             // TODO Like objects, this can take a while if there are a lot of track designs
@@ -484,6 +492,7 @@ namespace OpenRCT2
             _scriptEngine.Initialise();
 #endif
 
+            LOG_INFO("ThatzOkay: Initializing titlescreen");
             _titleScreen = std::make_unique<TitleScreen>(*_gameState);
             _uiContext->Initialise();
 
