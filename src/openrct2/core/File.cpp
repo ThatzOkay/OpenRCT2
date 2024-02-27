@@ -64,6 +64,7 @@ namespace File
         std::ifstream fs(fs::u8path(u8string(path)), std::ios::in | std::ios::binary);
         if (!fs.is_open())
         {
+            LOG_ERROR("Unable to open %s", u8string(path).c_str());
             throw IOException("Unable to open " + u8string(path));
         }
 

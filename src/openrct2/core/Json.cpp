@@ -12,11 +12,13 @@
 #include "FileStream.h"
 #include "Memory.hpp"
 #include "String.hpp"
+#include "../Diagnostic.h"
 
 namespace Json
 {
     json_t ReadFromFile(u8string_view path, size_t maxSize)
     {
+        LOG_INFO("Reading JSON file: %s", path);
         auto fs = OpenRCT2::FileStream(path, OpenRCT2::FILE_MODE_OPEN);
 
         size_t fileLength = static_cast<size_t>(fs.GetLength());
@@ -49,6 +51,8 @@ namespace Json
         std::string jsonOutput = jsonData.dump(indentSize);
 
         // Write to file
+        
+        LOG_INFO("Writing JSON file: %s", path);
         auto fs = OpenRCT2::FileStream(path, OpenRCT2::FILE_MODE_WRITE);
         fs.Write(jsonOutput.data(), jsonOutput.size());
     }

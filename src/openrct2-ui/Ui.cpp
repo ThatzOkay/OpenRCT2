@@ -41,18 +41,6 @@ int NormalisedMain(int argc, const char** argv)
 int main(int argc, const char** argv)
 #endif
 {
-    LOG_INFO("ThatzOkay: Can open g1.dat");
-    FILE* g1test = fopen("ux0:data/OpenRCT2/rct2/Data/g1.dat", "r");
-    if (g1test)
-    {
-        LOG_INFO("ThatzOkay: g1.dat opened successfully");
-        fclose(g1test);
-    }
-    else
-    {
-        LOG_INFO("ThatzOkay: g1.dat failed to open");
-    }
-
     std::unique_ptr<IContext> context;
     int32_t rc = EXIT_SUCCESS;
     int runGame = CommandLineRun(argv, argc);

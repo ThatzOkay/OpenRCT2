@@ -19,6 +19,8 @@
 #    include <sys/stat.h>
 #else
 #    include <io.h>
+#include <cstdio>
+#include <unistd.h>
 #endif
 
 #ifdef _MSC_VER
@@ -101,6 +103,12 @@ namespace OpenRCT2
         if (_file == nullptr)
         {
             LOG_ERROR("Unable to open '%s'", path);
+               
+             // Use LOG_INFO to print standard input, output, and error file descriptors
+            LOG_INFO("Standard Input FD: %d", stdin);
+            LOG_INFO("Standard Output FD: %d", stdout);
+            LOG_INFO("Standard Error FD: %d", strerror(errno));
+
             throw IOException(String::StdFormat("Unable to open '%s'", path));
         }
 

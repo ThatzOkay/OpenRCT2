@@ -217,7 +217,7 @@ private:
             std::list<std::vector<TItem>> containers;
 
             #ifdef __vita__
-            size_t stepSize = 50; // Vita is much slower, so we need to use a smaller step size.
+            size_t stepSize = 25; // Vita is much slower, so we need to use a smaller step size.
             #else
             size_t stepSize = 100; // Handpicked, seems to work well with 4/8 cores.
             #endif
