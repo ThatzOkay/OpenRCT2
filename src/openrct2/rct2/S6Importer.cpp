@@ -356,7 +356,7 @@ namespace RCT2
                 gameState.ScenarioObjective.NumGuests = _s6.ObjectiveGuests;
             ImportMarketingCampaigns();
 
-            gCurrentExpenditure = ToMoney64(_s6.CurrentExpenditure);
+            gameState.CurrentExpenditure = ToMoney64(_s6.CurrentExpenditure);
             gCurrentProfit = ToMoney64(_s6.CurrentProfit);
             gameState.WeeklyProfitAverageDividend = ToMoney64(_s6.WeeklyProfitAverageDividend);
             gameState.WeeklyProfitAverageDivisor = _s6.WeeklyProfitAverageDivisor;
@@ -374,7 +374,7 @@ namespace RCT2
             gameState.ScenarioCompletedCompanyValue = RCT12CompletedCompanyValueToOpenRCT2(_s6.CompletedCompanyValue);
             gameState.TotalAdmissions = _s6.TotalAdmissions;
             gameState.TotalIncomeFromAdmissions = ToMoney64(_s6.IncomeFromAdmissions);
-            gCompanyValue = ToMoney64(_s6.CompanyValue);
+            gameState.CompanyValue = ToMoney64(_s6.CompanyValue);
             std::memcpy(gPeepWarningThrottle, _s6.PeepWarningThrottle, sizeof(_s6.PeepWarningThrottle));
 
             // Awards
@@ -388,7 +388,7 @@ namespace RCT2
             }
 
             gLandPrice = ToMoney64(_s6.LandPrice);
-            gConstructionRightsPrice = ToMoney64(_s6.ConstructionRightsPrice);
+            gameState.ConstructionRightsPrice = ToMoney64(_s6.ConstructionRightsPrice);
             // unk_01358774
             // Pad01358776
             // _s6.CdKey

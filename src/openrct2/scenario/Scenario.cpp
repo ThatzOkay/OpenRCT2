@@ -103,7 +103,7 @@ void ScenarioReset(GameState_t& gameState)
     auto& park = GetContext()->GetGameState()->GetPark();
     gameState.ParkRating = park.CalculateParkRating();
     gameState.ParkValue = park.CalculateParkValue();
-    gCompanyValue = park.CalculateCompanyValue();
+    gameState.CompanyValue = park.CalculateCompanyValue();
     gHistoricalProfit = gameState.InitialCash - gameState.BankLoan;
     gameState.Cash = gameState.InitialCash;
 
@@ -134,7 +134,7 @@ void ScenarioReset(GameState_t& gameState)
     auto savePath = env->GetDirectoryPath(DIRBASE::USER, DIRID::SAVE);
     gScenarioSavePath = Path::Combine(savePath, park.Name + u8".park");
 
-    gCurrentExpenditure = 0;
+    gameState.CurrentExpenditure = 0;
     gCurrentProfit = 0;
     gameState.WeeklyProfitAverageDividend = 0;
     gameState.WeeklyProfitAverageDivisor = 0;
@@ -201,7 +201,7 @@ void ScenarioFailure(GameState_t& gameState)
  */
 void ScenarioSuccess(GameState_t& gameState)
 {
-    auto companyValue = gCompanyValue;
+    auto companyValue = gameState.CompanyValue;
 
     gameState.ScenarioCompletedCompanyValue = companyValue;
     PeepApplause();

@@ -10,9 +10,11 @@
 #pragma once
 
 #include "Date.h"
+#include "Limits.h"
 #include "interface/ZoomLevel.h"
 #include "management/Finance.h"
 #include "management/NewsItem.h"
+#include "ride/Ride.h"
 #include "scenario/Scenario.h"
 #include "world/Banner.h"
 #include "world/Climate.h"
@@ -38,6 +40,9 @@ namespace OpenRCT2
         uint32_t ParkSize;
         money64 ParkValue;
         money64 ParkValueHistory[FINANCE_GRAPH_SIZE];
+        money64 CompanyValue;
+        money64 ConstructionRightsPrice;
+        money64 CurrentExpenditure;
         uint8_t ParkRatingHistory[32];
         ClimateType Climate;
         ClimateState ClimateCurrent;
@@ -75,6 +80,11 @@ namespace OpenRCT2
         std::string ScenarioCompletedBy;
 
         std::vector<Banner> Banners;
+        // Ride storage for all the rides in the park, rides with RideId::Null are considered free.
+        std::array<Ride, OpenRCT2::Limits::MaxRidesInPark> Rides{};
+        std::vector<TileElement> TileElements;
+
+        std::vector<ScenerySelection> RestrictedScenery;
 
         News::ItemQueues NewsItems;
 
