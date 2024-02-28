@@ -565,7 +565,7 @@ static int32_t ConsoleCommandGet(InteractiveConsole& console, const arguments_t&
         }
         else if (argv[0] == "company_value")
         {
-            console.WriteFormatLine("company_value %d", gCompanyValue / 10);
+            console.WriteFormatLine("company_value %d", gameState.CompanyValue / 10);
         }
         else if (argv[0] == "money")
         {
@@ -673,7 +673,8 @@ static int32_t ConsoleCommandGet(InteractiveConsole& console, const arguments_t&
         else if (argv[0] == "construction_rights_cost")
         {
             console.WriteFormatLine(
-                "construction_rights_cost %d.%d0", gConstructionRightsPrice / 10, gConstructionRightsPrice % 10);
+                "construction_rights_cost %d.%d0", gameState.ConstructionRightsPrice / 10,
+                gameState.ConstructionRightsPrice % 10);
         }
         else if (argv[0] == "climate")
         {

@@ -542,12 +542,12 @@ namespace OpenRCT2
                     cs.ReadWrite(tempLandPrice);
                     cs.ReadWrite(tempConstructionRightPrice);
                     gLandPrice = ToMoney64(tempLandPrice);
-                    gConstructionRightsPrice = ToMoney64(tempConstructionRightPrice);
+                    gameState.ConstructionRightsPrice = ToMoney64(tempConstructionRightPrice);
                 }
                 else
                 {
                     cs.ReadWrite(gLandPrice);
-                    cs.ReadWrite(gConstructionRightsPrice);
+                    cs.ReadWrite(gameState.ConstructionRightsPrice);
                 }
                 cs.ReadWrite(gGrassSceneryTileLoopPosition);
                 cs.ReadWrite(gWidePathTileLoopPosition);
@@ -885,13 +885,13 @@ namespace OpenRCT2
                         });
                     }
                     cs.ReadWrite(gameState.ParkValue);
-                    cs.ReadWrite(gCompanyValue);
+                    cs.ReadWrite(gameState.CompanyValue);
                     cs.ReadWrite(gameState.ParkSize);
                     cs.ReadWrite(gameState.NumGuestsInPark);
                     cs.ReadWrite(gameState.NumGuestsHeadingForPark);
                     cs.ReadWrite(gameState.ParkRating);
                     cs.ReadWrite(gParkRatingCasualtyPenalty);
-                    cs.ReadWrite(gCurrentExpenditure);
+                    cs.ReadWrite(gameState.CurrentExpenditure);
                     cs.ReadWrite(gCurrentProfit);
                     cs.ReadWrite(gameState.WeeklyProfitAverageDividend);
                     cs.ReadWrite(gameState.WeeklyProfitAverageDivisor);

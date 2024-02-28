@@ -48,9 +48,6 @@
 using namespace OpenRCT2;
 
 money64 gLandPrice;
-money64 gConstructionRightsPrice;
-
-money64 gCompanyValue;
 
 int16_t gParkRatingCasualtyPenalty;
 uint32_t gGuestsInParkHistory[32];
@@ -229,7 +226,7 @@ money64 Park::GetParkValue() const
 
 money64 Park::GetCompanyValue() const
 {
-    return gCompanyValue;
+    return GetGameState().CompanyValue;
 }
 
 void Park::Initialise()
@@ -277,7 +274,7 @@ void Park::Initialise()
     gameState.ScenarioObjective.Year = 4;
     gameState.ScenarioObjective.NumGuests = 1000;
     gLandPrice = 90.00_GBP;
-    gConstructionRightsPrice = 40.00_GBP;
+    gameState.ConstructionRightsPrice = 40.00_GBP;
     gameState.ParkFlags = PARK_FLAGS_NO_MONEY | PARK_FLAGS_SHOW_REAL_GUEST_NAMES;
     ResetHistories();
     FinanceResetHistory();
@@ -305,7 +302,7 @@ void Park::Update(const Date& date)
     {
         gameState.ParkRating = CalculateParkRating();
         gameState.ParkValue = CalculateParkValue();
-        gCompanyValue = CalculateCompanyValue();
+        gameState.CompanyValue = CalculateCompanyValue();
         gameState.TotalRideValueForMoney = CalculateTotalRideValueForMoney();
         gameState.SuggestedGuestMaximum = CalculateSuggestedMaxGuests();
         gameState.GuestGenerationProbability = CalculateGuestGenerationProbability();

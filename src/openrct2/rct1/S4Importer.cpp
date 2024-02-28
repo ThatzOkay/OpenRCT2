@@ -1393,7 +1393,7 @@ namespace RCT1
         {
             gameState.ParkEntranceFee = _s4.ParkEntranceFee;
             gLandPrice = ToMoney64(_s4.LandPrice);
-            gConstructionRightsPrice = ToMoney64(_s4.ConstructionRightsPrice);
+            gameState.ConstructionRightsPrice = ToMoney64(_s4.ConstructionRightsPrice);
 
             gameState.Cash = ToMoney64(_s4.Cash);
             gameState.BankLoan = ToMoney64(_s4.Loan);
@@ -1402,7 +1402,7 @@ namespace RCT1
             gameState.BankLoanInterestRate = 1;
             gameState.InitialCash = ToMoney64(_s4.Cash);
 
-            gCompanyValue = ToMoney64(_s4.CompanyValue);
+            gameState.CompanyValue = ToMoney64(_s4.CompanyValue);
             gameState.ParkValue = CorrectRCT1ParkValue(_s4.ParkValue);
             gCurrentProfit = ToMoney64(_s4.Profit);
 
@@ -1420,7 +1420,7 @@ namespace RCT1
                     gExpenditureTable[i][j] = ToMoney64(_s4.Expenditure[i][j]);
                 }
             }
-            gCurrentExpenditure = ToMoney64(_s4.TotalExpenditure);
+            gameState.CurrentExpenditure = ToMoney64(_s4.TotalExpenditure);
 
             gameState.ScenarioCompletedCompanyValue = RCT12CompletedCompanyValueToOpenRCT2(_s4.CompletedCompanyValue);
             gameState.TotalAdmissions = _s4.NumAdmissions;
