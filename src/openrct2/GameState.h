@@ -9,7 +9,9 @@
 
 #pragma once
 
+#include "Cheats.h"
 #include "Date.h"
+#include "Editor.h"
 #include "Limits.h"
 #include "interface/ZoomLevel.h"
 #include "management/Finance.h"
@@ -41,14 +43,19 @@ namespace OpenRCT2
         money64 ParkValue;
         money64 ParkValueHistory[FINANCE_GRAPH_SIZE];
         money64 CompanyValue;
+        // The total profit for the entire scenario that precedes the current financial table.
+        money64 HistoricalProfit;
         money64 ConstructionRightsPrice;
         money64 CurrentExpenditure;
+        money64 CurrentProfit;
         uint8_t ParkRatingHistory[32];
+        uint32_t GuestsInParkHistory[32];
         ClimateType Climate;
         ClimateState ClimateCurrent;
         ClimateState ClimateNext;
         uint16_t ClimateUpdateTimer;
         money64 Cash;
+        money64 CashHistory[FINANCE_GRAPH_SIZE];
         money64 InitialCash;
         money64 GuestInitialCash;
         uint8_t GuestInitialHappiness;
@@ -73,6 +80,8 @@ namespace OpenRCT2
         money64 MaxBankLoan;
         random_engine_t ScenarioRand;
         TileCoordsXY MapSize;
+
+        ::EditorStep EditorStep;
 
         SCENARIO_CATEGORY ScenarioCategory;
         std::string ScenarioName;
@@ -120,6 +129,8 @@ namespace OpenRCT2
          * In a difficult guest generation scenario, no guests will be generated if over this value.
          */
         uint32_t SuggestedGuestMaximum;
+
+        CheatsState Cheats;
     };
 
     GameState_t& GetGameState();

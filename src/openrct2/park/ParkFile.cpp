@@ -618,7 +618,7 @@ namespace OpenRCT2
                 }
                 cs.ReadWrite(gameState.SavedViewRotation);
                 cs.ReadWrite(gLastEntranceStyle);
-                cs.ReadWrite(gEditorStep);
+                cs.ReadWrite(gameState.EditorStep);
             });
         }
 
@@ -851,7 +851,7 @@ namespace OpenRCT2
                             }
                         }
                     }
-                    cs.ReadWrite(gHistoricalProfit);
+                    cs.ReadWrite(gameState.HistoricalProfit);
 
                     // Marketing
                     cs.ReadWriteVector(gMarketingCampaigns, [&cs](MarketingCampaign& campaign) {
@@ -892,7 +892,7 @@ namespace OpenRCT2
                     cs.ReadWrite(gameState.ParkRating);
                     cs.ReadWrite(gParkRatingCasualtyPenalty);
                     cs.ReadWrite(gameState.CurrentExpenditure);
-                    cs.ReadWrite(gCurrentProfit);
+                    cs.ReadWrite(gameState.CurrentProfit);
                     cs.ReadWrite(gameState.WeeklyProfitAverageDividend);
                     cs.ReadWrite(gameState.WeeklyProfitAverageDivisor);
                     cs.ReadWrite(gameState.TotalAdmissions);
@@ -922,12 +922,12 @@ namespace OpenRCT2
                         return true;
                     });
 
-                    cs.ReadWriteArray(gGuestsInParkHistory, [&cs](uint32_t& value) {
+                    cs.ReadWriteArray(gameState.GuestsInParkHistory, [&cs](uint32_t& value) {
                         cs.ReadWrite(value);
                         return true;
                     });
 
-                    cs.ReadWriteArray(gCashHistory, [&cs](money64& value) {
+                    cs.ReadWriteArray(gameState.CashHistory, [&cs](money64& value) {
                         cs.ReadWrite(value);
                         return true;
                     });

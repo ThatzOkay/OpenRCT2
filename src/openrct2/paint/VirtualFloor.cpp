@@ -10,6 +10,7 @@
 #include "VirtualFloor.h"
 
 #include "../Cheats.h"
+#include "../GameState.h"
 #include "../Input.h"
 #include "../config/Config.h"
 #include "../interface/Viewport.h"
@@ -244,7 +245,7 @@ static void VirtualFloorGetTileProperties(
 
     *tileOwned = MapIsLocationOwned({ loc, height });
 
-    if (gCheatsSandboxMode)
+    if (GetGameState().Cheats.SandboxMode)
         *tileOwned = true;
 
     // Iterate through the map elements of the current tile to find:
@@ -306,7 +307,7 @@ void VirtualFloorPaint(PaintSession& session)
         { 0, -COORDS_XY_STEP },
     };
 
-    if (_virtualFloorHeight < MINIMUM_LAND_HEIGHT)
+    if (_virtualFloorHeight < kMinimumLandHeight)
         return;
 
     uint8_t direction = session.CurrentRotation;

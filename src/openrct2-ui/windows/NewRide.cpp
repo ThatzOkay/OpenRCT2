@@ -615,7 +615,7 @@ private:
             auto currentRideEntry = GetRideEntryByIndex(rideEntryIndex);
 
             // Skip if vehicle type is not invented yet
-            if (!RideEntryIsInvented(rideEntryIndex) && !gCheatsIgnoreResearchStatus)
+            if (!RideEntryIsInvented(rideEntryIndex) && !GetGameState().Cheats.IgnoreResearchStatus)
             {
                 continue;
             }
@@ -677,7 +677,7 @@ private:
         for (auto rideEntryIndex : rideEntries)
         {
             // Skip if vehicle type is not invented yet
-            if (!RideEntryIsInvented(rideEntryIndex) && !gCheatsIgnoreResearchStatus)
+            if (!RideEntryIsInvented(rideEntryIndex) && !GetGameState().Cheats.IgnoreResearchStatus)
                 continue;
 
             // Ride entries
@@ -905,14 +905,12 @@ private:
         auto& currentTabScroll = _windowNewRideTabScroll[_currentTab];
 
         // Get maximum scroll height
-        int32_t scrollWidth = 0;
-        int32_t scrollHeight = 0;
-        WindowGetScrollSize(this, 0, &scrollWidth, &scrollHeight);
+        ScreenSize scrollSize = OnScrollGetSize(0);
         const Widget& listWidget = widgets[WIDX_RIDE_LIST];
         const int32_t listWidgetHeight = listWidget.bottom - listWidget.top - 1;
 
         // Ensure the current tab scroll is within range
-        currentTabScroll = std::min<uint16_t>(currentTabScroll, std::max(0, scrollHeight - listWidgetHeight));
+        currentTabScroll = std::min<uint16_t>(currentTabScroll, std::max(0, scrollSize.height - listWidgetHeight));
 
         scrolls[0].v_top = currentTabScroll;
         WidgetScrollUpdateThumbs(*this, WIDX_RIDE_LIST);

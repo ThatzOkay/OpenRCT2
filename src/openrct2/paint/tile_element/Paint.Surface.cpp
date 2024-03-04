@@ -40,6 +40,8 @@
 #include <cstring>
 #include <iterator>
 
+using namespace OpenRCT2;
+
 // Needed to make the sign appear above footpaths.
 static constexpr int16_t ForSaleSignZOffset = 3;
 
@@ -593,8 +595,8 @@ static void ViewportSurfaceDrawTileSideBottom(
     if (neighbour.tile_element == nullptr || neighbourIsClippedAway)
     {
         // The neighbour tile doesn't exist or isn't drawn - assume minimum height to draw full edges
-        neighbourCornerHeight2 = MINIMUM_LAND_HEIGHT / 2;
-        neighbourCornerHeight1 = MINIMUM_LAND_HEIGHT / 2;
+        neighbourCornerHeight2 = kMinimumLandHeight / 2;
+        neighbourCornerHeight1 = kMinimumLandHeight / 2;
     }
 
     if (isWater && neighbour.tile_element != nullptr)
@@ -1188,7 +1190,7 @@ void PaintSurface(PaintSession& session, uint8_t direction, uint16_t height, con
     PaintPatrolArea(session, tileElement, height, surfaceShape);
 
     // Draw Peep Spawns
-    if (((gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) || gCheatsSandboxMode)
+    if (((gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) || GetGameState().Cheats.SandboxMode)
         && session.ViewFlags & VIEWPORT_FLAG_LAND_OWNERSHIP)
     {
         const CoordsXY& pos = session.MapPosition;

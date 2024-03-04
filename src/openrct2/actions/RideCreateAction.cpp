@@ -148,6 +148,10 @@ GameActions::Result RideCreateAction::Execute() const
         station.Exit.SetNull();
         station.TrainAtStation = RideStation::NO_TRAIN;
         station.QueueTime = 0;
+        station.SegmentLength = 0;
+        station.QueueLength = 0;
+        station.Length = 0;
+        station.Height = 0;
     }
 
     std::fill(std::begin(ride->vehicles), std::end(ride->vehicles), EntityId::GetNull());
@@ -157,7 +161,7 @@ GameActions::Result RideCreateAction::Execute() const
     ride->vehicle_change_timeout = 0;
     ride->num_stations = 0;
     ride->NumTrains = 1;
-    if (gCheatsDisableTrainLengthLimit)
+    if (GetGameState().Cheats.DisableTrainLengthLimit)
     {
         // Reduce amount of proposed trains to prevent 32 trains from always spawning when limits are disabled
         if (rideEntry->cars_per_flat_ride == NoFlatRideCars)
@@ -308,6 +312,7 @@ GameActions::Result RideCreateAction::Execute() const
     ride->income_per_hour = kMoney64Undefined;
     ride->profit = kMoney64Undefined;
     ride->connected_message_throttle = 0;
+    ride->drops = 0;
 
     ride->entrance_style = OBJECT_ENTRY_INDEX_NULL;
     if (rtd.HasFlag(RIDE_TYPE_FLAG_HAS_ENTRANCE_EXIT))
