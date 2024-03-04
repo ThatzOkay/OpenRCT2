@@ -231,7 +231,7 @@ namespace RCT2
         {
             Initialise();
 
-            gEditorStep = _s6.Info.EditorStep;
+            gameState.EditorStep = _s6.Info.EditorStep;
             gameState.ScenarioCategory = static_cast<SCENARIO_CATEGORY>(_s6.Info.Category);
 
             // Some scenarios have their scenario details in UTF-8, due to earlier bugs in OpenRCT2.
@@ -314,7 +314,7 @@ namespace RCT2
             {
                 if (_s6.GuestsInParkHistory[i] != RCT12ParkHistoryUndefined)
                 {
-                    gGuestsInParkHistory[i] = _s6.GuestsInParkHistory[i] * RCT12GuestsInParkHistoryFactor;
+                    gameState.GuestsInParkHistory[i] = _s6.GuestsInParkHistory[i] * RCT12GuestsInParkHistoryFactor;
                 }
             }
 
@@ -357,7 +357,7 @@ namespace RCT2
             ImportMarketingCampaigns();
 
             gameState.CurrentExpenditure = ToMoney64(_s6.CurrentExpenditure);
-            gCurrentProfit = ToMoney64(_s6.CurrentProfit);
+            gameState.CurrentProfit = ToMoney64(_s6.CurrentProfit);
             gameState.WeeklyProfitAverageDividend = ToMoney64(_s6.WeeklyProfitAverageDividend);
             gameState.WeeklyProfitAverageDivisor = _s6.WeeklyProfitAverageDivisor;
             // Pad0135833A
@@ -366,7 +366,7 @@ namespace RCT2
 
             for (size_t i = 0; i < Limits::FinanceGraphSize; i++)
             {
-                gCashHistory[i] = ToMoney64(_s6.BalanceHistory[i]);
+                gameState.CashHistory[i] = ToMoney64(_s6.BalanceHistory[i]);
                 gameState.WeeklyProfitHistory[i] = ToMoney64(_s6.WeeklyProfitHistory[i]);
                 gameState.ParkValueHistory[i] = ToMoney64(_s6.ParkValueHistory[i]);
             }
@@ -396,7 +396,7 @@ namespace RCT2
             gameState.ScenarioCompanyValueRecord = _s6.CompletedCompanyValueRecord;
             // _s6.LoanHash;
             // Pad013587CA
-            gHistoricalProfit = ToMoney64(_s6.HistoricalProfit);
+            gameState.HistoricalProfit = ToMoney64(_s6.HistoricalProfit);
             // Pad013587D4
             gameState.ScenarioCompletedBy = std::string_view(_s6.ScenarioCompletedName, sizeof(_s6.ScenarioCompletedName));
             gameState.Cash = ToMoney64(DECRYPT_MONEY(_s6.Cash));

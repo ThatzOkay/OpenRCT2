@@ -468,8 +468,8 @@ public:
             width = WW_OTHER_TABS;
             height = WH_OTHER_TABS;
         }
-        WindowEventResizeCall(this);
-        WindowEventOnPrepareDrawCall(this);
+        OnResize();
+        OnPrepareDraw();
 
         WindowInitScrollWidgets(*this);
 
@@ -635,7 +635,7 @@ public:
         int32_t yAxisScale = 0;
         for (int32_t i = 0; i < 64; i++)
         {
-            auto balance = gCashHistory[i];
+            auto balance = gameState.CashHistory[i];
             if (balance == kMoney64Undefined)
                 continue;
 
@@ -667,7 +667,7 @@ public:
 
         // X axis labels and values
         coords = graphTopLeft + ScreenCoordsXY{ 98, 17 };
-        Graph::Draw(dpi, gCashHistory, 64, coords, yAxisScale, 128);
+        Graph::Draw(dpi, gameState.CashHistory, 64, coords, yAxisScale, 128);
     }
 
 #pragma endregion
@@ -742,10 +742,10 @@ public:
 
         // Weekly profit
         auto ft = Formatter();
-        ft.Add<money64>(gCurrentProfit);
+        ft.Add<money64>(gameState.CurrentProfit);
         DrawTextBasic(
             dpi, graphTopLeft - ScreenCoordsXY{ 0, 11 },
-            gCurrentProfit >= 0 ? STR_FINANCES_WEEKLY_PROFIT_POSITIVE : STR_FINANCES_WEEKLY_PROFIT_LOSS, ft);
+            gameState.CurrentProfit >= 0 ? STR_FINANCES_WEEKLY_PROFIT_POSITIVE : STR_FINANCES_WEEKLY_PROFIT_LOSS, ft);
 
         // Graph
         GfxFillRectInset(dpi, { graphTopLeft, graphBottomRight }, colours[1], INSET_RECT_F_30);

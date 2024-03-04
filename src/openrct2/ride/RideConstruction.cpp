@@ -22,7 +22,7 @@
 #include "../entity/EntityList.h"
 #include "../entity/EntityRegistry.h"
 #include "../entity/Staff.h"
-#include "../interface/Window.h"
+#include "../interface/Window_internal.h"
 #include "../localisation/Date.h"
 #include "../localisation/Formatter.h"
 #include "../localisation/Localisation.h"
@@ -239,7 +239,7 @@ void RideClearForConstruction(Ride& ride)
 
     auto w = WindowFindByNumber(WindowClass::Ride, ride.id.ToUnderlying());
     if (w != nullptr)
-        WindowEventResizeCall(w);
+        w->OnResize();
 }
 
 /**
@@ -697,7 +697,8 @@ void RideConstructionSetDefaultNextPiece()
             _currentTrackPitchEnd = slope;
             _previousTrackPitchEnd = slope;
             _currentTrackLiftHill = tileElement->AsTrack()->HasChain()
-                && ((slope != TrackPitch::Down25 && slope != TrackPitch::Down60) || gCheatsEnableChainLiftOnAllTrack);
+                && ((slope != TrackPitch::Down25 && slope != TrackPitch::Down60)
+                    || GetGameState().Cheats.EnableChainLiftOnAllTrack);
             break;
         }
         case RideConstructionState::Back:
@@ -744,7 +745,7 @@ void RideConstructionSetDefaultNextPiece()
             // Set track slope and lift hill
             _currentTrackPitchEnd = slope;
             _previousTrackPitchEnd = slope;
-            if (!gCheatsEnableChainLiftOnAllTrack)
+            if (!GetGameState().Cheats.EnableChainLiftOnAllTrack)
             {
                 _currentTrackLiftHill = tileElement->AsTrack()->HasChain();
             }

@@ -25,6 +25,8 @@
 #include "../windows/Intent.h"
 #include "../world/Park.h"
 
+#include <numeric>
+
 using namespace OpenRCT2;
 
 // Monthly research funding costs
@@ -39,9 +41,6 @@ static constexpr int32_t dword_988E60[static_cast<int32_t>(ExpenditureType::Coun
     1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0,
 };
 
-money64 gCurrentProfit;
-money64 gHistoricalProfit;
-money64 gCashHistory[FINANCE_GRAPH_SIZE];
 money64 gExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT][static_cast<int32_t>(ExpenditureType::Count)];
 
 /**
@@ -191,7 +190,7 @@ void FinanceResetHistory()
     auto& gameState = GetGameState();
     for (int32_t i = 0; i < FINANCE_GRAPH_SIZE; i++)
     {
-        gCashHistory[i] = kMoney64Undefined;
+        gameState.CashHistory[i] = kMoney64Undefined;
         gameState.WeeklyProfitHistory[i] = kMoney64Undefined;
         gameState.ParkValueHistory[i] = kMoney64Undefined;
     }
@@ -220,7 +219,7 @@ void FinanceInit()
     }
 
     gameState.CurrentExpenditure = 0;
-    gCurrentProfit = 0;
+    gameState.CurrentProfit = 0;
 
     gameState.WeeklyProfitAverageDividend = 0;
     gameState.WeeklyProfitAverageDivisor = 0;
@@ -231,11 +230,10 @@ void FinanceInit()
     gameState.BankLoan = 10000.00_GBP;
     gameState.MaxBankLoan = 20000.00_GBP;
 
-    gHistoricalProfit = 0;
-
     gameState.BankLoanInterestRate = 10;
     gameState.ParkValue = 0;
     gameState.CompanyValue = 0;
+    gameState.HistoricalProfit = 0;
     gameState.ScenarioCompletedCompanyValue = kMoney64Undefined;
     gameState.TotalAdmissions = 0;
     gameState.TotalIncomeFromAdmissions = 0;
@@ -251,7 +249,7 @@ void FinanceUpdateDailyProfit()
     PROFILED_FUNCTION();
     auto& gameState = GetGameState();
 
-    gCurrentProfit = 7 * gameState.CurrentExpenditure;
+    gameState.CurrentProfit = 7 * gameState.CurrentExpenditure;
     gameState.CurrentExpenditure = 0; // Reset daily expenditure
 
     money64 current_profit = 0;
@@ -285,10 +283,10 @@ void FinanceUpdateDailyProfit()
     // This is not equivalent to / 4 due to rounding of negative numbers
     current_profit = current_profit >> 2;
 
-    gCurrentProfit += current_profit;
+    gameState.CurrentProfit += current_profit;
 
     // These are related to weekly profit graph
-    gameState.WeeklyProfitAverageDividend += gCurrentProfit;
+    gameState.WeeklyProfitAverageDividend += gameState.CurrentProfit;
     gameState.WeeklyProfitAverageDivisor += 1;
 
     WindowInvalidateByClass(WindowClass::Finances);
@@ -324,12 +322,11 @@ void FinanceShiftExpenditureTable()
     // If EXPENDITURE_TABLE_MONTH_COUNT months have passed then is full, sum the oldest month
     if (GetDate().GetMonthsElapsed() >= EXPENDITURE_TABLE_MONTH_COUNT)
     {
-        money64 sum = 0;
-        for (uint32_t i = 0; i < static_cast<int32_t>(ExpenditureType::Count); i++)
-        {
-            sum += gExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT - 1][i];
-        }
-        gHistoricalProfit += sum;
+        const money64 sum = std::accumulate(
+            std::cbegin(gExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT - 1]),
+            std::cend(gExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT - 1]), money64{});
+
+        GetGameState().HistoricalProfit += sum;
     }
 
     // Shift the table

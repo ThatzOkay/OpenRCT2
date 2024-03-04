@@ -298,9 +298,9 @@ static ScreenCoordsXY Translate3DTo2D(int32_t rotation, const CoordsXY& pos);
 
 void TileElementIteratorBegin(TileElementIterator* it)
 {
-    it->x = 0;
-    it->y = 0;
-    it->element = MapGetFirstElementAt(TileCoordsXY{ 0, 0 });
+    it->x = 1;
+    it->y = 1;
+    it->element = MapGetFirstElementAt(TileCoordsXY{ 1, 1 });
 }
 
 int32_t TileElementIteratorNext(TileElementIterator* it)
@@ -317,16 +317,17 @@ int32_t TileElementIteratorNext(TileElementIterator* it)
         return 1;
     }
 
-    if (it->y < (MAXIMUM_MAP_SIZE_TECHNICAL - 1))
+    auto& gameState = GetGameState();
+    if (it->y < (gameState.MapSize.y - 2))
     {
         it->y++;
         it->element = MapGetFirstElementAt(TileCoordsXY{ it->x, it->y });
         return 1;
     }
 
-    if (it->x < (MAXIMUM_MAP_SIZE_TECHNICAL - 1))
+    if (it->x < (gameState.MapSize.x - 2))
     {
-        it->y = 0;
+        it->y = 1;
         it->x++;
         it->element = MapGetFirstElementAt(TileCoordsXY{ it->x, it->y });
         return 1;
@@ -547,14 +548,14 @@ int16_t TileElementHeight(const CoordsXY& loc)
 {
     // Off the map
     if (!MapIsLocationValid(loc))
-        return MINIMUM_LAND_HEIGHT_BIG;
+        return kMinimumLandZ;
 
     // Get the surface element for the tile
     auto surfaceElement = MapGetSurfaceElementAt(loc);
 
     if (surfaceElement == nullptr)
     {
-        return MINIMUM_LAND_HEIGHT_BIG;
+        return kMinimumLandZ;
     }
 
     auto height = surfaceElement->GetBaseZ();
@@ -567,7 +568,7 @@ int16_t TileElementHeight(const CoordsXYZ& loc, uint8_t slope)
 {
     // Off the map
     if (!MapIsLocationValid(loc))
-        return MINIMUM_LAND_HEIGHT_BIG;
+        return kMinimumLandZ;
 
     auto height = loc.z;
 
@@ -826,7 +827,7 @@ bool MapCanBuildAt(const CoordsXYZ& loc)
 {
     if (gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR)
         return true;
-    if (gCheatsSandboxMode)
+    if (GetGameState().Cheats.SandboxMode)
         return true;
     if (MapIsLocationOwned(loc))
         return true;
@@ -962,7 +963,7 @@ uint8_t MapGetLowestLandHeight(const MapRange& range)
 
             if (surfaceElement != nullptr && min_height > surfaceElement->BaseHeight)
             {
-                if (!(gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) && !gCheatsSandboxMode)
+                if (!(gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) && !GetGameState().Cheats.SandboxMode)
                 {
                     if (!MapIsLocationInPark(CoordsXY{ xi, yi }))
                     {
@@ -991,7 +992,7 @@ uint8_t MapGetHighestLandHeight(const MapRange& range)
             auto* surfaceElement = MapGetSurfaceElementAt(CoordsXY{ xi, yi });
             if (surfaceElement != nullptr)
             {
-                if (!(gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) && !gCheatsSandboxMode)
+                if (!(gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) && !GetGameState().Cheats.SandboxMode)
                 {
                     if (!MapIsLocationInPark(CoordsXY{ xi, yi }))
                     {
@@ -1361,8 +1362,8 @@ void MapRemoveOutOfRangeElements()
     // NOTE: This is only a workaround for non-networked games.
     // Map resize has to become its own Game Action to properly solve this issue.
     //
-    bool buildState = gCheatsBuildInPauseMode;
-    gCheatsBuildInPauseMode = true;
+    bool buildState = GetGameState().Cheats.BuildInPauseMode;
+    GetGameState().Cheats.BuildInPauseMode = true;
 
     for (int32_t y = MAXIMUM_MAP_SIZE_BIG - COORDS_XY_STEP; y >= 0; y -= COORDS_XY_STEP)
     {
@@ -1383,7 +1384,7 @@ void MapRemoveOutOfRangeElements()
     }
 
     // Reset cheat state
-    gCheatsBuildInPauseMode = buildState;
+    GetGameState().Cheats.BuildInPauseMode = buildState;
 }
 
 static void MapExtendBoundarySurfaceExtendTile(const SurfaceElement& sourceTile, SurfaceElement& destTile)
@@ -1471,8 +1472,8 @@ static void ClearElementAt(const CoordsXY& loc, TileElement** elementPtr)
     switch (element->GetType())
     {
         case TileElementType::Surface:
-            element->BaseHeight = MINIMUM_LAND_HEIGHT;
-            element->ClearanceHeight = MINIMUM_LAND_HEIGHT;
+            element->BaseHeight = kMinimumLandHeight;
+            element->ClearanceHeight = kMinimumLandHeight;
             element->Owner = 0;
             element->AsSurface()->SetSlope(TILE_ELEMENT_SLOPE_FLAT);
             element->AsSurface()->SetSurfaceObjectIndex(0);

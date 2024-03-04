@@ -50,7 +50,6 @@ using namespace OpenRCT2;
 money64 gLandPrice;
 
 int16_t gParkRatingCasualtyPenalty;
-uint32_t gGuestsInParkHistory[32];
 
 // If this value is more than or equal to 0, the park rating is forced to this value. Used for cheat
 static int32_t _forcedParkRating = -1;
@@ -729,7 +728,7 @@ void Park::ResetHistories()
 {
     auto& gameState = GetGameState();
     std::fill(std::begin(gameState.ParkRatingHistory), std::end(gameState.ParkRatingHistory), ParkRatingHistoryUndefined);
-    std::fill(std::begin(gGuestsInParkHistory), std::end(gGuestsInParkHistory), GuestsInParkHistoryUndefined);
+    std::fill(std::begin(gameState.GuestsInParkHistory), std::end(gameState.GuestsInParkHistory), GuestsInParkHistoryUndefined);
 }
 
 void Park::UpdateHistories()
@@ -751,8 +750,10 @@ void Park::UpdateHistories()
 
     // Update park rating, guests in park and current cash history
     HistoryPushRecord<uint8_t, 32>(gameState.ParkRatingHistory, gameState.ParkRating / 4);
-    HistoryPushRecord<uint32_t, 32>(gGuestsInParkHistory, gameState.NumGuestsInPark);
-    HistoryPushRecord<money64, std::size(gCashHistory)>(gCashHistory, FinanceGetCurrentCash() - gameState.BankLoan);
+    HistoryPushRecord<uint32_t, 32>(gameState.GuestsInParkHistory, gameState.NumGuestsInPark);
+
+    constexpr auto cashHistorySize = std::extent_v<decltype(GameState_t::CashHistory)>;
+    HistoryPushRecord<money64, cashHistorySize>(gameState.CashHistory, FinanceGetCurrentCash() - gameState.BankLoan);
 
     // Update weekly profit history
     auto currentWeeklyProfit = gameState.WeeklyProfitAverageDividend;
