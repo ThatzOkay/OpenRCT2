@@ -601,6 +601,7 @@ private:
             fullPath = Path::Combine(userObjPath, String::StdFormat("%s-%02X%s", fileName.c_str(), counter, extension));
         }
 
+        LOG_INFO("ThatzOkay: FULLPATH: %s", fullPath.c_str());
         return fullPath;
     }
 

@@ -452,7 +452,7 @@ namespace ObjectFactory
     std::unique_ptr<Object> CreateObjectFromJsonFile(
         IObjectRepository& objectRepository, const std::string& path, bool loadImages)
     {
-        LOG_VERBOSE("CreateObjectFromJsonFile(\"%s\")", path.c_str());
+        LOG_INFO("CreateObjectFromJsonFile(\"%s\")", path.c_str());
 
         try
         {
