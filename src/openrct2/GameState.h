@@ -14,13 +14,17 @@
 #include "Editor.h"
 #include "Limits.h"
 #include "interface/ZoomLevel.h"
+#include "management/Award.h"
 #include "management/Finance.h"
 #include "management/NewsItem.h"
 #include "ride/Ride.h"
+#include "ride/RideRatings.h"
 #include "scenario/Scenario.h"
+#include "util/Util.h"
 #include "world/Banner.h"
 #include "world/Climate.h"
 #include "world/Location.hpp"
+#include "world/Park.h"
 
 #include <array>
 #include <chrono>
@@ -40,6 +44,7 @@ namespace OpenRCT2
         money64 ParkEntranceFee;
         std::vector<CoordsXYZD> ParkEntrances;
         uint32_t ParkSize;
+        int16_t ParkRatingCasualtyPenalty;
         money64 ParkValue;
         money64 ParkValueHistory[FINANCE_GRAPH_SIZE];
         money64 CompanyValue;
@@ -48,7 +53,7 @@ namespace OpenRCT2
         money64 ConstructionRightsPrice;
         money64 CurrentExpenditure;
         money64 CurrentProfit;
-        uint8_t ParkRatingHistory[32];
+        uint8_t ParkRatingHistory[kParkRatingHistorySize];
         uint32_t GuestsInParkHistory[32];
         ClimateType Climate;
         ClimateState ClimateCurrent;
@@ -79,9 +84,10 @@ namespace OpenRCT2
         money64 BankLoan;
         uint8_t BankLoanInterestRate;
         money64 MaxBankLoan;
-        money64 ExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT][static_cast<int32_t>(ExpenditureType::Count)];
+        money64 ExpenditureTable[EXPENDITURE_TABLE_MONTH_COUNT][EnumValue(ExpenditureType::Count)];
         random_engine_t ScenarioRand;
         TileCoordsXY MapSize;
+        money64 LandPrice;
 
         ::EditorStep EditorStep;
 
@@ -91,17 +97,26 @@ namespace OpenRCT2
         std::string ScenarioCompletedBy;
 
         std::vector<Banner> Banners;
+        Entity_t Entities[MAX_ENTITIES]{};
         // Ride storage for all the rides in the park, rides with RideId::Null are considered free.
         std::array<Ride, OpenRCT2::Limits::MaxRidesInPark> Rides{};
+        ::RideRatingUpdateStates RideRatingUpdateStates;
         std::vector<TileElement> TileElements;
 
         std::vector<ScenerySelection> RestrictedScenery;
 
+        std::vector<PeepSpawn> PeepSpawns;
+        uint8_t PeepWarningThrottle[16];
+
         News::ItemQueues NewsItems;
+
+        uint16_t GrassSceneryTileLoopPosition;
+        CoordsXY WidePathTileLoopPosition;
 
         colour_t StaffHandymanColour;
         colour_t StaffMechanicColour;
         colour_t StaffSecurityColour;
+        uint64_t SamePriceThroughoutPark{};
 
         uint8_t ResearchFundingLevel;
         uint8_t ResearchPriorities;
@@ -119,6 +134,10 @@ namespace OpenRCT2
         ScreenCoordsXY SavedView;
         uint8_t SavedViewRotation;
         ZoomLevel SavedViewZoom;
+
+        ObjectEntryIndex LastEntranceStyle;
+
+        std::vector<Award> CurrentAwards;
 
         /**
          * Probability out of 65535, of gaining a new guest per game tick.

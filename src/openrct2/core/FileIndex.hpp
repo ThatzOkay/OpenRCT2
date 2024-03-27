@@ -181,8 +181,8 @@ private:
         for (size_t i = rangeStart; i < rangeEnd; i++)
         {
             const auto& filePath = scanResult.Files.at(i);
-            
-            if (_log_levels[static_cast<uint8_t>(DiagnosticLevel::Verbose)])
+
+            if (_log_levels[EnumValue(DiagnosticLevel::Verbose)])
             {
                 LOG_VERBOSE("FileIndex:Indexing '%s'", filePath.c_str());
             }
@@ -222,7 +222,7 @@ private:
             size_t stepSize = 100; // Handpicked, seems to work well with 4/8 cores.
             #endif
 
-            std::atomic<size_t> processed = ATOMIC_VAR_INIT(0);
+            std::atomic<size_t> processed{ 0 };
 
             auto reportProgress = [&]() {
                 const size_t completed = processed;

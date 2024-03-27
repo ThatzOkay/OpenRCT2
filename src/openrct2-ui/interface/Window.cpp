@@ -10,6 +10,7 @@
 #include "Window.h"
 
 #include "Theme.h"
+#include "Widget.h"
 #include "openrct2/world/Location.hpp"
 
 #include <SDL.h>
@@ -637,10 +638,7 @@ void WindowDrawWidgets(WindowBase& w, DrawPixelInfo& dpi)
             {
                 if (w.windowPos.y + widget->top < dpi.y + dpi.height && w.windowPos.y + widget->bottom >= dpi.y)
                 {
-                    if (w.IsLegacy())
-                        WidgetDraw(dpi, w, widgetIndex);
-                    else
-                        w.OnDrawWidget(widgetIndex, dpi);
+                    w.OnDrawWidget(widgetIndex, dpi);
                 }
             }
         }
@@ -688,11 +686,6 @@ void InvalidateAllWindowsAfterInput()
         WindowInvalidatePressedImageButton(*w);
         w->OnResize();
     });
-}
-
-bool Window::IsLegacy()
-{
-    return false;
 }
 
 void Window::OnDraw(DrawPixelInfo& dpi)
@@ -806,7 +799,8 @@ void Window::TextInputOpen(
     WidgetIndex callWidget, StringId title, StringId description, const Formatter& descriptionArgs, StringId existingText,
     uintptr_t existingArgs, int32_t maxLength)
 {
-    WindowTextInputOpen(this, callWidget, title, description, descriptionArgs, existingText, existingArgs, maxLength);
+    OpenRCT2::Ui::Windows::WindowTextInputOpen(
+        this, callWidget, title, description, descriptionArgs, existingText, existingArgs, maxLength);
 }
 
 void WindowAlignTabs(WindowBase* w, WidgetIndex start_tab_id, WidgetIndex end_tab_id)
@@ -838,3 +832,31 @@ ScreenCoordsXY WindowGetViewportSoundIconPos(WindowBase& w)
     const uint8_t buttonOffset = (gConfigInterface.WindowButtonsOnTheLeft) ? CloseButtonWidth + 2 : 0;
     return w.windowPos + ScreenCoordsXY{ 2 + buttonOffset, 2 };
 }
+
+namespace OpenRCT2::Ui::Windows
+{
+    WindowBase* WindowGetListening()
+    {
+        for (auto it = g_window_list.rbegin(); it != g_window_list.rend(); it++)
+        {
+            auto& w = **it;
+            if (w.flags & WF_DEAD)
+                continue;
+
+            auto viewport = w.viewport;
+            if (viewport != nullptr)
+            {
+                if (viewport->flags & VIEWPORT_FLAG_SOUND_ON)
+                {
+                    return &w;
+                }
+            }
+        }
+        return nullptr;
+    }
+
+    WindowClass WindowGetClassification(const WindowBase& window)
+    {
+        return window.classification;
+    }
+} // namespace OpenRCT2::Ui::Windows

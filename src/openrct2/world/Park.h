@@ -16,6 +16,7 @@ constexpr auto MAX_ENTRANCE_FEE = 999.00_GBP;
 
 constexpr uint8_t ParkRatingHistoryUndefined = std::numeric_limits<uint8_t>::max();
 constexpr uint32_t GuestsInParkHistoryUndefined = std::numeric_limits<uint32_t>::max();
+constexpr uint8_t kParkRatingHistorySize = 32;
 constexpr uint8_t ParkNameMaxLength = 128;
 constexpr uint8_t ScenarioNameMaxLength = 128;
 constexpr uint16_t ScenarioDetailsNameMaxLength = 256;
@@ -91,10 +92,6 @@ namespace OpenRCT2
         Guest* GenerateGuestFromCampaign(int32_t campaign);
     };
 } // namespace OpenRCT2
-
-extern money64 gLandPrice;
-
-extern int16_t gParkRatingCasualtyPenalty;
 
 void ParkSetForcedRating(int32_t rating);
 int32_t ParkGetForcedRating();

@@ -33,6 +33,7 @@
 #include <openrct2/interface/Screenshot.h>
 #include <openrct2/localisation/Localisation.h>
 #include <openrct2/network/network.h>
+#include <openrct2/object/WallSceneryEntry.h>
 #include <openrct2/platform/Platform.h>
 #include <openrct2/ride/Track.h>
 #include <openrct2/ride/TrackPaint.h>
@@ -47,6 +48,7 @@
 
 using namespace OpenRCT2;
 using namespace OpenRCT2::Ui;
+using namespace OpenRCT2::Ui::Windows;
 
 #pragma region Shortcut Commands
 
@@ -62,11 +64,7 @@ static void RotateCamera(int32_t direction)
 {
     if (!(gScreenFlags & SCREEN_FLAGS_TITLE_DEMO))
     {
-        auto window = WindowGetMain();
-        if (window != nullptr)
-        {
-            WindowRotateCamera(*window, direction);
-        }
+        ViewportRotateAll(direction);
     }
 }
 
@@ -393,7 +391,7 @@ static void ShortcutOpenCheatWindow()
 
 static void ShortcutOpenKeyboardShortcutsWindow()
 {
-    WindowShortcutKeysOpen();
+    ShortcutKeysOpen();
 }
 
 static void ShortcutOpenTransparencyWindow()
@@ -468,7 +466,6 @@ static void ShortcutOpenSceneryPicker()
 
     window_scenery = WindowFindByClass(WindowClass::Scenery);
     if (window_scenery != nullptr && !WidgetIsDisabled(*window_scenery, WC_SCENERY__WIDX_SCENERY_EYEDROPPER_BUTTON)
-        && window_scenery->widgets[WC_SCENERY__WIDX_SCENERY_EYEDROPPER_BUTTON].type != WindowWidgetType::Empty
         && !gWindowSceneryEyedropperEnabled)
     {
         window_scenery->OnMouseUp(WC_SCENERY__WIDX_SCENERY_EYEDROPPER_BUTTON);
@@ -526,6 +523,12 @@ static void ShortcutToggleWallSlope()
 
     // Ensure an element is selected and it's a wall
     if (tileElement == nullptr || tileElement->GetType() != TileElementType::Wall)
+    {
+        return;
+    }
+
+    // Ensure a wall can be built on a slope
+    if (tileElement->AsWall()->GetEntry()->flags & WALL_SCENERY_CANT_BUILD_ON_SLOPE)
     {
         return;
     }
@@ -879,6 +882,7 @@ void ShortcutManager::RegisterDefaultShortcuts()
     RegisterShortcut(ShortcutId::WindowTileInspectorToggleInvisibility, STR_SHORTCUT_TOGGLE_INVISIBILITY, WindowTileInspectorKeyboardShortcutToggleInvisibility);
     RegisterShortcut(ShortcutId::WindowTileInspectorCopy, STR_SHORTCUT_COPY_ELEMENT, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_COPY));
     RegisterShortcut(ShortcutId::WindowTileInspectorPaste, STR_SHORTCUT_PASTE_ELEMENT, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_PASTE));
+    RegisterShortcut(ShortcutId::WindowTileInspectorSort, STR_SHORTCUT_SORT_ELEMENTS, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_SORT));
     RegisterShortcut(ShortcutId::WindowTileInspectorRemove, STR_SHORTCUT_REMOVE_ELEMENT, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_REMOVE));
     RegisterShortcut(ShortcutId::WindowTileInspectorMoveUp, STR_SHORTCUT_MOVE_ELEMENT_UP, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_MOVE_UP));
     RegisterShortcut(ShortcutId::WindowTileInspectorMoveDown, STR_SHORTCUT_MOVE_ELEMENT_DOWN, std::bind(TileInspectorMouseUp, WC_TILE_INSPECTOR__WIDX_BUTTON_MOVE_DOWN));

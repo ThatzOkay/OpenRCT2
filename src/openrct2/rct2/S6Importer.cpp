@@ -375,19 +375,19 @@ namespace RCT2
             gameState.TotalAdmissions = _s6.TotalAdmissions;
             gameState.TotalIncomeFromAdmissions = ToMoney64(_s6.IncomeFromAdmissions);
             gameState.CompanyValue = ToMoney64(_s6.CompanyValue);
-            std::memcpy(gPeepWarningThrottle, _s6.PeepWarningThrottle, sizeof(_s6.PeepWarningThrottle));
+            std::memcpy(gameState.PeepWarningThrottle, _s6.PeepWarningThrottle, sizeof(_s6.PeepWarningThrottle));
 
             // Awards
-            auto& awards = GetAwards();
+            auto& currentAwards = gameState.CurrentAwards;
             for (auto& src : _s6.Awards)
             {
                 if (src.Time != 0)
                 {
-                    awards.push_back(Award{ src.Time, static_cast<AwardType>(src.Type) });
+                    currentAwards.push_back(Award{ src.Time, static_cast<AwardType>(src.Type) });
                 }
             }
 
-            gLandPrice = ToMoney64(_s6.LandPrice);
+            gameState.LandPrice = ToMoney64(_s6.LandPrice);
             gameState.ConstructionRightsPrice = ToMoney64(_s6.ConstructionRightsPrice);
             // unk_01358774
             // Pad01358776
@@ -401,12 +401,13 @@ namespace RCT2
             gameState.ScenarioCompletedBy = std::string_view(_s6.ScenarioCompletedName, sizeof(_s6.ScenarioCompletedName));
             gameState.Cash = ToMoney64(DECRYPT_MONEY(_s6.Cash));
             // Pad013587FC
-            gParkRatingCasualtyPenalty = _s6.ParkRatingCasualtyPenalty;
+            gameState.ParkRatingCasualtyPenalty = _s6.ParkRatingCasualtyPenalty;
             gameState.MapSize = { _s6.MapSize, _s6.MapSize };
-            gSamePriceThroughoutPark = _s6.SamePriceThroughout | (static_cast<uint64_t>(_s6.SamePriceThroughoutExtended) << 32);
+            gameState.SamePriceThroughoutPark = _s6.SamePriceThroughout
+                | (static_cast<uint64_t>(_s6.SamePriceThroughoutExtended) << 32);
             gameState.SuggestedGuestMaximum = _s6.SuggestedMaxGuests;
             gameState.ScenarioParkRatingWarningDays = _s6.ParkRatingWarningDays;
-            gLastEntranceStyle = _s6.LastEntranceStyle;
+            gameState.LastEntranceStyle = _s6.LastEntranceStyle;
             // rct1_water_colour
             // Pad01358842
             ImportResearchList(gameState);
@@ -447,7 +448,7 @@ namespace RCT2
             ImportRideRatingsCalcData();
             ImportRideMeasurements();
             gameState.NextGuestNumber = _s6.NextGuestIndex;
-            gGrassSceneryTileLoopPosition = _s6.GrassAndSceneryTilepos;
+            gameState.GrassSceneryTileLoopPosition = _s6.GrassAndSceneryTilepos;
             // unk_13CA73E
             // Pad13CA73F
             // unk_13CA740
@@ -495,8 +496,7 @@ namespace RCT2
 
             // Pad13CE730
             // rct1_scenario_flags
-            gWidePathTileLoopPosition.x = _s6.WidePathTileLoopX;
-            gWidePathTileLoopPosition.y = _s6.WidePathTileLoopY;
+            gameState.WidePathTileLoopPosition = { _s6.WidePathTileLoopX, _s6.WidePathTileLoopY };
             // Pad13CE778
 
             // Fix and set dynamic variables
@@ -1612,7 +1612,7 @@ namespace RCT2
             const auto& src = _s6.RideRatingsCalcData;
             // S6 has only one state, ensure we reset all states before reading the first one.
             RideRatingResetUpdateStates();
-            auto& rideRatingStates = RideRatingGetUpdateStates();
+            auto& rideRatingStates = GetGameState().RideRatingUpdateStates;
             auto& dst = rideRatingStates[0];
             dst = {};
             dst.Proximity = { src.ProximityX, src.ProximityY, src.ProximityZ };
@@ -1759,14 +1759,15 @@ namespace RCT2
                 _s6.PeepSpawns[0].z = 7;
             }
 
-            gPeepSpawns.clear();
+            auto& gameState = GetGameState();
+            gameState.PeepSpawns.clear();
             for (size_t i = 0; i < Limits::MaxPeepSpawns; i++)
             {
                 if (_s6.PeepSpawns[i].x != RCT12_PEEP_SPAWN_UNDEFINED)
                 {
                     PeepSpawn spawn = { _s6.PeepSpawns[i].x, _s6.PeepSpawns[i].y, _s6.PeepSpawns[i].z * 16,
                                         _s6.PeepSpawns[i].direction };
-                    gPeepSpawns.push_back(spawn);
+                    gameState.PeepSpawns.push_back(spawn);
                 }
             }
         }
@@ -1801,9 +1802,9 @@ namespace RCT2
             bool nextElementInvisible = false;
             bool restOfTileInvisible = false;
             const auto maxSize = std::min(Limits::MaxMapSize, _s6.MapSize);
-            for (TileCoordsXY coords = { 0, 0 }; coords.y < MAXIMUM_MAP_SIZE_TECHNICAL; coords.y++)
+            for (TileCoordsXY coords = { 0, 0 }; coords.y < kMaximumMapSizeTechnical; coords.y++)
             {
-                for (coords.x = 0; coords.x < MAXIMUM_MAP_SIZE_TECHNICAL; coords.x++)
+                for (coords.x = 0; coords.x < kMaximumMapSizeTechnical; coords.x++)
                 {
                     nextElementInvisible = false;
                     restOfTileInvisible = false;

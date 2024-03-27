@@ -47,10 +47,6 @@
 
 using namespace OpenRCT2;
 
-money64 gLandPrice;
-
-int16_t gParkRatingCasualtyPenalty;
-
 // If this value is more than or equal to 0, the park rating is forced to this value. Used for cheat
 static int32_t _forcedParkRating = -1;
 
@@ -59,9 +55,10 @@ static int32_t _forcedParkRating = -1;
  */
 static PeepSpawn* GetRandomPeepSpawn()
 {
-    if (!gPeepSpawns.empty())
+    auto& gameState = GetGameState();
+    if (!gameState.PeepSpawns.empty())
     {
-        return &gPeepSpawns[ScenarioRand() % gPeepSpawns.size()];
+        return &gameState.PeepSpawns[ScenarioRand() % gameState.PeepSpawns.size()];
     }
 
     return nullptr;
@@ -232,7 +229,7 @@ void Park::Initialise()
 {
     auto& gameState = GetGameState();
 
-    Name = FormatStringID(STR_UNNAMED_PARK, nullptr);
+    Name = LanguageGetString(STR_UNNAMED_PARK);
     PluginStorage = {};
     gameState.StaffHandymanColour = COLOUR_BRIGHT_RED;
     gameState.StaffMechanicColour = COLOUR_LIGHT_BLUE;
@@ -257,7 +254,7 @@ void Park::Initialise()
 
     gameState.ParkEntranceFee = 10.00_GBP;
 
-    gPeepSpawns.clear();
+    gameState.PeepSpawns.clear();
     ParkEntranceReset();
 
     gameState.ResearchPriorities = EnumsToFlags(
@@ -272,7 +269,7 @@ void Park::Initialise()
     gameState.ScenarioObjective.Type = OBJECTIVE_GUESTS_BY;
     gameState.ScenarioObjective.Year = 4;
     gameState.ScenarioObjective.NumGuests = 1000;
-    gLandPrice = 90.00_GBP;
+    gameState.LandPrice = 90.00_GBP;
     gameState.ConstructionRightsPrice = 40.00_GBP;
     gameState.ParkFlags = PARK_FLAGS_NO_MONEY | PARK_FLAGS_SHOW_REAL_GUEST_NAMES;
     ResetHistories();
@@ -459,7 +456,7 @@ int32_t Park::CalculateParkRating() const
         result -= 600 - (4 * (150 - std::min<int32_t>(150, litterCount)));
     }
 
-    result -= gParkRatingCasualtyPenalty;
+    result -= gameState.ParkRatingCasualtyPenalty;
     result = std::clamp(result, 0, 999);
     return result;
 }
@@ -618,7 +615,7 @@ uint32_t Park::CalculateGuestGenerationProbability() const
     }
 
     // Reward or penalties for park awards
-    for (const auto& award : GetAwards())
+    for (const auto& award : GetGameState().CurrentAwards)
     {
         // +/- 0.25% of the probability
         if (AwardIsPositive(award.Type))

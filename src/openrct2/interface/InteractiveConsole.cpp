@@ -668,7 +668,7 @@ static int32_t ConsoleCommandGet(InteractiveConsole& console, const arguments_t&
         }
         else if (argv[0] == "land_rights_cost")
         {
-            console.WriteFormatLine("land_rights_cost %d.%d0", gLandPrice / 10, gLandPrice % 10);
+            console.WriteFormatLine("land_rights_cost %d.%d0", gameState.LandPrice / 10, gameState.LandPrice % 10);
         }
         else if (argv[0] == "construction_rights_cost")
         {
@@ -679,8 +679,7 @@ static int32_t ConsoleCommandGet(InteractiveConsole& console, const arguments_t&
         else if (argv[0] == "climate")
         {
             console.WriteFormatLine(
-                "climate %s  (%d)", ClimateNames[static_cast<uint8_t>(gameState.Climate)],
-                static_cast<uint8_t>(gameState.Climate));
+                "climate %s  (%d)", ClimateNames[EnumValue(gameState.Climate)], EnumValue(gameState.Climate));
         }
         else if (argv[0] == "game_speed")
         {
@@ -1166,15 +1165,14 @@ static int32_t ConsoleCommandSet(InteractiveConsole& console, const arguments_t&
         else if (argv[0] == "current_rotation" && InvalidArguments(&invalidArgs, int_valid[0]))
         {
             uint8_t currentRotation = GetCurrentRotation();
-            WindowBase* mainWindow = WindowGetMain();
             int32_t newRotation = int_val[0];
             if (newRotation < 0 || newRotation > 3)
             {
                 console.WriteLineError("Invalid argument. Valid rotations are 0-3.");
             }
-            else if (newRotation != currentRotation && mainWindow != nullptr)
+            else if (newRotation != currentRotation)
             {
-                WindowRotateCamera(*mainWindow, newRotation - currentRotation);
+                ViewportRotateAll(newRotation - currentRotation);
             }
             console.Execute("get current_rotation");
         }
