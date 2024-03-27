@@ -450,9 +450,9 @@ static void FixInvalidSurfaces()
     // Fixes broken saves where a surface element could be null
     // and broken saves with incorrect invisible map border tiles
 
-    for (int32_t y = 0; y < MAXIMUM_MAP_SIZE_TECHNICAL; y++)
+    for (int32_t y = 0; y < kMaximumMapSizeTechnical; y++)
     {
-        for (int32_t x = 0; x < MAXIMUM_MAP_SIZE_TECHNICAL; x++)
+        for (int32_t x = 0; x < kMaximumMapSizeTechnical; x++)
         {
             auto* surfaceElement = MapGetSurfaceElementAt(TileCoordsXY{ x, y });
 
@@ -472,8 +472,8 @@ static void FixInvalidSurfaces()
             auto& gameState = GetGameState();
             if (x == 0 || x == gameState.MapSize.x - 1 || y == 0 || y == gameState.MapSize.y - 1)
             {
-                surfaceElement->SetBaseZ(MINIMUM_LAND_HEIGHT_BIG);
-                surfaceElement->SetClearanceZ(MINIMUM_LAND_HEIGHT_BIG);
+                surfaceElement->SetBaseZ(kMinimumLandZ);
+                surfaceElement->SetClearanceZ(kMinimumLandZ);
                 surfaceElement->SetSlope(0);
                 surfaceElement->SetWaterHeight(0);
             }
@@ -528,7 +528,8 @@ void GameLoadInit()
     }
 
     auto windowManager = GetContext()->GetUiContext()->GetWindowManager();
-    windowManager->SetMainView(gSavedView, gSavedViewZoom, gSavedViewRotation);
+    auto& gameState = GetGameState();
+    windowManager->SetMainView(gameState.SavedView, gameState.SavedViewZoom, gameState.SavedViewRotation);
 
     if (NetworkGetMode() != NETWORK_MODE_CLIENT)
     {

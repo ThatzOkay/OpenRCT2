@@ -705,86 +705,86 @@ static constexpr uint8_t TrackSequenceProperties[][MaxSequencesPerPiece] = {
 };
 static_assert(std::size(TrackSequenceProperties) == TrackElemType::Count);
 
-#define TRACK_BLOCK_END { 255, 255, 255, 255, 255, {255, 255}, 255 }
+constexpr PreviewTrack kTrackBlockEnd { 255, 255, 255, 255, 255, {255, 255}, 255 };
 
 static constexpr PreviewTrack TrackBlocks000[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks001[] = {
     { 0, 0, 0, 0, 0,{ 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks002[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks003[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks004[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks005[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks006[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks007[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks008[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks009[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks010[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks011[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks012[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks013[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks014[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks015[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks016[] = {
@@ -795,7 +795,7 @@ static constexpr PreviewTrack TrackBlocks016[] = {
     { 4, -32, -64, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 0, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks017[] = {
@@ -806,27 +806,27 @@ static constexpr PreviewTrack TrackBlocks017[] = {
     { 4, -32, 64, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 0, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks018[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks019[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks020[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks021[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks022[] = {
@@ -837,7 +837,7 @@ static constexpr PreviewTrack TrackBlocks022[] = {
     { 4, -32, -64, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 0, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks023[] = {
@@ -848,57 +848,57 @@ static constexpr PreviewTrack TrackBlocks023[] = {
     { 4, -32, 64, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 0, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks024[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks025[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks026[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks027[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks028[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks029[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks030[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks031[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks032[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks033[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks034[] = {
@@ -909,7 +909,7 @@ static constexpr PreviewTrack TrackBlocks034[] = {
     { 4, -32, -64, 48, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 32, 16, { 0b0111, 0b0100 }, 0 },
     { 6, -64, -64, 48, 16, { 0b1111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks035[] = {
@@ -920,7 +920,7 @@ static constexpr PreviewTrack TrackBlocks035[] = {
     { 4, -32, 64, 48, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 32, 16, { 0b1011, 0b1000 }, 0 },
     { 6, -64, 64, 48, 16, { 0b1111, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks036[] = {
@@ -931,7 +931,7 @@ static constexpr PreviewTrack TrackBlocks036[] = {
     { 4, -32, -64, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 16, 16, { 0b0111, 0b0001 }, 0 },
     { 6, -64, -64, 0, 16, { 0b1111, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks037[] = {
@@ -942,7 +942,7 @@ static constexpr PreviewTrack TrackBlocks037[] = {
     { 4, -32, 64, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 16, 16, { 0b1011, 0b0010 }, 0 },
     { 6, -64, 64, 0, 16, { 0b1111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks038[] = {
@@ -950,7 +950,7 @@ static constexpr PreviewTrack TrackBlocks038[] = {
     { 1, -32, 0, 0, 0, { 0b0111, 0 }, 0 },
     { 2, -32, -32, 0, 0, { 0b1101, 0 }, 0 },
     { 3, -64, -32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks039[] = {
@@ -958,9 +958,10 @@ static constexpr PreviewTrack TrackBlocks039[] = {
     { 1, -32, 0, 0, 0, { 0b1011, 0 }, 0 },
     { 2, -32, 32, 0, 0, { 0b1110, 0 }, 0 },
     { 3, -64, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// LeftVerticalLoop
 static constexpr PreviewTrack TrackBlocks040[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 16, { 0b1111, 0b1100 }, 0 },
@@ -972,9 +973,10 @@ static constexpr PreviewTrack TrackBlocks040[] = {
     { 7, 32, -32, 32, 96, { 0b1000, 0 }, 0 },
     { 8, 0, -32, 16, 16, { 0b1111, 0b0011 }, 0 },
     { 9, -32, -32, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// RightVerticalLoop
 static constexpr PreviewTrack TrackBlocks041[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 16, { 0b1111, 0b1100 }, 0 },
@@ -986,7 +988,7 @@ static constexpr PreviewTrack TrackBlocks041[] = {
     { 7, 32, 32, 32, 96, { 0b0100, 0 }, 0 },
     { 8, 0, 32, 16, 16, { 0b1111, 0b0011 }, 0 },
     { 9, -32, 32, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks042[] = {
@@ -994,7 +996,7 @@ static constexpr PreviewTrack TrackBlocks042[] = {
     { 1, 0, -32, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 0, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks043[] = {
@@ -1002,7 +1004,7 @@ static constexpr PreviewTrack TrackBlocks043[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 0, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks044[] = {
@@ -1010,7 +1012,7 @@ static constexpr PreviewTrack TrackBlocks044[] = {
     { 1, 0, -32, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 0, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks045[] = {
@@ -1018,7 +1020,7 @@ static constexpr PreviewTrack TrackBlocks045[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 0, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks046[] = {
@@ -1026,7 +1028,7 @@ static constexpr PreviewTrack TrackBlocks046[] = {
     { 1, 0, -32, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 16, 16,{ 0b0111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks047[] = {
@@ -1034,7 +1036,7 @@ static constexpr PreviewTrack TrackBlocks047[] = {
     { 1, 0, 32, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 16, 16,{ 0b1011, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks048[] = {
@@ -1042,7 +1044,7 @@ static constexpr PreviewTrack TrackBlocks048[] = {
     { 1, 0, -32, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 16, { 0b0111, 0b0001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks049[] = {
@@ -1050,109 +1052,111 @@ static constexpr PreviewTrack TrackBlocks049[] = {
     { 1, 0, 32, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 16, { 0b1011, 0b0010 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks050[] = {
     { 0, 0, 0, 0, 0, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks051[] = {
     { 0, 0, 0, 0, 0, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks052[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks053[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks054[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -16, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks055[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -16, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// HalfLoopUp
 static constexpr PreviewTrack TrackBlocks056[] = {
-    { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 16, { 0b1111, 0b1100 }, 0 },
     { 2, -64, 0, 32, 96,{ 0b0011, 0 }, 0 },
     { 3, -32, 0, 120, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// HalfLoopDown
 static constexpr PreviewTrack TrackBlocks057[] = {
-    { 0, 0, 0, -32, 32, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -120, 96,{ 0b0011, 0 }, 0 },
     { 2, 0, 0, -136, 16, { 0b1111, 0b1100 }, 0 },
     { 3, 32, 0, -152, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks058[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 24, 32, { 0b0111, 0 }, 0 },
     { 2, -32, -32, 48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks059[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 24, 32, { 0b1011, 0 }, 0 },
     { 2, -32, 32, 48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks060[] = {
     { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -56, 32, { 0b0111, 0 }, 0 },
     { 2, -32, -32, -80, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks061[] = {
     { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -56, 32, { 0b1011, 0 }, 0 },
     { 2, -32, 32, -80, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks062[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks063[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks064[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks065[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks066[] = {
@@ -1165,78 +1169,78 @@ static constexpr PreviewTrack TrackBlocks066[] = {
     { 6, 32, -32, 0, 0, { 0b1111, 0 }, 0 },
     { 7, 32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 8, 32, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks067[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, 32, 0, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks068[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks069[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks070[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks071[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks072[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks073[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks074[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks075[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks076[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks077[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks078[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks079[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks080[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks081[] = {
@@ -1247,7 +1251,7 @@ static constexpr PreviewTrack TrackBlocks081[] = {
     { 4, -32, -64, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 0, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks082[] = {
@@ -1258,7 +1262,7 @@ static constexpr PreviewTrack TrackBlocks082[] = {
     { 4, -32, 64, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 0, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks083[] = {
@@ -1266,7 +1270,7 @@ static constexpr PreviewTrack TrackBlocks083[] = {
     { 1, -32, 0, 0, 0, { 0b0111, 0 }, 0 },
     { 2, -32, -32, 0, 0, { 0b1101, 0 }, 0 },
     { 3, -64, -32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks084[] = {
@@ -1274,7 +1278,7 @@ static constexpr PreviewTrack TrackBlocks084[] = {
     { 1, -32, 0, 0, 0, { 0b1011, 0 }, 0 },
     { 2, -32, 32, 0, 0, { 0b1110, 0 }, 0 },
     { 3, -64, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks085[] = {
@@ -1282,7 +1286,7 @@ static constexpr PreviewTrack TrackBlocks085[] = {
     { 1, 0, -32, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 0, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks086[] = {
@@ -1290,7 +1294,7 @@ static constexpr PreviewTrack TrackBlocks086[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 0, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks087[] = {
@@ -1302,7 +1306,7 @@ static constexpr PreviewTrack TrackBlocks087[] = {
     { 5, 0, -64, 8, 0, { 0b0100, 0b0000 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 6, -32, -96, 8, 4, { 0b0001, 0 }, 0 },
     { 7, 0, -96, 8, 4, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks088[] = {
@@ -1314,7 +1318,7 @@ static constexpr PreviewTrack TrackBlocks088[] = {
     { 5, 0, 64, 8, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 6, -32, 96, 8, 4, { 0b0010, 0 }, 0 },
     { 7, 0, 96, 8, 4, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks089[] = {
@@ -1326,7 +1330,7 @@ static constexpr PreviewTrack TrackBlocks089[] = {
     { 5, 0, -64, 0, 4, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 6, -32, -96, 0, 0, { 0b0001, 0 }, 0 },
     { 7, 0, -96, 0, 0, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks090[] = {
@@ -1338,7 +1342,7 @@ static constexpr PreviewTrack TrackBlocks090[] = {
     { 5, 0, 64, 0, 4, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 6, -32, 96, 0, 0, { 0b0010, 0 }, 0 },
     { 7, 0, 96, 0, 0, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks091[] = {
@@ -1356,7 +1360,7 @@ static constexpr PreviewTrack TrackBlocks091[] = {
     { 11, 0, -128, 8, 4, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 12, -32, -160, 8, 4, { 0b1011, 0 }, 0 },
     { 13, 0, -160, 8, 4, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks092[] = {
@@ -1374,7 +1378,7 @@ static constexpr PreviewTrack TrackBlocks092[] = {
     { 11, 0, 128, 8, 4, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 12, -32, 160, 8, 4, { 0b0111, 0 }, 0 },
     { 13, 0, 160, 8, 4, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks093[] = {
@@ -1392,7 +1396,7 @@ static constexpr PreviewTrack TrackBlocks093[] = {
     { 11, 0, -128, 0, 0, { 0b0100, 0b0000 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 12, -32, -160, 0, 0, { 0b1011, 0 }, 0 },
     { 13, 0, -160, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks094[] = {
@@ -1410,42 +1414,42 @@ static constexpr PreviewTrack TrackBlocks094[] = {
     { 11, 0, 128, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 12, -32, 160, 0, 0, { 0b0111, 0 }, 0 },
     { 13, 0, 160, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks095[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks096[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks097[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks098[] = {
     { 0, 0, 0, 0, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks099[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks100[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks101[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks102[] = {
@@ -1456,7 +1460,7 @@ static constexpr PreviewTrack TrackBlocks102[] = {
     { 4, -32, -64, 0, 12, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 12, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 12, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks103[] = {
@@ -1467,7 +1471,7 @@ static constexpr PreviewTrack TrackBlocks103[] = {
     { 4, -32, 64, 0, 12, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 12, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 12, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks104[] = {
@@ -1478,7 +1482,7 @@ static constexpr PreviewTrack TrackBlocks104[] = {
     { 4, -32, -64, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 0, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks105[] = {
@@ -1489,7 +1493,7 @@ static constexpr PreviewTrack TrackBlocks105[] = {
     { 4, -32, 64, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 0, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks106[] = {
@@ -1500,7 +1504,7 @@ static constexpr PreviewTrack TrackBlocks106[] = {
     { 4, -32, -64, 0, 12, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 12, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 12, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks107[] = {
@@ -1511,7 +1515,7 @@ static constexpr PreviewTrack TrackBlocks107[] = {
     { 4, -32, 64, 0, 12, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 12, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 12, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks108[] = {
@@ -1522,7 +1526,7 @@ static constexpr PreviewTrack TrackBlocks108[] = {
     { 4, -32, -64, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 0, 0, { 0b0111, 0 }, 0 },
     { 6, -64, -64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks109[] = {
@@ -1533,42 +1537,42 @@ static constexpr PreviewTrack TrackBlocks109[] = {
     { 4, -32, 64, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 0, 0, { 0b1011, 0 }, 0 },
     { 6, -64, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks110[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks111[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks112[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks113[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks114[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks115[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks116[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks117[] = {
@@ -1577,7 +1581,7 @@ static constexpr PreviewTrack TrackBlocks117[] = {
     { 2, -64, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 3, -96, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 4, -128, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks118[] = {
@@ -1585,7 +1589,7 @@ static constexpr PreviewTrack TrackBlocks118[] = {
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 24, { 0b1111, 0 }, 0 },
     { 3, -96, 0, 40, 48, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks119[] = {
@@ -1593,12 +1597,12 @@ static constexpr PreviewTrack TrackBlocks119[] = {
     { 1, -32, 0, 40, 48, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 64, 24, { 0b1111, 0 }, 0 },
     { 3, -96, 0, 80, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks120[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks121[] = {
@@ -1606,7 +1610,7 @@ static constexpr PreviewTrack TrackBlocks121[] = {
     { 1, -32, 0, 16, 24, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 3, -96, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks122[] = {
@@ -1614,7 +1618,7 @@ static constexpr PreviewTrack TrackBlocks122[] = {
     { 1, -32, 0, 64, 24, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 40, 48, { 0b1111, 0 }, 0 },
     { 3, -96, 0, 0, 48, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks123[] = {
@@ -1622,7 +1626,7 @@ static constexpr PreviewTrack TrackBlocks123[] = {
     { 1, -32, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
     { 2, -64, 0, -32, 32, { 0b1111, 0b0011 }, 0 },
     { 3, -96, 0, -96, 64, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks124[] = {
@@ -1633,52 +1637,52 @@ static constexpr PreviewTrack TrackBlocks124[] = {
     { 4, -128, 0, 0, 160, { 0b1111, 0 }, 0 },
     { 5, -192, 0, 0, 208, { 0b1111, 0 }, 0 },
     { 6, -160, 0, 0, 208, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks125[] = {
     { 0, 0, 0, 0, 48, { 0b1111, 0 }, 0 },
     { 1, 32, 0, 0, 48, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks126[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks127[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks128[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks129[] = {
     { 0, 0, 0, 0, 32, { 0b1111, 0b0011 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks130[] = {
     { 0, 0, 0, 0, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks131[] = {
     { 0, 0, 0, 0, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks132[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks133[] = {
@@ -1687,7 +1691,7 @@ static constexpr PreviewTrack TrackBlocks133[] = {
     { 2, -32, -32, 0, 0, { 0b1000, 0 }, 0 },
     { 3, -64, 0, 0, 0, { 0b0010, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, -32, 0, 0, { 0b0001, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks134[] = {
@@ -1696,7 +1700,7 @@ static constexpr PreviewTrack TrackBlocks134[] = {
     { 2, -32, 32, 0, 0, { 0b0100, 0 }, 0 },
     { 3, -64, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks135[] = {
@@ -1705,7 +1709,7 @@ static constexpr PreviewTrack TrackBlocks135[] = {
     { 2, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -64, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks136[] = {
@@ -1714,7 +1718,7 @@ static constexpr PreviewTrack TrackBlocks136[] = {
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -32, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks137[] = {
@@ -1723,7 +1727,7 @@ static constexpr PreviewTrack TrackBlocks137[] = {
     { 2, -32, -32, 0, 0, { 0b1000, 0 }, 0 },
     { 3, -64, 0, 0, 0, { 0b0010, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, -32, 0, 0, { 0b0001, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks138[] = {
@@ -1732,7 +1736,7 @@ static constexpr PreviewTrack TrackBlocks138[] = {
     { 2, -32, 32, 0, 0, { 0b0100, 0 }, 0 },
     { 3, -64, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks139[] = {
@@ -1741,7 +1745,7 @@ static constexpr PreviewTrack TrackBlocks139[] = {
     { 2, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -64, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks140[] = {
@@ -1750,7 +1754,7 @@ static constexpr PreviewTrack TrackBlocks140[] = {
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -32, 64, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks141[] = {
@@ -1758,7 +1762,7 @@ static constexpr PreviewTrack TrackBlocks141[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks142[] = {
@@ -1766,7 +1770,7 @@ static constexpr PreviewTrack TrackBlocks142[] = {
     { 1, 0, 32, 0, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 16, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks143[] = {
@@ -1774,7 +1778,7 @@ static constexpr PreviewTrack TrackBlocks143[] = {
     { 1, 0, 32, 0, 64, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 64, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 64, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks144[] = {
@@ -1782,7 +1786,7 @@ static constexpr PreviewTrack TrackBlocks144[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks145[] = {
@@ -1790,7 +1794,7 @@ static constexpr PreviewTrack TrackBlocks145[] = {
     { 1, 0, 32, 0, 32, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 32, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 32, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks146[] = {
@@ -1798,7 +1802,7 @@ static constexpr PreviewTrack TrackBlocks146[] = {
     { 1, 0, 32, 0, 32, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 32, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 32, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks147[] = {
@@ -1806,7 +1810,7 @@ static constexpr PreviewTrack TrackBlocks147[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks148[] = {
@@ -1814,7 +1818,7 @@ static constexpr PreviewTrack TrackBlocks148[] = {
     { 1, 0, 32, 0, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 16, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks149[] = {
@@ -1822,7 +1826,7 @@ static constexpr PreviewTrack TrackBlocks149[] = {
     { 1, 0, 32, 0, 64, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 64, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 64, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks150[] = {
@@ -1830,7 +1834,7 @@ static constexpr PreviewTrack TrackBlocks150[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks151[] = {
@@ -1838,7 +1842,7 @@ static constexpr PreviewTrack TrackBlocks151[] = {
     { 1, 0, 32, 0, 32, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 32, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 32, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks152[] = {
@@ -1846,7 +1850,7 @@ static constexpr PreviewTrack TrackBlocks152[] = {
     { 1, 0, 32, 0, 32, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 32, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 32, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks153[] = {
@@ -1854,7 +1858,7 @@ static constexpr PreviewTrack TrackBlocks153[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks154[] = {
@@ -1862,7 +1866,7 @@ static constexpr PreviewTrack TrackBlocks154[] = {
     { 1, 0, 32, 0, 24, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 24, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 24, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks155[] = {
@@ -1870,7 +1874,7 @@ static constexpr PreviewTrack TrackBlocks155[] = {
     { 1, 0, 32, 0, 24, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 24, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 24, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks156[] = {
@@ -1878,7 +1882,7 @@ static constexpr PreviewTrack TrackBlocks156[] = {
     { 1, 0, 32, 0, 24, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 24, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 24, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks157[] = {
@@ -1886,7 +1890,7 @@ static constexpr PreviewTrack TrackBlocks157[] = {
     { 1, 0, 32, 0, 24, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 24, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 24, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks158[] = {
@@ -1894,7 +1898,7 @@ static constexpr PreviewTrack TrackBlocks158[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks159[] = {
@@ -1902,7 +1906,7 @@ static constexpr PreviewTrack TrackBlocks159[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks160[] = {
@@ -1910,7 +1914,7 @@ static constexpr PreviewTrack TrackBlocks160[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks161[] = {
@@ -1918,7 +1922,7 @@ static constexpr PreviewTrack TrackBlocks161[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks162[] = {
@@ -1926,7 +1930,7 @@ static constexpr PreviewTrack TrackBlocks162[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks163[] = {
@@ -1934,7 +1938,7 @@ static constexpr PreviewTrack TrackBlocks163[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks164[] = {
@@ -1942,7 +1946,7 @@ static constexpr PreviewTrack TrackBlocks164[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks165[] = {
@@ -1950,7 +1954,7 @@ static constexpr PreviewTrack TrackBlocks165[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks166[] = {
@@ -1958,7 +1962,7 @@ static constexpr PreviewTrack TrackBlocks166[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks167[] = {
@@ -1966,7 +1970,7 @@ static constexpr PreviewTrack TrackBlocks167[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks168[] = {
@@ -1974,7 +1978,7 @@ static constexpr PreviewTrack TrackBlocks168[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks169[] = {
@@ -1982,7 +1986,7 @@ static constexpr PreviewTrack TrackBlocks169[] = {
     { 1, 0, 32, 0, 8, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 8, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks170[] = {
@@ -1990,7 +1994,7 @@ static constexpr PreviewTrack TrackBlocks170[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks171[] = {
@@ -1998,45 +2002,45 @@ static constexpr PreviewTrack TrackBlocks171[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 0, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 0, 0, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks172[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks173[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks174[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks175[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks176[] = {
     { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -32, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks177[] = {
     { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -32, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks178[] = {
@@ -2044,7 +2048,7 @@ static constexpr PreviewTrack TrackBlocks178[] = {
     { 1, 0, -32, 0, 16, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 16, 16,{ 0b0111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks179[] = {
@@ -2052,7 +2056,7 @@ static constexpr PreviewTrack TrackBlocks179[] = {
     { 1, 0, 32, 0, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 16, 16,{ 0b1011, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks180[] = {
@@ -2060,7 +2064,7 @@ static constexpr PreviewTrack TrackBlocks180[] = {
     { 1, 0, -32, 0, 16, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 0, { 0b0111, 0b0001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks181[] = {
@@ -2068,14 +2072,15 @@ static constexpr PreviewTrack TrackBlocks181[] = {
     { 1, 0, 32, 0, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 16, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 0, { 0b1011, 0b0010 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks182[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// LeftLargeHalfLoopUp
 static constexpr PreviewTrack TrackBlocks183[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 40, { 0b1111, 0b1100 }, 0 },
@@ -2084,9 +2089,10 @@ static constexpr PreviewTrack TrackBlocks183[] = {
     { 4, -128, -32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, -32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, -32, 248, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// RightLargeHalfLoopUp
 static constexpr PreviewTrack TrackBlocks184[] = {
     { 0, 0, 0, 0, 24, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 40, { 0b1111, 0b1100 }, 0 },
@@ -2095,101 +2101,105 @@ static constexpr PreviewTrack TrackBlocks184[] = {
     { 4, -128, 32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, 32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, 32, 248, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// LeftLargeHalfLoopDown
 static constexpr PreviewTrack TrackBlocks185[] = {
-    { 0, 0, 0, -32, 24, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -216, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -160, 96, { 0b1111, 0 }, 0 },
     { 3, -32, -32, -216, 192, { 0b1111, 0 }, 0 },
     { 4, 0, -32, -248, 56, { 0b1111, 0 }, 0 },
     { 5, 32, -32, -264, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, -32, -280, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// RightLargeHalfLoopDown
 static constexpr PreviewTrack TrackBlocks186[] = {
-    { 0, 0, 0, -32, 24, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -216, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -160, 96, { 0b1111, 0 }, 0 },
     { 3, -32, 32, -216, 192, { 0b1111, 0 }, 0 },
     { 4, 0, 32, -248, 56, { 0b1111, 0 }, 0 },
     { 5, 32, 32, -264, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, 32, -280, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks187[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -16, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -16, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks188[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -16, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -16, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks189[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks190[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// FlyerHalfLoopUninvertedUp
 static constexpr PreviewTrack TrackBlocks191[] = {
-    { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 16, { 0b1111, 0b1100 }, 0 },
     { 2, -64, 0, 32, 96,{ 0b0011, 0 }, 0 },
     { 3, -32, 0, 120, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
+// FlyerHalfLoopInvertedDown
 static constexpr PreviewTrack TrackBlocks192[] = {
-    { 0, 0, 0, 0, 32, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -88, 96,{ 0b0011, 0 }, 0 },
     { 2, 0, 0, -104, 16, { 0b1111, 0b1100 }, 0 },
     { 3, 32, 0, -120, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks193[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 24, 32, { 0b0111, 0 }, 0 },
     { 2, -32, -32, 48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks194[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 24, 32, { 0b1011, 0 }, 0 },
     { 2, -32, 32, 48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks195[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -24, 32, { 0b0111, 0 }, 0 },
     { 2, -32, -32, -48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks196[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -24, 32, { 0b1011, 0 }, 0 },
     { 2, -32, 32, -48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks197[] = {
@@ -2197,7 +2207,7 @@ static constexpr PreviewTrack TrackBlocks197[] = {
     { 1, -32, 0, 0, 32, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 16, 0, { 0b1111, 0 }, 0 },
     { 3, 0, 0, 32, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks198[] = {
@@ -2205,7 +2215,7 @@ static constexpr PreviewTrack TrackBlocks198[] = {
     { 1, -32, 0, -32, 32, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -16, 0, { 0b1111, 0 }, 0 },
     { 3, 0, 0, -32, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks199[] = {
@@ -2215,7 +2225,7 @@ static constexpr PreviewTrack TrackBlocks199[] = {
     { 3, -96, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -128, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 5, -160, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks200[] = {
@@ -2225,39 +2235,39 @@ static constexpr PreviewTrack TrackBlocks200[] = {
     { 3, -96, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -128, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 5, -160, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks201[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks202[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks203[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks204[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 2, -32, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks205[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 1, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 2, -32, -32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks206[] = {
@@ -2265,14 +2275,14 @@ static constexpr PreviewTrack TrackBlocks206[] = {
     { 1, -32, 0, -40, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, -64, 0, -96, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 3, -96, 0, -96, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks207[] = {
     { 0, 0, 0, 0, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 56, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, 64, 0, 96, 16, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks208[] = {
@@ -2280,7 +2290,7 @@ static constexpr PreviewTrack TrackBlocks208[] = {
     { 1, -32, 0, -72, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, -64, 0, -128, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 3, -96, 0, -128, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks209[] = {
@@ -2288,7 +2298,7 @@ static constexpr PreviewTrack TrackBlocks209[] = {
     { 1, 0, -32, 0, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 8, { 0b0111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks210[] = {
@@ -2296,7 +2306,7 @@ static constexpr PreviewTrack TrackBlocks210[] = {
     { 1, 0, 32, 0, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 0, 8, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 8, { 0b1011, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks211[] = {
@@ -2306,7 +2316,7 @@ static constexpr PreviewTrack TrackBlocks211[] = {
     { 3, -64, -32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 5, -64, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks212[] = {
@@ -2316,7 +2326,7 @@ static constexpr PreviewTrack TrackBlocks212[] = {
     { 3, -64, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 4, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 5, -64, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks213[] = {
@@ -2324,13 +2334,13 @@ static constexpr PreviewTrack TrackBlocks213[] = {
     { 1, 32, 0, 0, 32, { 0b1111, 0 }, 0 },
     { 2, -64, 0, 0, 32, { 0b1111, 0 }, 0 },
     { 3, -32, 0, 0, 32, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks214[] = {
     { 0, 0, 0, 0, 48, { 0b1111, 0 }, 0 },
     { 1, 32, 0, 0, 48, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks215[] = {
@@ -2341,12 +2351,12 @@ static constexpr PreviewTrack TrackBlocks215[] = {
     { 4, -96, 0, 0, 48, { 0b1111, 0 }, 0 },
     { 5, -128, 0, 0, 32, { 0b1111, 0 }, 0 },
     { 6, -160, 0, 0, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks216[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks217[] = {
@@ -2354,7 +2364,7 @@ static constexpr PreviewTrack TrackBlocks217[] = {
     { 1, 0, -32, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 16, 16,{ 0b0111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks218[] = {
@@ -2362,7 +2372,7 @@ static constexpr PreviewTrack TrackBlocks218[] = {
     { 1, 0, 32, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 16, 16,{ 0b1011, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks219[] = {
@@ -2370,7 +2380,7 @@ static constexpr PreviewTrack TrackBlocks219[] = {
     { 1, 0, -32, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0010, 0 }, 0 },
     { 3, -32, -32, 0, 16, { 0b0111, 0b0001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks220[] = {
@@ -2378,7 +2388,7 @@ static constexpr PreviewTrack TrackBlocks220[] = {
     { 1, 0, 32, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 2, -32, 0, 16, 0, { 0b0001, 0 }, 0 },
     { 3, -32, 32, 0, 16, { 0b1011, 0b0010 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks221[] = {
@@ -2389,7 +2399,7 @@ static constexpr PreviewTrack TrackBlocks221[] = {
     { 4, -32, -64, 48, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 32, 16, { 0b0111, 0b0100 }, 0 },
     { 6, -64, -64, 48, 16, { 0b1111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks222[] = {
@@ -2400,7 +2410,7 @@ static constexpr PreviewTrack TrackBlocks222[] = {
     { 4, -32, 64, 48, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 32, 16, { 0b1011, 0b1000 }, 0 },
     { 6, -64, 64, 48, 16, { 0b1111, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks223[] = {
@@ -2411,7 +2421,7 @@ static constexpr PreviewTrack TrackBlocks223[] = {
     { 4, -32, -64, 16, 0, { 0b1000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, -32, 16, 16, { 0b0111, 0b0001 }, 0 },
     { 6, -64, -64, 0, 16, { 0b1111, 0b1001 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks224[] = {
@@ -2422,158 +2432,158 @@ static constexpr PreviewTrack TrackBlocks224[] = {
     { 4, -32, 64, 16, 0, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 5, -64, 32, 16, 16, { 0b1011, 0b0010 }, 0 },
     { 6, -64, 64, 0, 16, { 0b1111, 0b0110 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks225[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks226[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks227[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks228[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks229[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks230[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks231[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks232[] = {
     { 0, 0, 0, 0, 16, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks233[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks234[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks235[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks236[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks237[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks238[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks239[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks240[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks241[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks242[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks243[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks244[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks245[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks246[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0b0011 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks247[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks248[] = {
     { 0, 0, 0, 0, 8, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks249[] = {
     { 0, 0, 0, 0, 72, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 0, 32, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks250[] = {
     { 0, 0, 0, 0, 72, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 0, -32, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks251[] = {
     { 0, 0, 0, 0, 72, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 0, 32, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks252[] = {
     { 0, 0, 0, 0, 72, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 0, -32, 0, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks253[] = {
     { 0, 0, 0, 0, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 56, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, 64, 0, 96, 16, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks254[] = {
@@ -2581,19 +2591,19 @@ static constexpr PreviewTrack TrackBlocks254[] = {
     { 1, -32, 0, -72, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, -64, 0, -128, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 3, -96, 0, -128, 0, { 0b0000, 0 }, RCT_PREVIEW_TRACK_FLAG_0 | RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocks255[] = {
     { 0, 0, 0, 32, 56, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 1, 32, 0, 88, 32, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
     { 2, 64, 0, 128, 16, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_IS_VERTICAL },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRotationControlToggle[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x4A[] = {
@@ -2601,7 +2611,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack1x4A[] = {
     { 1, -64, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 2, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 3, 32, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack2x2[] = {
@@ -2609,7 +2619,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack2x2[] = {
     { 1, 0, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 2, 32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 3, 32, 32, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack4x4[] = {
@@ -2629,7 +2639,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack4x4[] = {
     { 13, 96, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 14, 96, 64, 0, 0, { 0b1111, 0 }, 0 },
     { 15, 96, 96, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack2x4[] = {
@@ -2641,7 +2651,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack2x4[] = {
     { 5, 32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 6, 32, 64, 0, 0, { 0b1111, 0 }, 0 },
     { 7, 32, 96, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x5[] = {
@@ -2650,12 +2660,12 @@ static constexpr PreviewTrack TrackBlocksFlatTrack1x5[] = {
     { 2, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 3, 32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 4, 64, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x1A[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x4B[] = {
@@ -2663,12 +2673,12 @@ static constexpr PreviewTrack TrackBlocksFlatTrack1x4B[] = {
     { 1, -64, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 2, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 3, 32, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x1B[] = {
     { 0, 0, 0, 0, 0, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack1x4C[] = {
@@ -2676,7 +2686,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack1x4C[] = {
     { 1, -64, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 2, -32, 0, 0, 0, { 0b1111, 0 }, 0 },
     { 3, 32, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlatTrack3x3[] = {
@@ -2689,7 +2699,7 @@ static constexpr PreviewTrack TrackBlocksFlatTrack3x3[] = {
     { 6, 32, -32, 0, 0, { 0b1111, 0 }, 0 },
     { 7, 32, 32, 0, 0, { 0b1111, 0 }, 0 },
     { 8, 32, 0, 0, 0, { 0b1111, 0 }, RCT_PREVIEW_TRACK_FLAG_1 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 
@@ -2700,7 +2710,7 @@ static constexpr PreviewTrack TrackBlocksLeftLargeCorkscrewUp[] = {
     { 3, -32, -32, 32, 24, { 0b1000, 0 }, 0 },
     { 4, -64, -32, 48, 40, { 0b1111, 0 }, 0 },
     { 5, -64, -64, 72, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightLargeCorkscrewUp[] = {
@@ -2710,7 +2720,7 @@ static constexpr PreviewTrack TrackBlocksRightLargeCorkscrewUp[] = {
     { 3, -32,  32,  32, 24, { 0b0100, 0 }, 0 },
     { 4, -64,  32,  48, 40, { 0b1111, 0 }, 0 },
     { 5, -64,  64,  72, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftLargeCorkscrewDown[] = {
@@ -2720,7 +2730,7 @@ static constexpr PreviewTrack TrackBlocksLeftLargeCorkscrewDown[] = {
     { 3, -64,   0,   -80, 24, { 0b0111, 0 }, 0 },
     { 4, -64, -32,  -104, 32, { 0b1111, 0 }, 0 },
     { 5, -64, -64,  -112, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightLargeCorkscrewDown[] = {
@@ -2730,7 +2740,7 @@ static constexpr PreviewTrack TrackBlocksRightLargeCorkscrewDown[] = {
     { 3, -64,   0,   -80, 24, { 0b1011, 0 }, 0 },
     { 4, -64,  32,  -104, 32, { 0b1111, 0 }, 0 },
     { 5, -64,  64,  -112, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftMediumHalfLoopUp[] = {
@@ -2739,7 +2749,7 @@ static constexpr PreviewTrack TrackBlocksLeftMediumHalfLoopUp[] = {
     { 2, -64,   0, 56,120, { 0b1111, 0 }, 0 },
     { 3, -64, -32, 56,120, { 0b1111, 0 }, 0 },
     { 4, -32, -32,168, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightMediumHalfLoopUp[] = {
@@ -2748,7 +2758,7 @@ static constexpr PreviewTrack TrackBlocksRightMediumHalfLoopUp[] = {
     { 2, -64,   0, 56,120, { 0b1111, 0 }, 0 },
     { 3, -64,  32, 56,120, { 0b1111, 0 }, 0 },
     { 4, -32,  32,168, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftMediumHalfLoopDown[] = {
@@ -2757,7 +2767,7 @@ static constexpr PreviewTrack TrackBlocksLeftMediumHalfLoopDown[] = {
     { 2, -32, -32, -160,120, { 0b1111, 0 }, 0 },
     { 3,   0, -32, -200, 48, { 0b1111, 0 }, 0 },
     { 4,  32, -32, -216, 24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightMediumHalfLoopDown[] = {
@@ -2766,35 +2776,35 @@ static constexpr PreviewTrack TrackBlocksRightMediumHalfLoopDown[] = {
     { 2, -32,  32,  -160, 120, { 0b1111, 0 }, 0 },
     { 3,   0,  32,  -200,  48, { 0b1111, 0 }, 0 },
     { 4,  32,  32,  -216,  24, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftZeroGRollUp[] = {
     { 0,   0,   0,  0, 16, { 0b1111, 0 }, 0 },
     { 1, -32,   0,  8, 24, { 0b1111, 0 }, 0 },
     { 2, -64,   0,  24, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightZeroGRollUp[] = {
     { 0,   0,   0,  0, 16, { 0b1111, 0 }, 0 },
     { 1, -32,   0,  8, 24, { 0b1111, 0 }, 0 },
     { 2, -64,   0,  24, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftZeroGRollDown[] = {
     { 0,   0,   0, -32, 16, { 0b1111, 0 }, 0 },
     { 1, -32,   0, -48, 24, { 0b1111, 0 }, 0 },
     { 2, -64,   0, -56, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightZeroGRollDown[] = {
     { 0,   0,   0 ,-32, 16, { 0b1111, 0 }, 0 },
     { 1, -32,   0, -48, 24, { 0b1111, 0 }, 0 },
     { 2, -64,   0, -56, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 
@@ -2803,7 +2813,7 @@ static constexpr PreviewTrack TrackBlocksLeftLargeZeroGRollUp[] = {
     { 1, -32,   0, 56, 48, { 0b1111, 0 }, 0 },
     { 2, -64,   0, 96, 40, { 0b1111, 0 }, 0 },
     { 3, -96,   0,120, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightLargeZeroGRollUp[] = {
@@ -2811,7 +2821,7 @@ static constexpr PreviewTrack TrackBlocksRightLargeZeroGRollUp[] = {
     { 1, -32,   0,  56, 48, { 0b1111, 0 }, 0 },
     { 2, -64,   0,  96, 40, { 0b1111, 0 }, 0 },
     { 3, -96,   0, 120, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftLargeZeroGRollDown[] = {
@@ -2819,7 +2829,7 @@ static constexpr PreviewTrack TrackBlocksLeftLargeZeroGRollDown[] = {
     { 1, -32,   0,  -56, 40, { 0b1111, 0 }, 0 },
     { 2, -64,   0,  -96, 48, { 0b1111, 0 }, 0 },
     { 3, -96,   0,  -152, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightLargeZeroGRollDown[] = {
@@ -2827,7 +2837,7 @@ static constexpr PreviewTrack TrackBlocksRightLargeZeroGRollDown[] = {
     { 1, -32,   0,  -56, 40, { 0b1111, 0 }, 0 },
     { 2, -64,   0,  -96, 48, { 0b1111, 0 }, 0 },
     { 3, -96,   0, -152, 64, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopUninvertedUp[] = {
@@ -2838,7 +2848,7 @@ static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopUninvertedUp[] = 
     { 4, -128, -32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, -32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, -32, 248, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopUninvertedUp[] = {
@@ -2849,29 +2859,29 @@ static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopUninvertedUp[] =
     { 4, -128, 32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, 32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, 32, 248, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopInvertedDown[] = {
-    { 0, 0, 0, 0, 24, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -184, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -128, 96, { 0b1111, 0 }, 0 },
     { 3, -32, -32, -184, 192, { 0b1111, 0 }, 0 },
     { 4, 0, -32, -216, 56, { 0b1111, 0 }, 0 },
     { 5, 32, -32, -232, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, -32, -248, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopInvertedDown[] = {
-    { 0, 0, 0, 0, 24, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -184, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -128, 96, { 0b1111, 0 }, 0 },
     { 3, -32, 32, -184, 192, { 0b1111, 0 }, 0 },
     { 4, 0, 32, -216, 56, { 0b1111, 0 }, 0 },
     { 5, 32, 32, -232, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, 32, -248, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopInvertedUp[] = {
@@ -2882,7 +2892,7 @@ static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopInvertedUp[] = {
     { 4, -128, -32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, -32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, -32, 248, 32, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopInvertedUp[] = {
@@ -2893,37 +2903,37 @@ static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopInvertedUp[] = {
     { 4, -128, 32, 120, 96, { 0b1111, 0 }, 0 },
     { 5, -96, 32, 64, 192, { 0b1111, 0 }, 0 },
     { 6, -64, 32, 248, 32, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftFlyerLargeHalfLoopUninvertedDown[] = {
-    { 0, 0, 0, -32, 40, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, -32, 32, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -216, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -160, 96, { 0b1111, 0 }, 0 },
     { 3, -32, -32, -216, 192, { 0b1111, 0 }, 0 },
     { 4, 0, -32, -248, 56, { 0b1111, 0 }, 0 },
     { 5, 32, -32, -264, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, -32, -280, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightFlyerLargeHalfLoopUninvertedDown[] = {
-    { 0, 0, 0, -32, 40, { 0b1111, 0 }, 0 },
+    { 0, 0, 0, -32, 32, { 0b1111, 0 }, 0 },
     { 1, -32, 0, -216, 192, { 0b1111, 0 }, 0 },
     { 2, -64, 0, -160, 96, { 0b1111, 0 }, 0 },
     { 3, -32, 32, -216, 192, { 0b1111, 0 }, 0 },
     { 4, 0, 32, -248, 56, { 0b1111, 0 }, 0 },
     { 5, 32, 32, -264, 40, { 0b1111, 0b1100 }, 0 },
     { 6, 64, 32, -280, 24, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlyerHalfLoopUpInverted[] = {
-    { 0, 0, 0, 0, 32, { 0b1111, 0b1100 }, 0 },
+    { 0, 0, 0, 0, 16, { 0b1111, 0b1100 }, 0 },
     { 1, -32, 0, 16, 16, { 0b1111, 0b1100 }, 0 },
     { 2, -64, 0, 32, 96,{ 0b0011, 0 }, 0 },
     { 3, -32, 0, 120, 32, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksFlyerHalfLoopDownUpright[] = {
@@ -2931,7 +2941,7 @@ static constexpr PreviewTrack TrackBlocksFlyerHalfLoopDownUpright[] = {
     { 1, -32, 0, -120, 96,{ 0b0011, 0 }, 0 },
     { 2, 0, 0, -136, 16, { 0b1111, 0b1100 }, 0 },
     { 3, 32, 0, -152, 16, { 0b1111, 0b1100 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftEighthToDiagUp25[] = {
@@ -2940,7 +2950,7 @@ static constexpr PreviewTrack TrackBlocksLeftEighthToDiagUp25[] = {
     { 2, -32, -32, 32, 16, { 0b1000, 0 }, 0 },
     { 3, -64, 0,   32, 16, { 0b0010, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, -32, 32, 24, { 0b0001, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightEighthToDiagUp25[] = {
@@ -2949,7 +2959,7 @@ static constexpr PreviewTrack TrackBlocksRightEighthToDiagUp25[] = {
     { 2, -32, 32, 32, 16, { 0b0100, 0 }, 0 },
     { 3, -64, 0,  32, 16, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, 32, 32, 24, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftEighthToDiagDown25[] = {
@@ -2958,7 +2968,7 @@ static constexpr PreviewTrack TrackBlocksLeftEighthToDiagDown25[] = {
     { 2, -32, -32, -48, 16, { 0b1000, 0 }, 0 },
     { 3, -64, 0, -48, 16, { 0b0010, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, -32, -48, 16, { 0b0001, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightEighthToDiagDown25[] = {
@@ -2967,7 +2977,7 @@ static constexpr PreviewTrack TrackBlocksRightEighthToDiagDown25[] = {
     { 2, -32, 32, -48, 16, { 0b0100, 0 }, 0 },
     { 3, -64, 0, -48, 16, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 4, -64, 32, -48, 16, { 0b0010, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftEighthToOrthogonalUp25[] = {
@@ -2976,7 +2986,7 @@ static constexpr PreviewTrack TrackBlocksLeftEighthToOrthogonalUp25[] = {
     { 2, 0, 32, 0, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 16, 16, { 0b1111, 0 }, 0 },
     { 4, -64, 32, 32, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightEighthToOrthogonalUp25[] = {
@@ -2985,7 +2995,7 @@ static constexpr PreviewTrack TrackBlocksRightEighthToOrthogonalUp25[] = {
     { 2, -32, 0, 0, 16, { 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, 16, 16, { 0b1111, 0 }, 0 },
     { 4, -32, 64, 32, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksLeftEighthToOrthogonalDown25[] = {
@@ -2994,7 +3004,7 @@ static constexpr PreviewTrack TrackBlocksLeftEighthToOrthogonalDown25[] = {
     { 2, 0, 32, -16, 16, { 0b0100, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32, -32, 32, { 0b1111, 0 }, 0 },
     { 4, -64, 32, -48, 16, { 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 static constexpr PreviewTrack TrackBlocksRightEighthToOrthogonalDown25[] = {
@@ -3003,7 +3013,7 @@ static constexpr PreviewTrack TrackBlocksRightEighthToOrthogonalDown25[] = {
     { 2, -32, 0,  -16, 16,{ 0b0001, 0 }, RCT_PREVIEW_TRACK_FLAG_0 },
     { 3, -32, 32,  -32, 32,{ 0b1111, 0 }, 0 },
     { 4, -32, 64,  -48, 16,{ 0b1111, 0 }, 0 },
-    TRACK_BLOCK_END
+    kTrackBlockEnd
 };
 
 
@@ -5956,7 +5966,7 @@ static constexpr uint8_t TrackSequenceElementAllowedWallEdges[][MaxSequencesPerP
 static_assert(std::size(TrackSequenceElementAllowedWallEdges) == TrackElemType::Count);
 
 /** rct2: 0x0099423C */
-static constexpr uint16_t TrackFlags[] = {
+static constexpr uint32_t TrackFlags[] = {
     /* TrackElemType::Flat                                          */   TRACK_ELEM_FLAG_ALLOW_LIFT_HILL,
     /* TrackElemType::EndStation                                    */   0,
     /* TrackElemType::BeginStation                                  */   0,
@@ -6156,8 +6166,8 @@ static constexpr uint16_t TrackFlags[] = {
     /* TrackElemType::RightFlyerCorkscrewDown                       */   TRACK_ELEM_FLAG_DOWN | TRACK_ELEM_FLAG_INVERSION_TO_NORMAL,
     /* TrackElemType::HeartLineTransferUp                           */   0,
     /* TrackElemType::HeartLineTransferDown                         */   0,
-    /* TrackElemType::LeftHeartLineRoll                             */   TRACK_ELEM_FLAG_NORMAL_TO_INVERSION | TRACK_ELEM_FLAG_INVERSION_TO_NORMAL,
-    /* TrackElemType::RightHeartLineRoll                            */   TRACK_ELEM_FLAG_NORMAL_TO_INVERSION | TRACK_ELEM_FLAG_INVERSION_TO_NORMAL,
+    /* TrackElemType::LeftHeartLineRoll                             */   TRACK_ELEM_FLAG_NORMAL_TO_INVERSION | TRACK_ELEM_FLAG_INVERSION_TO_NORMAL | TRACK_ELEM_FLAG_CAN_BE_PARTLY_UNDERGROUND,
+    /* TrackElemType::RightHeartLineRoll                            */   TRACK_ELEM_FLAG_NORMAL_TO_INVERSION | TRACK_ELEM_FLAG_INVERSION_TO_NORMAL | TRACK_ELEM_FLAG_CAN_BE_PARTLY_UNDERGROUND,
     /* TrackElemType::MinigolfHoleA                                 */   TRACK_ELEM_FLAG_IS_GOLF_HOLE,
     /* TrackElemType::MinigolfHoleB                                 */   TRACK_ELEM_FLAG_IS_GOLF_HOLE,
     /* TrackElemType::MinigolfHoleC                                 */   TRACK_ELEM_FLAG_IS_GOLF_HOLE,

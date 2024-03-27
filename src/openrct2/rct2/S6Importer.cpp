@@ -231,7 +231,7 @@ namespace RCT2
         {
             Initialise();
 
-            gEditorStep = _s6.Info.EditorStep;
+            gameState.EditorStep = _s6.Info.EditorStep;
             gameState.ScenarioCategory = static_cast<SCENARIO_CATEGORY>(_s6.Info.Category);
 
             // Some scenarios have their scenario details in UTF-8, due to earlier bugs in OpenRCT2.
@@ -282,7 +282,7 @@ namespace RCT2
 
             ImportPeepSpawns();
 
-            gGuestChangeModifier = _s6.GuestCountChangeModifier;
+            gameState.GuestChangeModifier = _s6.GuestCountChangeModifier;
             gameState.ResearchFundingLevel = _s6.CurrentResearchLevel;
             // Pad01357400
             // _s6.ResearchedTrackTypesA
@@ -295,7 +295,7 @@ namespace RCT2
             {
                 for (size_t j = 0; j < Limits::ExpenditureTypeCount; j++)
                 {
-                    gExpenditureTable[i][j] = ToMoney64(_s6.ExpenditureTable[i][j]);
+                    gameState.ExpenditureTable[i][j] = ToMoney64(_s6.ExpenditureTable[i][j]);
                 }
             }
 
@@ -314,7 +314,7 @@ namespace RCT2
             {
                 if (_s6.GuestsInParkHistory[i] != RCT12ParkHistoryUndefined)
                 {
-                    gGuestsInParkHistory[i] = _s6.GuestsInParkHistory[i] * RCT12GuestsInParkHistoryFactor;
+                    gameState.GuestsInParkHistory[i] = _s6.GuestsInParkHistory[i] * RCT12GuestsInParkHistoryFactor;
                 }
             }
 
@@ -356,8 +356,8 @@ namespace RCT2
                 gameState.ScenarioObjective.NumGuests = _s6.ObjectiveGuests;
             ImportMarketingCampaigns();
 
-            gCurrentExpenditure = ToMoney64(_s6.CurrentExpenditure);
-            gCurrentProfit = ToMoney64(_s6.CurrentProfit);
+            gameState.CurrentExpenditure = ToMoney64(_s6.CurrentExpenditure);
+            gameState.CurrentProfit = ToMoney64(_s6.CurrentProfit);
             gameState.WeeklyProfitAverageDividend = ToMoney64(_s6.WeeklyProfitAverageDividend);
             gameState.WeeklyProfitAverageDivisor = _s6.WeeklyProfitAverageDivisor;
             // Pad0135833A
@@ -366,7 +366,7 @@ namespace RCT2
 
             for (size_t i = 0; i < Limits::FinanceGraphSize; i++)
             {
-                gCashHistory[i] = ToMoney64(_s6.BalanceHistory[i]);
+                gameState.CashHistory[i] = ToMoney64(_s6.BalanceHistory[i]);
                 gameState.WeeklyProfitHistory[i] = ToMoney64(_s6.WeeklyProfitHistory[i]);
                 gameState.ParkValueHistory[i] = ToMoney64(_s6.ParkValueHistory[i]);
             }
@@ -374,21 +374,21 @@ namespace RCT2
             gameState.ScenarioCompletedCompanyValue = RCT12CompletedCompanyValueToOpenRCT2(_s6.CompletedCompanyValue);
             gameState.TotalAdmissions = _s6.TotalAdmissions;
             gameState.TotalIncomeFromAdmissions = ToMoney64(_s6.IncomeFromAdmissions);
-            gCompanyValue = ToMoney64(_s6.CompanyValue);
-            std::memcpy(gPeepWarningThrottle, _s6.PeepWarningThrottle, sizeof(_s6.PeepWarningThrottle));
+            gameState.CompanyValue = ToMoney64(_s6.CompanyValue);
+            std::memcpy(gameState.PeepWarningThrottle, _s6.PeepWarningThrottle, sizeof(_s6.PeepWarningThrottle));
 
             // Awards
-            auto& awards = GetAwards();
+            auto& currentAwards = gameState.CurrentAwards;
             for (auto& src : _s6.Awards)
             {
                 if (src.Time != 0)
                 {
-                    awards.push_back(Award{ src.Time, static_cast<AwardType>(src.Type) });
+                    currentAwards.push_back(Award{ src.Time, static_cast<AwardType>(src.Type) });
                 }
             }
 
-            gLandPrice = ToMoney64(_s6.LandPrice);
-            gConstructionRightsPrice = ToMoney64(_s6.ConstructionRightsPrice);
+            gameState.LandPrice = ToMoney64(_s6.LandPrice);
+            gameState.ConstructionRightsPrice = ToMoney64(_s6.ConstructionRightsPrice);
             // unk_01358774
             // Pad01358776
             // _s6.CdKey
@@ -396,17 +396,18 @@ namespace RCT2
             gameState.ScenarioCompanyValueRecord = _s6.CompletedCompanyValueRecord;
             // _s6.LoanHash;
             // Pad013587CA
-            gHistoricalProfit = ToMoney64(_s6.HistoricalProfit);
+            gameState.HistoricalProfit = ToMoney64(_s6.HistoricalProfit);
             // Pad013587D4
             gameState.ScenarioCompletedBy = std::string_view(_s6.ScenarioCompletedName, sizeof(_s6.ScenarioCompletedName));
             gameState.Cash = ToMoney64(DECRYPT_MONEY(_s6.Cash));
             // Pad013587FC
-            gParkRatingCasualtyPenalty = _s6.ParkRatingCasualtyPenalty;
+            gameState.ParkRatingCasualtyPenalty = _s6.ParkRatingCasualtyPenalty;
             gameState.MapSize = { _s6.MapSize, _s6.MapSize };
-            gSamePriceThroughoutPark = _s6.SamePriceThroughout | (static_cast<uint64_t>(_s6.SamePriceThroughoutExtended) << 32);
+            gameState.SamePriceThroughoutPark = _s6.SamePriceThroughout
+                | (static_cast<uint64_t>(_s6.SamePriceThroughoutExtended) << 32);
             gameState.SuggestedGuestMaximum = _s6.SuggestedMaxGuests;
             gameState.ScenarioParkRatingWarningDays = _s6.ParkRatingWarningDays;
-            gLastEntranceStyle = _s6.LastEntranceStyle;
+            gameState.LastEntranceStyle = _s6.LastEntranceStyle;
             // rct1_water_colour
             // Pad01358842
             ImportResearchList(gameState);
@@ -440,15 +441,14 @@ namespace RCT2
 
             ImportRides();
 
-            gSavedAge = _s6.SavedAge;
-            gSavedView = ScreenCoordsXY{ _s6.SavedViewX, _s6.SavedViewY };
-            gSavedViewZoom = ZoomLevel{ static_cast<int8_t>(_s6.SavedViewZoom) };
-            gSavedViewRotation = _s6.SavedViewRotation;
+            gameState.SavedView = ScreenCoordsXY{ _s6.SavedViewX, _s6.SavedViewY };
+            gameState.SavedViewZoom = ZoomLevel{ static_cast<int8_t>(_s6.SavedViewZoom) };
+            gameState.SavedViewRotation = _s6.SavedViewRotation;
 
             ImportRideRatingsCalcData();
             ImportRideMeasurements();
             gameState.NextGuestNumber = _s6.NextGuestIndex;
-            gGrassSceneryTileLoopPosition = _s6.GrassAndSceneryTilepos;
+            gameState.GrassSceneryTileLoopPosition = _s6.GrassAndSceneryTilepos;
             // unk_13CA73E
             // Pad13CA73F
             // unk_13CA740
@@ -496,8 +496,7 @@ namespace RCT2
 
             // Pad13CE730
             // rct1_scenario_flags
-            gWidePathTileLoopPosition.x = _s6.WidePathTileLoopX;
-            gWidePathTileLoopPosition.y = _s6.WidePathTileLoopY;
+            gameState.WidePathTileLoopPosition = { _s6.WidePathTileLoopX, _s6.WidePathTileLoopY };
             // Pad13CE778
 
             // Fix and set dynamic variables
@@ -907,8 +906,26 @@ namespace RCT2
                 || String::Equals(_s6.ScenarioFilename, "Asia - Japanese Coastal Reclaim.SC6", true))
             {
                 // clang-format off
+                 FixLandOwnershipTilesWithOwnership(
+                    {
+                        { 7, 29 },
+                        { 24, 14 }, { 24, 15 }, { 24, 16 },
+                        { 25, 13 }, { 25, 14 }, { 25, 15 }, { 25, 16 }, { 25, 17 },
+                        { 26, 12 }, { 26, 13 }, { 26, 14 }, { 26, 15 }, { 26, 16 }, { 26, 17 }, { 26, 18 }, { 26, 19 }, { 26, 20 },
+                        { 27, 11 }, { 27, 12 }, { 27, 13 }, { 27, 14 }, { 27, 15 }, { 27, 16 }, { 27, 17 }, { 27, 18 }, { 27, 19 }, { 27, 20 }, { 27, 21 },
+                        { 28, 8 }, { 28, 9 }, { 28, 10 }, { 28, 11 }, { 28, 12 }, { 28, 13 }, { 28, 14 }, { 28, 15 }, { 28, 16 }, { 28, 17 }, { 28, 18 }, { 28, 19 }, { 28, 20 }, { 28, 21 },
+                        { 29, 6 }, { 29, 7 }, { 29, 8 }, { 29, 9 }, { 29, 10 }, { 29, 11 }, { 29, 12 }, { 29, 13 }, { 29, 14 }, { 29, 15 }, { 29, 16 }, { 29, 17 }, { 29, 18 }, { 29, 19 }, { 29, 20 }, { 29, 21 },
+                        { 30, 2 }, { 30, 3 }, { 30, 4 }, { 30, 5 }, { 30, 6 }, { 30, 7 }, { 30, 8 }, { 30, 9 }, { 30, 10 }, { 30, 11 }, { 30, 12 }, { 30, 17 }, { 30, 18 }, { 30, 19 }, { 30, 20 }, { 30, 21 },
+                        { 31, 2 }, { 31, 3 }, { 31, 4 }, { 31, 5 }, { 31, 6 }, { 31, 7 }, { 31, 8 }, { 31, 9 }, { 31, 10 }, { 31, 11 }, { 31, 19 }, { 31, 20 }, { 31, 21 },
+                        { 32, 2 }, { 32, 3 }, { 32, 4 }, { 32, 5 }, { 32, 6 }, { 32, 7 }, { 32, 8 }, { 32, 20 }, { 32, 21 },
+                        { 33, 2 }, { 33, 3 }, { 33, 4 }, { 33, 5 }, { 33, 6 }, { 33, 7 }, { 33, 20 }, { 33, 21 },
+                        { 34, 2 }, { 34, 3 }, { 34, 4 }, { 34, 20 }, { 34, 21 },
+                        { 35, 21 },
+                    },
+                    OWNERSHIP_OWNED);
                 FixLandOwnershipTilesWithOwnership(
                     {
+                        { 2, 30 }, { 3, 30 }, { 4, 30 },
                         { 25, 23 },
                     },
                     OWNERSHIP_CONSTRUCTION_RIGHTS_OWNED, true);
@@ -921,6 +938,12 @@ namespace RCT2
                     OWNERSHIP_CONSTRUCTION_RIGHTS_AVAILABLE, true);
                   FixLandOwnershipTilesWithOwnership(
                     {
+                        { 6, 100 }, { 7, 100 }, { 8, 100 }, { 9, 100 }, { 10, 100 }, { 15, 100 }, { 16, 100 },
+                        { 6, 101 }, { 7, 101 }, { 8, 101 }, { 9, 101 }, { 10, 101 }, { 15, 101 }, { 16, 101 },
+                        { 6, 102 }, { 7, 102 }, { 8, 102 }, { 9, 102 }, { 10, 102 }, { 14, 102 }, { 15, 102 }, { 16, 102 },
+                        { 6, 103 }, { 7, 103 }, { 8, 103 }, { 9, 103 }, { 10, 103 }, { 12, 103 }, { 14, 103 }, { 15, 103 }, { 16, 103 },
+                        { 6, 104 }, { 7, 104 }, { 8, 104 }, { 9, 104 }, { 10, 104 }, { 14, 104 }, { 15, 104 }, { 16, 104 },
+                        { 6, 105 }, { 7, 105 }, { 8, 105 }, { 9, 105 }, { 10, 105 }, { 11, 105 }, { 12, 105 }, { 13, 105 }, { 14, 105 }, { 15, 105 }, { 16, 105 },
                         { 122, 78 }, { 122, 79 },
                         { 111, 122 }, { 112, 122 }, { 113, 122 },
                         { 120, 15 }, { 121, 15 }, { 122, 15 },
@@ -1589,7 +1612,7 @@ namespace RCT2
             const auto& src = _s6.RideRatingsCalcData;
             // S6 has only one state, ensure we reset all states before reading the first one.
             RideRatingResetUpdateStates();
-            auto& rideRatingStates = RideRatingGetUpdateStates();
+            auto& rideRatingStates = GetGameState().RideRatingUpdateStates;
             auto& dst = rideRatingStates[0];
             dst = {};
             dst.Proximity = { src.ProximityX, src.ProximityY, src.ProximityZ };
@@ -1736,14 +1759,15 @@ namespace RCT2
                 _s6.PeepSpawns[0].z = 7;
             }
 
-            gPeepSpawns.clear();
+            auto& gameState = GetGameState();
+            gameState.PeepSpawns.clear();
             for (size_t i = 0; i < Limits::MaxPeepSpawns; i++)
             {
                 if (_s6.PeepSpawns[i].x != RCT12_PEEP_SPAWN_UNDEFINED)
                 {
                     PeepSpawn spawn = { _s6.PeepSpawns[i].x, _s6.PeepSpawns[i].y, _s6.PeepSpawns[i].z * 16,
                                         _s6.PeepSpawns[i].direction };
-                    gPeepSpawns.push_back(spawn);
+                    gameState.PeepSpawns.push_back(spawn);
                 }
             }
         }
@@ -1778,9 +1802,9 @@ namespace RCT2
             bool nextElementInvisible = false;
             bool restOfTileInvisible = false;
             const auto maxSize = std::min(Limits::MaxMapSize, _s6.MapSize);
-            for (TileCoordsXY coords = { 0, 0 }; coords.y < MAXIMUM_MAP_SIZE_TECHNICAL; coords.y++)
+            for (TileCoordsXY coords = { 0, 0 }; coords.y < kMaximumMapSizeTechnical; coords.y++)
             {
-                for (coords.x = 0; coords.x < MAXIMUM_MAP_SIZE_TECHNICAL; coords.x++)
+                for (coords.x = 0; coords.x < kMaximumMapSizeTechnical; coords.x++)
                 {
                     nextElementInvisible = false;
                     restOfTileInvisible = false;

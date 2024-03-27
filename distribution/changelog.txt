@@ -1,19 +1,75 @@
-0.4.9 (in development)
+0.4.10 (in development)
 ------------------------------------------------------------------------
+- Feature: [#18171] Add port of the RCT1 Stand-Up Roller Coaster.
+- Feature: [#21590] [Plugin] Plugins can now read and write banner properties of tile elements.
+- Feature: [#21636] Add shortcut key for sorting tile elements.
+- Feature: [objects#294] Add scenery versions of wooden truss supports.
+- Feature: [objects#295] Flipped version of wooden post.
+- Improved: [#21424] Extra viewports can now rotate independently from the main viewport.
+- Improved: [#21561, #21631] Enable more features in Android build (plugins, networking, multiplayer, audio formats).
+- Improved: [#21599] Currency signs now use non-breaking spaces.
+- Improved: [objects#157] Added sloped images for many walls.
+- Improved: [objects#288] Better map colours and more sensible prices for RCT1 land surfaces.
+- Improved: [objects#292] Vehicle colour cleanups for WW/TT vehicles.
+- Improved: [objects#299] More accurate ratings modifiers for RCT1 vehicles.
+- Improved: [objects#309] Updated names for dodgems and flying saucers vehicles.
+- Improved: [objects#313] buildMenuPriority for dodgems and flying saucers vehicles.
+- Change: [#21529] Classify “Southern Sands”, “Tiny Towers”, “Nevermore Park”, “Pacifica” as expert scenarios.
+- Fix: [#910] Extra viewport does not preserve the location when rotating.
+- Fix: [#18413] Crash when mouse over a hacked train.
+- Fix: [#20338] Cannot select Scenery Picker or Scatter Tool when the scenery recolouring tool is active.
+- Fix: [#21317] Track designer allows proceeding without an object selected.
+- Fix: [#21360] If the object selection is missing certain types, the Object Selection window will switch to an incorrect tab.
+- Fix: [#21419] Cannot place walls underground beneath sloped tiles with clearance checks disabled.
+- Fix: [#21434] Number of guests overflows in objective text.
+- Fix: [#21543] Crash with creating a TrackIterator with invalid arguments.
+- Fix: [#21635] Tile inspector hotkey can set wall slope for non-slopeable objects.
+- Fix: [#21641] Crash when creating track iterator from an invalid tile element.
+- Fix: [#21668] Crash when on null ride in Guest::UpdateRideLeaveExit.
+- Fix: [objects#290] “Haunted Mansion” cars have a non-functional third remap colour.
+- Fix: [objects#296] Incorrect wall placement around large Kremlin/drab pieces.
+- Fix: [objects#300] Incorrect Colosseum and volcano corner clearances.
+- Fix: [objects#319] Incorrect diagonal slope images used for RCT1 corkscrew.
+- Fix: [objects#320] Incorrect Mandarin Duck boats capacity.
+
+0.4.9 (2024-03-02)
+------------------------------------------------------------------------
+- Feature: [#20376] Add Ukrainian language.
 - Feature: [#20709] [Plugin] Plugins can now check metadata from all registered plugins.
 - Feature: [#21376] Add option to reload an object (for object developers).
+- Feature: [#21413, OpenSFX#19] Add log flume lift sound effect (when “chainlift” is enabled).
+- Feature: [#21455] Add option to control hidden scenery.
+- Feature: [objects#282] Added RCT1 beta terrains.
+- Improved: [#20093] Use new colours for guests’ clothing when they spawn.
 - Improved: [#21356] Resize the title bar when moving between displays with different scaling factors on Windows systems.
 - Improved: [#21388] Tooltips will now show even when an error message is present.
+- Improved: [#21423] Add mechanism to allow building partly underground.
+- Improved: [objects#272, objects#276, objects#277, objects#278, objects#279, objects#280, objects#281] Add most remaining ports of RCT1 ride and vehicle objects (for import only).
+- Improved: [objects#275, objects#284, objects#286] Add remaining RCT1 walls (for import only).
+- Change: [#21350] Group Dodgems and Flying Saucers vehicles.
+- Change: [#21453] Reintroduce lost RCT1 Jet skis colour presets to the boat hire.
+- Change: [objects#285] Mark old reversed train objects as compatibility objects.
+- Fix: [#17610] Some scenery items are unavailable in RCT1 scenarios.
 - Fix: [#18963] Research table in parks from Loopy Landscapes is imported incorrectly.
+- Fix: [#20164] Grass and Rock terrain objects cannot be de-selected.
 - Fix: [#20907] RCT1/AA scenarios use the 4-across train for the Inverted Roller Coaster.
+- Fix: [#21037] Map animations in the title sequence are stuck.
 - Fix: [#21208] Error message will stay open only for a brief moment when the game has been running a while.
 - Fix: [#21220] When creating a new park from a SC4 file, the localised park name is not applied.
 - Fix: [#21286] Cannot build unbanking turns with RCT1 vehicles.
 - Fix: [#21288] Text overlaps in the “About ‘OpenRCT2’” window for Arabic, Chinese, Japanese, Korean and Vietnamese.
+- Fix: [#21289] Text overlaps and overflows in the map window for some languages.
+- Fix: [#21310] Some half loop elements require more clearance than their upward/downward counterparts.
 - Fix: [#21318] Virtual Floor for building scenery is not properly invalidated.
 - Fix: [#21330] Tooltips from dropdown widgets have the wrong position.
 - Fix: [#21332] Mini Helicopters and Monorail Cycles ride types are swapped in research within RCT1 scenarios.
+- Fix: [#21343] “Pause” and “Build Path” hotkeys do not work if top toolbar is hidden.
 - Fix: [#21347] Too many options are hidden if the platform has no file picker.
+- Fix: [#21350] Maze and Mini Golf track designs from RCT1 not shown in track designs list.
+- Fix: [#21425] Additional missing/misplaced land & construction rights tiles in Japanese Coastal Reclaim.
+- Fix: [#21484] Upkeep costs for some rides/facilities/shops are not calculated correctly.
+- Fix: [#21498] Crash when the size of text can’t be determined.
+- Fix: [objects#262, objects#263, objects#265, objects#266, objects#267, objects#268, objects#270, objects#271, objects#283] Various errors in expansion pack objects (original bug).
 - Fix: [OpenSFX#18] B&M Roar sound effect not looping correctly.
 
 0.4.8 (2024-02-04)
@@ -36,7 +92,7 @@
 - Fix: [#21039] Text rendering bleeds pixels through windows.
 - Fix: [#21054] “No entrance” style is selected by default in the track designer.
 - Fix: [#21145] [Plugin] setInterval/setTimeout handle conflict.
-- Fix: [#21157] [Plugin] Widgets do not redraw correctly when updating disabled or visibility state. 
+- Fix: [#21157] [Plugin] Widgets do not redraw correctly when updating disabled or visibility state.
 - Fix: [#21158] [Plugin] Potential crash using setInterval/setTimeout within the callback.
 - Fix: [#21171] [Plugin] Crash creating entities with no more entity slots available.
 - Fix: [#21178] Inca Lost City’s scenario description incorrectly states there are height restrictions.

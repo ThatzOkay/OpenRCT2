@@ -189,15 +189,16 @@ namespace OpenRCT2::Scripting
 
     money64 ScPark::companyValue_get() const
     {
-        return gCompanyValue;
+        return GetGameState().CompanyValue;
     }
     void ScPark::companyValue_set(money64 value)
     {
         ThrowIfGameStateNotMutable();
+        auto& gameState = GetGameState();
 
-        if (gCompanyValue != value)
+        if (gameState.CompanyValue != value)
         {
-            gCompanyValue = value;
+            gameState.CompanyValue = value;
             auto intent = Intent(INTENT_ACTION_UPDATE_CASH);
             ContextBroadcastIntent(&intent);
         }
@@ -242,32 +243,32 @@ namespace OpenRCT2::Scripting
 
     money64 ScPark::landPrice_get() const
     {
-        return gLandPrice;
+        return GetGameState().LandPrice;
     }
     void ScPark::landPrice_set(money64 value)
     {
         ThrowIfGameStateNotMutable();
-        gLandPrice = value;
+        GetGameState().LandPrice = value;
     }
 
     money64 ScPark::constructionRightsPrice_get() const
     {
-        return gConstructionRightsPrice;
+        return GetGameState().ConstructionRightsPrice;
     }
     void ScPark::constructionRightsPrice_set(money64 value)
     {
         ThrowIfGameStateNotMutable();
-        gConstructionRightsPrice = value;
+        GetGameState().ConstructionRightsPrice = value;
     }
 
     int16_t ScPark::casualtyPenalty_get() const
     {
-        return gParkRatingCasualtyPenalty;
+        return GetGameState().ParkRatingCasualtyPenalty;
     }
     void ScPark::casualtyPenalty_set(int16_t value)
     {
         ThrowIfGameStateNotMutable();
-        gParkRatingCasualtyPenalty = value;
+        GetGameState().ParkRatingCasualtyPenalty = value;
     }
 
     uint16_t ScPark::parkSize_get() const

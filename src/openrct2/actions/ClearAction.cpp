@@ -89,7 +89,7 @@ GameActions::Result ClearAction::QueryExecute(bool executing) const
             if (LocationValid({ x, y }) && MapCanClearAt({ x, y }))
             {
                 auto cost = ClearSceneryFromTile({ x, y }, executing);
-                if (cost != MONEY64_UNDEFINED)
+                if (cost != kMoney64Undefined)
                 {
                     noValidTiles = false;
                     totalCost += cost;
@@ -239,5 +239,6 @@ void ClearAction::ResetClearLargeSceneryFlag()
 
 bool ClearAction::MapCanClearAt(const CoordsXY& location)
 {
-    return (gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) || gCheatsSandboxMode || MapIsLocationOwnedOrHasRights(location);
+    return (gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR) || GetGameState().Cheats.SandboxMode
+        || MapIsLocationOwnedOrHasRights(location);
 }

@@ -40,7 +40,8 @@ struct Vehicle;
 struct RideObjectEntry;
 struct ResultWithMessage;
 
-#define RIDE_ADJACENCY_CHECK_DISTANCE 5
+constexpr uint8_t kRideAdjacencyCheckDistance = 5;
+
 constexpr uint8_t TUNE_ID_NULL = 0xFF;
 
 constexpr uint16_t const MAX_STATION_LOCATIONS = OpenRCT2::Limits::MaxStationsPerRide * 2; // Entrance and exit per station
@@ -610,6 +611,7 @@ enum
     RIDE_TYPE_SINGLE_RAIL_ROLLER_COASTER,
     RIDE_TYPE_ALPINE_COASTER,
     RIDE_TYPE_CLASSIC_WOODEN_ROLLER_COASTER,
+    RIDE_TYPE_CLASSIC_STAND_UP_ROLLER_COASTER,
 
     RIDE_TYPE_COUNT
 };
@@ -902,18 +904,18 @@ enum
     TRACK_ELEMENT_SET_BRAKE_BOOSTER_SPEED = (1 << 7)
 };
 
-#define MAX_RIDE_MEASUREMENTS 8
-constexpr money64 RIDE_VALUE_UNDEFINED = MONEY64_UNDEFINED;
-#define RIDE_INITIAL_RELIABILITY ((100 << 8) | 0xFF) // Upper byte is percentage, lower byte is "decimal".
+constexpr uint8_t kMaxRideMeasurements = 8;
+constexpr money64 RIDE_VALUE_UNDEFINED = kMoney64Undefined;
+constexpr uint16_t kRideInitialReliability = ((100 << 8) | 0xFF); // Upper byte is percentage, lower byte is "decimal".
 
-#define STATION_DEPART_FLAG (1 << 7)
-#define STATION_DEPART_MASK (~STATION_DEPART_FLAG)
+constexpr uint8_t kStationDepartFlag = (1 << 7);
+constexpr uint8_t kStationDepartMask = static_cast<uint8_t>(~kStationDepartFlag);
 
-#define CURRENT_TURN_COUNT_MASK 0xF800
-#define TURN_MASK_1_ELEMENT 0x001F
-#define TURN_MASK_2_ELEMENTS 0x00E0
-#define TURN_MASK_3_ELEMENTS 0x0700
-#define TURN_MASK_4_PLUS_ELEMENTS 0xF800
+constexpr uint16_t kCurrentTurnCountMask = 0xF800;
+constexpr uint16_t kTurnMask1Element = 0x001F;
+constexpr uint16_t kTurnMask2Elements = 0x00E0;
+constexpr uint16_t kTurnMask3Elements = 0x0700;
+constexpr uint16_t kTurnMask4PlusElements = 0xF800;
 
 constexpr uint32_t CONSTRUCTION_LIFT_HILL_SELECTED = 1 << 0;
 constexpr uint32_t CONSTRUCTION_INVERTED_TRACK_SELECTED = 1 << 1;
@@ -1012,10 +1014,6 @@ void RideDelete(RideId id);
 const RideObjectEntry* GetRideEntryByIndex(ObjectEntryIndex index);
 std::string_view GetRideEntryName(ObjectEntryIndex index);
 
-extern const StringId ColourSchemeNames[4];
-
-extern ObjectEntryIndex gLastEntranceStyle;
-
 int32_t RideGetCount();
 void RideInitAll();
 void ResetAllRideBuildDates();
@@ -1085,8 +1083,6 @@ OpenRCT2::BitSet<TRACK_GROUP_COUNT> RideEntryGetSupportedTrackPieces(const RideO
 enum class RideSetSetting : uint8_t;
 money64 SetOperatingSetting(RideId rideId, RideSetSetting setting, uint8_t value);
 money64 SetOperatingSettingNested(RideId rideId, RideSetSetting setting, uint8_t value, uint8_t flags);
-
-void UpdateGhostTrackAndArrow();
 
 uint32_t RideCustomersPerHour(const Ride& ride);
 uint32_t RideCustomersInLast5Minutes(const Ride& ride);

@@ -121,6 +121,7 @@ Appreciation for contributors who have provided substantial work, but are no lon
 * Alex Parisi (alex-parisi) - Added API for returning metadata from all registered plugins.
 
 ## Bug fixes & Refactors
+* Claudio Tiecher (janclod)
 * (KirilAngelov)
 * (halfbro)
 * (Myrtle)
@@ -234,6 +235,8 @@ Appreciation for contributors who have provided substantial work, but are no lon
 * Michael Bernardi (mrmbernardi)
 * Aram Kazorian (aramk-hub)
 * Harry Hopkinson (Harry-Hopkinson)
+* Jan Kelemen (jan-kelemen)
+* Cory Ye (CoryfY)
 
 ## Toolchain
 * (Balletie) - macOS
@@ -283,6 +286,7 @@ Appreciation for contributors who have provided substantial work, but are no lon
 * Russian - (Soosisya)
 * Spanish - Josué Acevedo (Wirlie), Diego Mateos (dimateos), (frenchiveruti), (mdtrooper), Daniel Trujillo Viedma (gDanix); small fixes: (teapartycthulu)
 * Swedish - (Jinxit), (mharrys), (Slimeyo), Matte Andersson (Nubbie)
+* Ukrainian - (CsyeCokTheSolly), (Veydzher), (Saba4ara)
 
 ## Graphics
 * Yannic Geurts (xzbobzx) - OpenRCT2 Logo

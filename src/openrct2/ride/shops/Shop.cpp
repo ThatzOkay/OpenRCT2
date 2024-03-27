@@ -10,7 +10,7 @@
 #include "../../interface/Viewport.h"
 #include "../../paint/Boundbox.h"
 #include "../../paint/Paint.h"
-#include "../../paint/Supports.h"
+#include "../../paint/support/WoodenSupports.h"
 #include "../../sprites.h"
 #include "../../world/Map.h"
 #include "../Ride.h"
@@ -52,7 +52,7 @@ static void PaintShop(
         PaintAddImageAsParent(session, imageFlags.WithIndex(imageIndex), offset, bb);
     }
 
-    PaintUtilSetSegmentSupportHeight(session, SEGMENTS_ALL, 0xFFFF, 0);
+    PaintUtilSetSegmentSupportHeight(session, kSegmentsAll, 0xFFFF, 0);
     PaintUtilSetGeneralSupportHeight(session, height + 48, 0x20);
 
     if (direction == 1 || direction == 2)

@@ -79,7 +79,7 @@ struct PreviewTrack
     int16_t x;     // 0x01
     int16_t y;     // 0x03
     int16_t z;     // 0x05
-    uint8_t var_07;
+    uint8_t ClearanceZ;
     QuarterTile var_08;
     uint8_t flags;
 };
@@ -123,7 +123,7 @@ enum
     TRACK_ELEMENT_COLOUR_SEAT_ROTATION_MASK = 0b11110000,
 };
 
-#define MAX_STATION_PLATFORM_LENGTH 32
+constexpr int8_t kMaxStationPlatformLength = 32;
 constexpr uint16_t const MAX_TRACK_HEIGHT = 254 * COORDS_Z_STEP;
 constexpr uint8_t const DEFAULT_SEAT_ROTATION = 4;
 
@@ -259,6 +259,7 @@ enum
     TRACK_ELEM_FLAG_CURVE_ALLOWS_LIFT = (1 << 13),
     TRACK_ELEM_FLAG_INVERSION_TO_NORMAL = (1 << 14),
     TRACK_ELEM_FLAG_BANKED = (1 << 15), // Also set on Spinning Tunnel and Log Flume reverser, probably to save a flag.
+    TRACK_ELEM_FLAG_CAN_BE_PARTLY_UNDERGROUND = (1 << 16),
 };
 
 namespace TrackElemType

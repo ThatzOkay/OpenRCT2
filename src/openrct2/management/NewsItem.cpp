@@ -112,7 +112,7 @@ void News::InitQueue()
     assert(gameState.NewsItems.IsEmpty());
 
     // Throttles for warning types (PEEP_*_WARNING)
-    for (auto& warningThrottle : gPeepWarningThrottle)
+    for (auto& warningThrottle : gameState.PeepWarningThrottle)
     {
         warningThrottle = 0;
     }
@@ -439,7 +439,7 @@ void News::DisableNewsItems(News::ItemType type, uint32_t assoc)
 {
     auto& gameState = GetGameState();
     // TODO: write test invalidating windows
-    gameState.NewsItems.ForeachRecentNews([type, assoc, gameState](auto& newsItem) {
+    gameState.NewsItems.ForeachRecentNews([type, assoc, &gameState](auto& newsItem) {
         if (type == newsItem.Type && assoc == newsItem.Assoc)
         {
             newsItem.SetFlags(News::ItemFlags::HasButton);
