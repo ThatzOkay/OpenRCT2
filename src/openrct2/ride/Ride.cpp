@@ -76,7 +76,6 @@
 #include "TrainManager.h"
 #include "Vehicle.h"
 
-#include <algorithm>
 #include <cassert>
 #include <climits>
 #include <cstdlib>
@@ -176,6 +175,12 @@ Ride* RideAllocateAtIndex(RideId index)
     auto result = &GetGameState().Rides[idx];
     assert(result->id == RideId::GetNull());
 
+    // Initialize the ride to all the defaults.
+    *result = Ride{};
+
+    // Because it is default initialized to zero rather than the magic constant for Null, fill the array.
+    std::fill(std::begin(result->vehicles), std::end(result->vehicles), EntityId::GetNull());
+
     result->id = index;
     return result;
 }
@@ -251,7 +256,7 @@ const RideObjectEntry* GetRideEntryByIndex(ObjectEntryIndex index)
 
 std::string_view GetRideEntryName(ObjectEntryIndex index)
 {
-    if (index >= object_entry_group_counts[EnumValue(ObjectType::Ride)])
+    if (index >= getObjectEntryGroupCount(ObjectType::Ride))
     {
         LOG_ERROR("invalid index %d for ride type", index);
         return {};
@@ -1613,7 +1618,7 @@ void RidePrepareBreakdown(Ride& ride, int32_t breakdownReason)
  */
 void RideBreakdownAddNewsItem(const Ride& ride)
 {
-    if (gConfigNotifications.RideBrokenDown)
+    if (Config::Get().notifications.RideBrokenDown)
     {
         Formatter ft;
         ride.FormatNameTo(ft);
@@ -1640,7 +1645,7 @@ static void RideBreakdownStatusUpdate(Ride& ride)
         if (!(ride.not_fixed_timeout & 15) && ride.mechanic_status != RIDE_MECHANIC_STATUS_FIXING
             && ride.mechanic_status != RIDE_MECHANIC_STATUS_HAS_FIXED_STATION_BRAKES)
         {
-            if (gConfigNotifications.RideWarnings)
+            if (Config::Get().notifications.RideWarnings)
             {
                 Formatter ft;
                 ride.FormatNameTo(ft);
@@ -2321,7 +2326,7 @@ static void RideEntranceExitConnected(Ride& ride)
             // name of ride is parameter of the format string
             Formatter ft;
             ride.FormatNameTo(ft);
-            if (gConfigNotifications.RideWarnings)
+            if (Config::Get().notifications.RideWarnings)
             {
                 News::AddItemToQueue(News::ItemType::Ride, STR_ENTRANCE_NOT_CONNECTED, ride.id.ToUnderlying(), ft);
             }
@@ -2333,7 +2338,7 @@ static void RideEntranceExitConnected(Ride& ride)
             // name of ride is parameter of the format string
             Formatter ft;
             ride.FormatNameTo(ft);
-            if (gConfigNotifications.RideWarnings)
+            if (Config::Get().notifications.RideWarnings)
             {
                 News::AddItemToQueue(News::ItemType::Ride, STR_EXIT_NOT_CONNECTED, ride.id.ToUnderlying(), ft);
             }
@@ -2398,7 +2403,7 @@ static void RideShopConnected(const Ride& ride)
     }
 
     // Name of ride is parameter of the format string
-    if (gConfigNotifications.RideWarnings)
+    if (Config::Get().notifications.RideWarnings)
     {
         Formatter ft;
         ride2->FormatNameTo(ft);
@@ -2852,7 +2857,7 @@ static bool RideCheckTrackContainsBanked(const CoordsXYE& input, CoordsXYE* outp
 
     while (TrackCircuitIteratorNext(&it))
     {
-        auto trackType = output->element->AsTrack()->GetTrackType();
+        auto trackType = it.current.element->AsTrack()->GetTrackType();
         const auto& ted = GetTrackElementDescriptor(trackType);
         if (ted.Flags & TRACK_ELEM_FLAG_BANKED)
         {
@@ -5216,7 +5221,7 @@ void Ride::SetReversedTrains(bool reverseTrains)
 
 void Ride::SetToDefaultInspectionInterval()
 {
-    uint8_t defaultInspectionInterval = gConfigGeneral.DefaultInspectionInterval;
+    uint8_t defaultInspectionInterval = Config::Get().general.DefaultInspectionInterval;
     if (inspection_interval != defaultInspectionInterval)
     {
         if (defaultInspectionInterval <= RIDE_INSPECTION_NEVER)
@@ -5248,7 +5253,7 @@ void Ride::Crash(uint8_t vehicleIndex)
         }
     }
 
-    if (gConfigNotifications.RideCrashed)
+    if (Config::Get().notifications.RideCrashed)
     {
         Formatter ft;
         FormatNameTo(ft);
@@ -5315,11 +5320,11 @@ bool Ride::IsRide() const
 
 money64 RideGetPrice(const Ride& ride)
 {
-    if (GetGameState().ParkFlags & PARK_FLAGS_NO_MONEY)
+    if (GetGameState().Park.Flags & PARK_FLAGS_NO_MONEY)
         return 0;
     if (ride.IsRide())
     {
-        if (!ParkRidePricesUnlocked())
+        if (!Park::RidePricesUnlocked())
         {
             return 0;
         }
@@ -5439,19 +5444,8 @@ bool RideHasRatings(const Ride& ride)
 
 int32_t GetBoosterSpeed(ride_type_t rideType, int32_t rawSpeed)
 {
-    int8_t shiftFactor = GetRideTypeDescriptor(rideType).OperatingSettings.BoosterSpeedFactor;
-    if (shiftFactor == 0)
-    {
-        return rawSpeed;
-    }
-    if (shiftFactor > 0)
-    {
-        return (rawSpeed << shiftFactor);
-    }
-
-    // Workaround for an issue with older compilers (GCC 6, Clang 4) which would fail the build
-    int8_t shiftFactorAbs = std::abs(shiftFactor);
-    return (rawSpeed >> shiftFactorAbs);
+    // BoosterSpeedFactor has valid values of 1, 2, 4 representing a 1/2, 1, and 2 multiplier.
+    return rawSpeed * GetRideTypeDescriptor(rideType).LegacyBoosterSettings.BoosterSpeedFactor / 2;
 }
 
 void FixInvalidVehicleSpriteSizes()

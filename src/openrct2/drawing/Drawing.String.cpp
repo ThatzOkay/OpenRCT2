@@ -7,24 +7,20 @@
  * OpenRCT2 is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-#include "../drawing/Drawing.h"
-
 #include "../Context.h"
 #include "../common.h"
 #include "../config/Config.h"
 #include "../core/String.hpp"
 #include "../drawing/IDrawingContext.h"
 #include "../drawing/IDrawingEngine.h"
+#include "../drawing/Text.h"
 #include "../interface/Viewport.h"
 #include "../localisation/Formatting.h"
 #include "../localisation/Localisation.h"
 #include "../localisation/LocalisationService.h"
 #include "../platform/Platform.h"
 #include "../sprites.h"
-#include "../util/Util.h"
 #include "TTF.h"
-
-#include <algorithm>
 
 using namespace OpenRCT2;
 
@@ -267,7 +263,7 @@ void GfxDrawStringLeftCentred(DrawPixelInfo& dpi, StringId format, void* args, c
     auto bufferPtr = buffer;
     FormatStringLegacy(bufferPtr, sizeof(buffer), format, args);
     int32_t height = StringGetHeightRaw(bufferPtr, FontStyle::Medium);
-    GfxDrawString(dpi, coords - ScreenCoordsXY{ 0, (height / 2) }, bufferPtr, { colour });
+    DrawText(dpi, coords - ScreenCoordsXY{ 0, (height / 2) }, { colour }, bufferPtr);
 }
 
 /**
@@ -329,13 +325,13 @@ void DrawStringCentredRaw(
     DrawPixelInfo& dpi, const ScreenCoordsXY& coords, int32_t numLines, const utf8* text, FontStyle fontStyle)
 {
     ScreenCoordsXY screenCoords(dpi.x, dpi.y);
-    GfxDrawString(dpi, screenCoords, "", { COLOUR_BLACK, fontStyle });
+    DrawText(dpi, screenCoords, { COLOUR_BLACK, fontStyle }, "");
     screenCoords = coords;
 
     for (int32_t i = 0; i <= numLines; i++)
     {
         int32_t width = GfxGetStringWidth(text, fontStyle);
-        GfxDrawString(dpi, screenCoords - ScreenCoordsXY{ width / 2, 0 }, text, { TEXT_COLOUR_254, fontStyle });
+        DrawText(dpi, screenCoords - ScreenCoordsXY{ width / 2, 0 }, { TEXT_COLOUR_254, fontStyle }, text);
 
         const utf8* ch = text;
         const utf8* nextCh = nullptr;
@@ -427,7 +423,7 @@ void DrawNewsTicker(
     int32_t numLines, lineHeight, lineY;
     ScreenCoordsXY screenCoords(dpi.x, dpi.y);
 
-    GfxDrawString(dpi, screenCoords, "", { colour });
+    DrawText(dpi, screenCoords, { colour }, "");
 
     u8string wrappedString;
     GfxWrapString(FormatStringID(format, args), width, FontStyle::Small, &wrappedString, &numLines);
@@ -466,7 +462,7 @@ void DrawNewsTicker(
         }
 
         screenCoords = { coords.x - halfWidth, lineY };
-        GfxDrawString(dpi, screenCoords, buffer, { TEXT_COLOUR_254, FontStyle::Small });
+        DrawText(dpi, screenCoords, { TEXT_COLOUR_254, FontStyle::Small }, buffer);
 
         if (numCharactersDrawn > numCharactersToDraw)
         {
@@ -509,7 +505,6 @@ static void TTFDrawStringRawSprite(DrawPixelInfo& dpi, std::string_view text, Te
 
 #ifndef NO_TTF
 
-static int _ttfGlId = 0;
 static void TTFDrawStringRawTTF(DrawPixelInfo& dpi, std::string_view text, TextDrawInfo* info)
 {
     if (!TTFInitialise())
@@ -528,135 +523,20 @@ static void TTFDrawStringRawTTF(DrawPixelInfo& dpi, std::string_view text, TextD
         return;
     }
 
-    uint8_t colour = info->palette[1];
     TTFSurface* surface = TTFSurfaceCacheGetOrAdd(fontDesc->font, text);
     if (surface == nullptr)
         return;
 
-    int32_t drawX = info->x + fontDesc->offset_x;
-    int32_t drawY = info->y + fontDesc->offset_y;
-    int32_t width = surface->w;
-    int32_t height = surface->h;
-    bool use_hinting = gConfigFonts.EnableHinting && fontDesc->hinting_threshold > 0;
-
-    if (OpenRCT2::GetContext()->GetDrawingEngineType() == DrawingEngine::OpenGL)
+    auto drawingEngine = dpi.DrawingEngine;
+    if (drawingEngine != nullptr)
     {
-        auto baseId = uint32_t(0x7FFFF) - 1024;
-        auto imageId = baseId + _ttfGlId;
-        auto drawingEngine = dpi.DrawingEngine;
-        auto drawingContext = drawingEngine->GetDrawingContext();
-        uint8_t hint_thresh = use_hinting ? fontDesc->hinting_threshold : 0;
-        drawingEngine->InvalidateImage(imageId);
-        drawingContext->DrawTTFBitmap(
-            dpi, info, imageId, surface->pixels, surface->pitch, surface->h, drawX, drawY, hint_thresh);
-
-        _ttfGlId++;
-        if (_ttfGlId >= 1023)
-        {
-            _ttfGlId = 0;
-        }
-        info->x += width;
-        return;
+        int32_t drawX = info->x + fontDesc->offset_x;
+        int32_t drawY = info->y + fontDesc->offset_y;
+        uint8_t hintThresh = Config::Get().fonts.EnableHinting ? fontDesc->hinting_threshold : 0;
+        OpenRCT2::Drawing::IDrawingContext* dc = drawingEngine->GetDrawingContext();
+        dc->DrawTTFBitmap(dpi, info, surface, drawX, drawY, hintThresh);
     }
-
-    int32_t overflowX = (dpi.x + dpi.width) - (drawX + width);
-    int32_t overflowY = (dpi.y + dpi.height) - (drawY + height);
-    if (overflowX < 0)
-        width += overflowX;
-    if (overflowY < 0)
-        height += overflowY;
-    int32_t skipX = drawX - dpi.x;
-    int32_t skipY = drawY - dpi.y;
-    info->x += width;
-
-    auto src = static_cast<const uint8_t*>(surface->pixels);
-    uint8_t* dst = dpi.bits;
-
-    int32_t srcXStart = 0;
-    int32_t srcYStart = 0;
-    if (skipX < 0)
-    {
-        width += skipX;
-        src += -skipX;
-        srcXStart += -skipX;
-        skipX = 0;
-    }
-    if (skipY < 0)
-    {
-        height += skipY;
-        src += (-skipY * surface->pitch);
-        srcYStart += -skipY;
-        skipY = 0;
-    }
-
-    dst += skipX;
-    dst += skipY * (dpi.width + dpi.pitch);
-
-    int32_t srcScanSkip = surface->pitch - width;
-    int32_t dstScanSkip = dpi.width + dpi.pitch - width;
-    uint8_t* dst_orig = dst;
-
-    // Draw shadow/outline
-    if (info->flags & (TEXT_DRAW_FLAG_OUTLINE | TEXT_DRAW_FLAG_INSET))
-    {
-        for (int32_t yy = 0; yy < height; yy++)
-        {
-            for (int32_t xx = 0; xx < width; xx++)
-            {
-                if (info->flags & TEXT_DRAW_FLAG_OUTLINE)
-                {
-                    if (GetPixel(*surface, xx + srcXStart + 1, yy + srcYStart)
-                        || GetPixel(*surface, xx + srcXStart - 1, yy + srcYStart)
-                        || GetPixel(*surface, xx + srcXStart, yy + srcYStart + 1)
-                        || GetPixel(*surface, xx + srcXStart, yy + srcYStart - 1))
-                    {
-                        *dst = info->palette[3];
-                    }
-                }
-                if (info->flags & TEXT_DRAW_FLAG_INSET)
-                {
-                    if (GetPixel(*surface, xx + srcXStart - 1, yy + srcYStart - 1))
-                    {
-                        *dst = info->palette[3];
-                    }
-                }
-                dst++;
-            }
-            // Skip any remaining bits
-            dst += dstScanSkip;
-        }
-    }
-    dst = dst_orig;
-    for (int32_t yy = 0; yy < height; yy++)
-    {
-        for (int32_t xx = 0; xx < width; xx++)
-        {
-            if (*src != 0)
-            {
-                if (*src > 180 || !use_hinting)
-                {
-                    // Centre of the glyph: use full colour.
-                    *dst = colour;
-                }
-                else if (use_hinting && *src > fontDesc->hinting_threshold)
-                {
-                    // Simulate font hinting by shading the background colour instead.
-                    if (info->flags & TEXT_DRAW_FLAG_OUTLINE)
-                    {
-                        *dst = BlendColours(colour, info->palette[3]);
-                    }
-                    else
-                    {
-                        *dst = BlendColours(colour, *dst);
-                    }
-                }
-            }
-            src++;
-            dst++;
-        }
-        src += srcScanSkip;
-        dst += dstScanSkip;
-    }
+    info->x += surface->w;
 }
 
 #endif // NO_TTF

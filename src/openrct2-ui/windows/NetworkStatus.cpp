@@ -9,7 +9,7 @@
 
 #include <openrct2-ui/interface/Widget.h>
 #include <openrct2-ui/windows/Window.h>
-#include <openrct2/drawing/Drawing.h>
+#include <openrct2/drawing/Text.h>
 #include <openrct2/localisation/Localisation.h>
 #include <openrct2/network/network.h>
 #include <openrct2/util/Util.h>
@@ -106,7 +106,7 @@ static Widget window_network_status_widgets[] = {
             GfxClipString(_buffer.data(), widgets[WIDX_BACKGROUND].right - 50, FontStyle::Medium);
             ScreenCoordsXY screenCoords(windowPos.x + (width / 2), windowPos.y + (height / 2));
             screenCoords.x -= GfxGetStringWidth(_buffer, FontStyle::Medium) / 2;
-            GfxDrawString(dpi, screenCoords, _buffer.c_str());
+            DrawText(dpi, screenCoords, { COLOUR_BLACK }, _buffer.c_str());
         }
 
         void SetCloseCallBack(close_callback onClose)
@@ -117,6 +117,7 @@ static Widget window_network_status_widgets[] = {
         void SetWindowNetworkStatusText(const std::string& text)
         {
             _windowNetworkStatusText = text;
+            Invalidate();
         }
 
         void SetPassword(char* password)
@@ -132,8 +133,17 @@ static Widget window_network_status_widgets[] = {
 
     WindowBase* NetworkStatusOpen(const std::string& text, close_callback onClose)
     {
-        auto window = WindowFocusOrCreate<NetworkStatusWindow>(
-            WindowClass::NetworkStatus, 420, 90, WF_10 | WF_TRANSPARENT | WF_CENTRE_SCREEN);
+        NetworkStatusWindow* window;
+        if ((window = static_cast<NetworkStatusWindow*>(WindowFindByClass(WindowClass::NetworkStatus))) != nullptr)
+        {
+            WindowBringToFront(*window);
+        }
+        else
+        {
+            window = WindowCreate<NetworkStatusWindow>(
+                WindowClass::NetworkStatus, 420, 90, WF_10 | WF_TRANSPARENT | WF_CENTRE_SCREEN | WF_STICK_TO_FRONT);
+        }
+
         window->SetCloseCallBack(onClose);
         window->SetWindowNetworkStatusText(text);
         return window;

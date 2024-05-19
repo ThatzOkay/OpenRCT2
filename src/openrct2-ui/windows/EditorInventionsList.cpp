@@ -19,6 +19,7 @@
 #include <openrct2/localisation/Localisation.h>
 #include <openrct2/management/Research.h>
 #include <openrct2/object/DefaultObjects.h>
+#include <openrct2/object/ObjectList.h>
 #include <openrct2/object/ObjectManager.h>
 #include <openrct2/object/ObjectRepository.h>
 #include <openrct2/ride/RideData.h>
@@ -82,10 +83,10 @@ static Widget _inventionListDragWidgets[] = {
     static void ResearchRidesSetup()
     {
         // Reset all objects to not required
-        for (auto objectType : TransientObjectTypes)
+        for (auto objectType : getTransientObjectTypes())
         {
-            auto maxObjects = object_entry_group_counts[EnumValue(objectType)];
-            for (int32_t i = 0; i < maxObjects; i++)
+            auto maxObjects = getObjectEntryGroupCount(objectType);
+            for (auto i = 0u; i < maxObjects; i++)
             {
                 Editor::ClearSelectedObject(objectType, i, ObjectSelectionFlags::AllFlags);
             }
@@ -229,11 +230,11 @@ static Widget _inventionListDragWidgets[] = {
             ScreenSize size{};
             if (scrollIndex == 0)
             {
-                size.height = static_cast<int32_t>(gameState.ResearchItemsInvented.size()) * SCROLLABLE_ROW_HEIGHT;
+                size.height = static_cast<int32_t>(gameState.ResearchItemsInvented.size()) * kScrollableRowHeight;
             }
             else
             {
-                size.height = static_cast<int32_t>(gameState.ResearchItemsUninvented.size()) * SCROLLABLE_ROW_HEIGHT;
+                size.height = static_cast<int32_t>(gameState.ResearchItemsUninvented.size()) * kScrollableRowHeight;
             }
             return size;
         }
@@ -278,14 +279,14 @@ static Widget _inventionListDragWidgets[] = {
             GfxClear(dpi, paletteIndex);
 
             int16_t boxWidth = widgets[WIDX_RESEARCH_ORDER_SCROLL].width();
-            int32_t itemY = -SCROLLABLE_ROW_HEIGHT;
+            int32_t itemY = -kScrollableRowHeight;
             auto* dragItem = WindowEditorInventionsListDragGetItem();
 
             const auto& researchList = scrollIndex == 0 ? gameState.ResearchItemsInvented : gameState.ResearchItemsUninvented;
             for (const auto& researchItem : researchList)
             {
-                itemY += SCROLLABLE_ROW_HEIGHT;
-                if (itemY + SCROLLABLE_ROW_HEIGHT < dpi.y || itemY >= dpi.y + dpi.height)
+                itemY += kScrollableRowHeight;
+                if (itemY + kScrollableRowHeight < dpi.y || itemY >= dpi.y + dpi.height)
                     continue;
 
                 if (_selectedResearchItem == &researchItem)
@@ -295,7 +296,7 @@ static Widget _inventionListDragWidgets[] = {
                     {
                         // Highlight
                         top = itemY;
-                        bottom = itemY + SCROLLABLE_ROW_HEIGHT - 1;
+                        bottom = itemY + kScrollableRowHeight - 1;
                     }
                     else
                     {
@@ -558,7 +559,7 @@ static Widget _inventionListDragWidgets[] = {
             auto& researchList = isInvented ? gameState.ResearchItemsInvented : gameState.ResearchItemsUninvented;
             for (auto& researchItem : researchList)
             {
-                y -= SCROLLABLE_ROW_HEIGHT;
+                y -= kScrollableRowHeight;
                 if (y < 0)
                 {
                     return &researchItem;
@@ -574,7 +575,7 @@ static Widget _inventionListDragWidgets[] = {
             auto& researchList = isInvented ? gameState.ResearchItemsInvented : gameState.ResearchItemsUninvented;
             for (auto& researchItem : researchList)
             {
-                y -= SCROLLABLE_ROW_HEIGHT;
+                y -= kScrollableRowHeight;
                 if (y < 0)
                 {
                     return &researchItem;
@@ -639,7 +640,7 @@ static Widget _inventionListDragWidgets[] = {
             do
             {
                 res = inventionListWindow->GetResearchItemAt(newScreenCoords);
-                newScreenCoords.y += LIST_ROW_HEIGHT;
+                newScreenCoords.y += kListRowHeight;
             } while (res.has_value() && res->research != nullptr && res->research->IsAlwaysResearched());
 
             if (res.has_value())

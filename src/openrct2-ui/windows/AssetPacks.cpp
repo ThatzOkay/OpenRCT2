@@ -7,6 +7,8 @@
  * OpenRCT2 is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
+#include "../UiStringIds.h"
+
 #include <openrct2-ui/interface/Widget.h>
 #include <openrct2-ui/windows/Window.h>
 #include <openrct2/AssetPack.h>
@@ -52,7 +54,7 @@ static Widget WindowAssetPacksWidgets[] = {
     class AssetPacksWindow final : public Window
     {
     private:
-        static constexpr int32_t ItemHeight = SCROLLABLE_ROW_HEIGHT + 1;
+        static constexpr int32_t ItemHeight = kScrollableRowHeight + 1;
         static constexpr int32_t ItemCheckBoxSize = ItemHeight - 3;
         std::optional<size_t> _highlightedIndex;
         std::optional<size_t> _selectedIndex;

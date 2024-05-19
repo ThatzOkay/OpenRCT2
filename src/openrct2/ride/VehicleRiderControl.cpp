@@ -7,10 +7,11 @@
  * OpenRCT2 is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
+#include "../core/Speed.hpp"
 #include "../entity/EntityRegistry.h"
 #include "Vehicle.h"
 
-constexpr int operator"" _MPH(unsigned long long x)
+constexpr int operator"" _MPH(unsigned long long x) noexcept
 {
     return x * 29127;
 }

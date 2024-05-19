@@ -19,6 +19,7 @@
 #include "../actions/RideSetVehicleAction.h"
 #include "../actions/TrackRemoveAction.h"
 #include "../common.h"
+#include "../core/FixedVector.h"
 #include "../entity/EntityList.h"
 #include "../entity/EntityRegistry.h"
 #include "../entity/Staff.h"
@@ -74,7 +75,7 @@ TrackPitch _previousTrackPitchEnd;
 
 CoordsXYZ _previousTrackPiece;
 
-uint8_t _currentBrakeSpeed2;
+uint8_t _currentBrakeSpeed;
 uint8_t _currentSeatRotationAngle;
 
 CoordsXYZD _unkF440C5;
@@ -198,7 +199,7 @@ void Ride::RemoveVehicles()
         }
 
         for (size_t i = 0; i < OpenRCT2::Limits::MaxStationsPerRide; i++)
-            stations[i].TrainAtStation = RideStation::NO_TRAIN;
+            stations[i].TrainAtStation = RideStation::kNoTrain;
 
         // Also clean up orphaned vehicles for good measure.
         for (auto* vehicle : TrainManager::View())
@@ -1667,4 +1668,17 @@ ResultWithMessage RideAreAllPossibleEntrancesAndExitsBuilt(const Ride& ride)
         }
     }
     return { true };
+}
+
+TrackDrawerDescriptor getCurrentTrackDrawerDescriptor(const RideTypeDescriptor& rtd)
+{
+    const bool isInverted = _currentTrackAlternative & RIDE_TYPE_ALTERNATIVE_TRACK_TYPE;
+    return getTrackDrawerDescriptor(rtd, isInverted);
+}
+
+TrackDrawerEntry getCurrentTrackDrawerEntry(const RideTypeDescriptor& rtd)
+{
+    const bool isInverted = _currentTrackAlternative & RIDE_TYPE_ALTERNATIVE_TRACK_TYPE;
+    const bool isCovered = _currentTrackAlternative & RIDE_TYPE_ALTERNATIVE_TRACK_PIECES;
+    return getTrackDrawerEntry(rtd, isInverted, isCovered);
 }

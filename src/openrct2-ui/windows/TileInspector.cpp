@@ -7,7 +7,8 @@
  * OpenRCT2 is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-#include <algorithm>
+#include "../UiStringIds.h"
+
 #include <iterator>
 #include <openrct2-ui/interface/Dropdown.h>
 #include <openrct2-ui/interface/Widget.h>
@@ -19,7 +20,6 @@
 #include <openrct2/core/Guard.hpp>
 #include <openrct2/localisation/Formatter.h>
 #include <openrct2/localisation/Localisation.h>
-#include <openrct2/localisation/StringIds.h>
 #include <openrct2/object/FootpathObject.h>
 #include <openrct2/object/FootpathRailingsObject.h>
 #include <openrct2/object/FootpathSurfaceObject.h>
@@ -35,11 +35,13 @@
 #include <openrct2/sprites.h>
 #include <openrct2/windows/TileInspectorGlobals.h>
 #include <openrct2/world/Banner.h>
+#include <openrct2/world/Entrance.h>
 #include <openrct2/world/Footpath.h>
 #include <openrct2/world/Park.h>
 #include <openrct2/world/Scenery.h>
 #include <openrct2/world/Surface.h>
 #include <openrct2/world/TileInspector.h>
+#include <openrct2/world/tile_element/Slope.h>
 
 namespace OpenRCT2::Ui::Windows
 {
@@ -158,6 +160,7 @@ namespace OpenRCT2::Ui::Windows
         WIDX_WALL_SPINNER_ANIMATION_FRAME,
         WIDX_WALL_SPINNER_ANIMATION_FRAME_INCREASE,
         WIDX_WALL_SPINNER_ANIMATION_FRAME_DECREASE,
+        WIDX_WALL_ANIMATION_IS_BACKWARDS,
 
         // Large
         WIDX_LARGE_SCENERY_SPINNER_HEIGHT = PAGE_WIDGETS,
@@ -358,7 +361,7 @@ static Widget EntranceWidgets[] = {
     kWidgetsEnd,
 };
 
-constexpr int32_t NumWallProperties = 3;
+constexpr int32_t NumWallProperties = 4;
 constexpr int32_t NumWallDetails = 2;
 constexpr int32_t WallPropertiesHeight = 16 + NumWallProperties * 21;
 constexpr int32_t WallDetailsHeight = 20 + NumWallDetails * 11;
@@ -368,6 +371,7 @@ static Widget WallWidgets[] = {
     MakeWidget(PropertyRowCol({ 12, 0 }, 1, 1),                         PropertyButtonSize, WindowWidgetType::DropdownMenu, WindowColour::Secondary), // WIDX_WALL_DROPDOWN_SLOPE
     MakeWidget(PropertyRowCol({ 12 + PropertyButtonSize.width - 12, 0 }, 1, 1), { 11,  12}, WindowWidgetType::Button,       WindowColour::Secondary, STR_DROPDOWN_GLYPH), // WIDX_WALL_DROPDOWN_SLOPE_BUTTON
     MakeSpinnerWidgets(PropertyRowCol({ 12, 0 }, 2, 1),                 PropertyButtonSize, WindowWidgetType::Spinner,      WindowColour::Secondary), // WIDX_WALL_SPINNER_ANIMATION_FRAME{,_INCREASE,_DECREASE}
+    MakeWidget(PropertyRowCol({ 12, 0 }, 3, 0),                         PropertyFullWidth,  WindowWidgetType::Checkbox,     WindowColour::Secondary, STR_TILE_INSPECTOR_WALL_ANIMATION_IS_BACKWARDS), // WIDX_WALL_ANIMATION_IS_BACKWARDS
     kWidgetsEnd,
 };
 
@@ -705,6 +709,13 @@ static uint64_t PageDisabledWidgets[] = {
 
                 case TileElementType::LargeScenery:
                 case TileElementType::Wall:
+                    switch (widgetIndex)
+                    {
+                        case WIDX_WALL_ANIMATION_IS_BACKWARDS:
+                            WallSetAnimationIsBackwards(
+                                windowTileInspectorSelectedIndex, !tileElement->AsWall()->AnimationIsBackwards());
+                            break;
+                    }
                 default:
                     break;
             }
@@ -984,7 +995,7 @@ static uint64_t PageDisabledWidgets[] = {
 
         ScreenSize OnScrollGetSize(int32_t scrollIndex) override
         {
-            return ScreenSize(WW - 30, windowTileInspectorElementCount * SCROLLABLE_ROW_HEIGHT);
+            return ScreenSize(WW - 30, windowTileInspectorElementCount * kScrollableRowHeight);
         }
 
         void OnScrollMouseDown(int32_t scrollIndex, const ScreenCoordsXY& screenCoords) override
@@ -994,7 +1005,7 @@ static uint64_t PageDisabledWidgets[] = {
                 return;
 
             // Because the list items are displayed in reverse order, subtract the calculated index from the amount of elements
-            const int16_t index = windowTileInspectorElementCount - (screenCoords.y - 1) / SCROLLABLE_ROW_HEIGHT - 1;
+            const int16_t index = windowTileInspectorElementCount - (screenCoords.y - 1) / kScrollableRowHeight - 1;
             const ScreenRect checkboxColumnRect{ { 2, 0 }, { 15, screenCoords.y } };
             if (index >= 0 && checkboxColumnRect.Contains(screenCoords))
             { // Checkbox was clicked
@@ -1008,7 +1019,7 @@ static uint64_t PageDisabledWidgets[] = {
 
         void OnScrollMouseOver(int32_t scrollIndex, const ScreenCoordsXY& screenCoords) override
         {
-            int16_t index = windowTileInspectorElementCount - (screenCoords.y - 1) / SCROLLABLE_ROW_HEIGHT - 1;
+            int16_t index = windowTileInspectorElementCount - (screenCoords.y - 1) / kScrollableRowHeight - 1;
             if (index < 0 || index >= windowTileInspectorElementCount)
                 _highlightedIndex = -1;
             else
@@ -1022,8 +1033,8 @@ static uint64_t PageDisabledWidgets[] = {
             ScreenCoordsXY screenCoords(windowPos.x, windowPos.y);
 
             // Draw coordinates
-            GfxDrawString(dpi, screenCoords + ScreenCoordsXY(5, 24), "X:", { colours[1] });
-            GfxDrawString(dpi, screenCoords + ScreenCoordsXY(74, 24), "Y:", { colours[1] });
+            DrawText(dpi, screenCoords + ScreenCoordsXY(5, 24), { colours[1] }, "X:");
+            DrawText(dpi, screenCoords + ScreenCoordsXY(74, 24), { colours[1] }, "Y:");
             if (_tileSelected)
             {
                 auto tileCoords = TileCoordsXY{ _toolMap };
@@ -1039,8 +1050,8 @@ static uint64_t PageDisabledWidgets[] = {
             }
             else
             {
-                GfxDrawString(dpi, screenCoords + ScreenCoordsXY(43 - 7, 24), "-", { colours[1] });
-                GfxDrawString(dpi, screenCoords + ScreenCoordsXY(113 - 7, 24), "-", { colours[1] });
+                DrawText(dpi, screenCoords + ScreenCoordsXY(43 - 7, 24), { colours[1] }, "-");
+                DrawText(dpi, screenCoords + ScreenCoordsXY(113 - 7, 24), { colours[1] }, "-");
             }
 
             if (windowTileInspectorSelectedIndex != -1)
@@ -1575,7 +1586,7 @@ static uint64_t PageDisabledWidgets[] = {
             }
 
             ScreenCoordsXY screenCoords{};
-            screenCoords.y = SCROLLABLE_ROW_HEIGHT * (windowTileInspectorElementCount - 1);
+            screenCoords.y = kScrollableRowHeight * (windowTileInspectorElementCount - 1);
             int32_t i = 0;
             char buffer[256];
 
@@ -1592,7 +1603,7 @@ static uint64_t PageDisabledWidgets[] = {
 
                 // Draw row background colour
                 auto fillRectangle = ScreenRect{ { 0, screenCoords.y },
-                                                 { listWidth, screenCoords.y + SCROLLABLE_ROW_HEIGHT - 1 } };
+                                                 { listWidth, screenCoords.y + kScrollableRowHeight - 1 } };
                 if (selectedRow)
                     GfxFillRect(dpi, fillRectangle, ColourMapA[colours[1]].mid_dark);
                 else if (hoveredRow)
@@ -1601,7 +1612,10 @@ static uint64_t PageDisabledWidgets[] = {
                 else if (((windowTileInspectorElementCount - i) & 1) == 0)
                     GfxFillRect(dpi, fillRectangle, ColourMapA[colours[1]].light | 0x1000000);
 
-                const StringId stringFormat = (selectedRow || hoveredRow) ? STR_WHITE_STRING : STR_WINDOW_COLOUR_2_STRINGID;
+                StringId stringFormat = STR_WINDOW_COLOUR_2_STRINGID;
+                if (selectedRow || hoveredRow)
+                    stringFormat = STR_WHITE_STRING;
+
                 auto checkboxFormatter = Formatter();
                 checkboxFormatter.Add<StringId>(STR_STRING);
                 checkboxFormatter.Add<char*>(CheckBoxMarkString);
@@ -1709,7 +1723,7 @@ static uint64_t PageDisabledWidgets[] = {
                 if (last)
                     DrawTextBasic(dpi, screenCoords + ScreenCoordsXY{ LastFlagColumnXY.x, 0 }, stringFormat, checkboxFormatter);
 
-                screenCoords.y -= SCROLLABLE_ROW_HEIGHT;
+                screenCoords.y -= kScrollableRowHeight;
                 i++;
             } while (!(tileElement++)->IsLastForTile());
         }
@@ -2022,6 +2036,12 @@ static uint64_t PageDisabledWidgets[] = {
             GameActions::Execute(&modifyTile);
         }
 
+        void WallSetAnimationIsBackwards(int32_t elementIndex, bool backwards)
+        {
+            auto modifyTile = TileModifyAction(_toolMap, TileModifyType::WallSetAnimationIsBackwards, elementIndex, backwards);
+            GameActions::Execute(&modifyTile);
+        }
+
         void OnPrepareDraw() override
         {
             const TileElement* const tileElement = OpenRCT2::TileInspector::GetSelectedElement();
@@ -2162,7 +2182,7 @@ static uint64_t PageDisabledWidgets[] = {
                         WIDX_SURFACE_CHECK_CORNER_W,
                         tileElement->AsSurface()->GetSlope() & (1 << ((1 - GetCurrentRotation()) & 3)));
                     SetCheckboxValue(
-                        WIDX_SURFACE_CHECK_DIAGONAL, tileElement->AsSurface()->GetSlope() & TILE_ELEMENT_SLOPE_DOUBLE_HEIGHT);
+                        WIDX_SURFACE_CHECK_DIAGONAL, tileElement->AsSurface()->GetSlope() & kTileSlopeDiagonalFlag);
                     break;
 
                 case TileElementType::Path:
@@ -2332,6 +2352,8 @@ static uint64_t PageDisabledWidgets[] = {
                     widgets[WIDX_WALL_SPINNER_ANIMATION_FRAME_INCREASE].bottom = GBBB(propertiesAnchor, 2) - 4;
                     widgets[WIDX_WALL_SPINNER_ANIMATION_FRAME_DECREASE].top = GBBT(propertiesAnchor, 2) + 4;
                     widgets[WIDX_WALL_SPINNER_ANIMATION_FRAME_DECREASE].bottom = GBBB(propertiesAnchor, 2) - 4;
+                    widgets[WIDX_WALL_ANIMATION_IS_BACKWARDS].top = GBBT(propertiesAnchor, 3);
+                    widgets[WIDX_WALL_ANIMATION_IS_BACKWARDS].bottom = GBBB(propertiesAnchor, 3);
 
                     // Wall slope dropdown
                     SetWidgetDisabled(WIDX_WALL_DROPDOWN_SLOPE, !canBeSloped);
@@ -2342,6 +2364,9 @@ static uint64_t PageDisabledWidgets[] = {
                     SetWidgetDisabled(WIDX_WALL_SPINNER_ANIMATION_FRAME, !hasAnimation);
                     SetWidgetDisabled(WIDX_WALL_SPINNER_ANIMATION_FRAME_INCREASE, !hasAnimation);
                     SetWidgetDisabled(WIDX_WALL_SPINNER_ANIMATION_FRAME_DECREASE, !hasAnimation);
+
+                    SetCheckboxValue(WIDX_WALL_ANIMATION_IS_BACKWARDS, tileElement->AsWall()->AnimationIsBackwards());
+                    SetWidgetDisabled(WIDX_WALL_ANIMATION_IS_BACKWARDS, !hasAnimation);
                     break;
                 }
 

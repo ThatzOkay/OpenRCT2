@@ -11,9 +11,9 @@
 
 #include "Theme.h"
 
+#include "../UiStringIds.h"
 #include "Window.h"
 
-#include <algorithm>
 #include <memory>
 #include <openrct2/Context.h>
 #include <openrct2/PlatformEnvironment.h>
@@ -618,9 +618,9 @@ namespace ThemeManager
         ActiveAvailableThemeIndex = 1;
 
         bool configValid = false;
-        if (!gConfigInterface.CurrentThemePreset.empty())
+        if (!Config::Get().interface.CurrentThemePreset.empty())
         {
-            if (LoadThemeByConfigName(gConfigInterface.CurrentThemePreset.c_str()))
+            if (LoadThemeByConfigName(Config::Get().interface.CurrentThemePreset.c_str()))
             {
                 configValid = true;
             }
@@ -628,7 +628,7 @@ namespace ThemeManager
 
         if (!configValid)
         {
-            gConfigInterface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
+            Config::Get().interface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
         }
     }
 
@@ -710,7 +710,7 @@ void ThemeManagerSetActiveAvailableTheme(size_t index)
         }
     }
     ThemeManager::ActiveAvailableThemeIndex = index;
-    gConfigInterface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(index);
+    Config::Get().interface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(index);
 
     ColourSchemeUpdateAll();
 }
@@ -855,7 +855,7 @@ void ThemeRename(const utf8* name)
         if (Path::Equals(newPath, ThemeManager::AvailableThemes[i].Path))
         {
             ThemeManager::ActiveAvailableThemeIndex = i;
-            gConfigInterface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
+            Config::Get().interface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
             break;
         }
     }
@@ -880,7 +880,7 @@ void ThemeDuplicate(const utf8* name)
         if (Path::Equals(newPath, ThemeManager::AvailableThemes[i].Path))
         {
             ThemeManager::ActiveAvailableThemeIndex = i;
-            gConfigInterface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(i);
+            Config::Get().interface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(i);
             break;
         }
     }
@@ -891,7 +891,7 @@ void ThemeDelete()
     File::Delete(ThemeManager::CurrentThemePath);
     ThemeManager::LoadTheme(const_cast<UITheme*>(&PredefinedThemeRCT2));
     ThemeManager::ActiveAvailableThemeIndex = 1;
-    gConfigInterface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
+    Config::Get().interface.CurrentThemePreset = ThemeManagerGetAvailableThemeConfigName(1);
 }
 
 void ThemeManagerInitialise()

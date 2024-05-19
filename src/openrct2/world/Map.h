@@ -27,8 +27,8 @@ constexpr uint8_t kMapBaseZ = 7;
 
 constexpr uint8_t kMinimumMapSizeTechnical = 5;
 constexpr uint16_t kMaximumMapSizeTechnical = 1001;
-#define MINIMUM_MAP_SIZE_PRACTICAL (kMinimumMapSizeTechnical - 2)
-#define MAXIMUM_MAP_SIZE_PRACTICAL (kMaximumMapSizeTechnical - 2)
+constexpr int16_t kMinimumMapSizePractical = (kMinimumMapSizeTechnical - 2);
+constexpr int16_t kMaximumMapSizePractical = (kMaximumMapSizeTechnical - 2);
 constexpr const int32_t MAXIMUM_MAP_SIZE_BIG = COORDS_XY_STEP * kMaximumMapSizeTechnical;
 constexpr int32_t MAXIMUM_TILE_START_XY = MAXIMUM_MAP_SIZE_BIG - COORDS_XY_STEP;
 constexpr const int32_t LAND_HEIGHT_STEP = 2 * COORDS_Z_STEP;
@@ -40,13 +40,10 @@ constexpr uint8_t ConstructionRightsClearanceSmall = 3;
 // Same as previous, but in big coords.
 constexpr const uint8_t ConstructionRightsClearanceBig = 3 * COORDS_Z_STEP;
 
-#define MAP_MINIMUM_X_Y (-kMaximumMapSizeTechnical)
+constexpr int16_t kMapMinimumXY = (-kMaximumMapSizeTechnical);
 
 constexpr uint32_t MAX_TILE_ELEMENTS_WITH_SPARE_ROOM = 0x1000000;
 constexpr uint32_t MAX_TILE_ELEMENTS = MAX_TILE_ELEMENTS_WITH_SPARE_ROOM - 512;
-#define MAX_TILE_TILE_ELEMENT_POINTERS (kMaximumMapSizeTechnical * kMaximumMapSizeTechnical)
-
-#define TILE_UNDEFINED_TILE_ELEMENT NULL
 
 using PeepSpawn = CoordsXYZD;
 
@@ -92,16 +89,6 @@ enum
     MAP_SELECT_TYPE_EDGE_1,
     MAP_SELECT_TYPE_EDGE_2,
     MAP_SELECT_TYPE_EDGE_3,
-};
-
-// Used when calling MapCanConstructWithClearAt();
-// This assumes that the caller has already done the check on the element it wants to place,
-// as this function can only check the element the player wants to build through.
-enum
-{
-    CREATE_CROSSING_MODE_NONE,
-    CREATE_CROSSING_MODE_TRACK_OVER_PATH,
-    CREATE_CROSSING_MODE_PATH_OVER_TRACK,
 };
 
 extern const std::array<CoordsXY, 8> CoordsDirectionDelta;
@@ -241,8 +228,6 @@ void MapClearAllElements();
 LargeSceneryElement* MapGetLargeScenerySegment(const CoordsXYZD& sceneryPos, int32_t sequence);
 std::optional<CoordsXYZ> MapLargeSceneryGetOrigin(
     const CoordsXYZD& sceneryPos, int32_t sequence, LargeSceneryElement** outElement);
-
-ScreenCoordsXY Translate3DTo2DWithZ(int32_t rotation, const CoordsXYZ& pos);
 
 TrackElement* MapGetTrackElementAt(const CoordsXYZ& trackPos);
 TileElement* MapGetTrackElementAtOfType(const CoordsXYZ& trackPos, track_type_t trackType);

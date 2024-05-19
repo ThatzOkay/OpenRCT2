@@ -13,13 +13,18 @@
 
 #include <openrct2/drawing/Drawing.h>
 #include <openrct2/interface/Widget.h>
+
+// TODO: only because of STR_NONE. We can do better.
 #include <openrct2/localisation/StringIds.h>
 
 ImageId GetColourButtonImage(colour_t colour);
 Widget* GetWidgetByIndex(const WindowBase& w, WidgetIndex widgetIndex);
 
 constexpr auto kWidgetsEnd = Widget{ WindowWidgetType::Last, 0, 0, 0, 0, 0, 0, 0 };
+constexpr uint32_t kWidgetContentEmpty = 0xFFFFFFFF;
 constexpr auto kBarBlink = (1u << 31);
+constexpr uint8_t kScrollBarWidth = 10;
+constexpr ScreenSize kTabSize = { 31, 27 };
 
 enum class WindowColour : uint8_t
 {
@@ -29,13 +34,9 @@ enum class WindowColour : uint8_t
     Quaternary,
 };
 
-constexpr uint8_t kScrollBarWidth = 10;
-
-constexpr ScreenSize kTabSize = { 31, 27 };
-
 constexpr Widget MakeWidget(
     const ScreenCoordsXY& origin, const ScreenSize& size, WindowWidgetType type, WindowColour colour,
-    uint32_t content = 0xFFFFFFFF, StringId tooltip = STR_NONE)
+    uint32_t content = kWidgetContentEmpty, StringId tooltip = STR_NONE)
 {
     Widget out = {};
     out.left = origin.x;
@@ -91,7 +92,7 @@ constexpr Widget MakeTab(const ScreenCoordsXY& origin, StringId tooltip = STR_NO
 
 constexpr Widget MakeSpinnerDecreaseWidget(
     const ScreenCoordsXY& origin, const ScreenSize& size, [[maybe_unused]] WindowWidgetType type, WindowColour colour,
-    [[maybe_unused]] uint32_t content = 0xFFFFFFFF, StringId tooltip = STR_NONE)
+    [[maybe_unused]] uint32_t content = kWidgetContentEmpty, StringId tooltip = STR_NONE)
 {
     const int16_t xPos = origin.x + size.width - 26;
     const int16_t yPos = origin.y + 1;
@@ -103,7 +104,7 @@ constexpr Widget MakeSpinnerDecreaseWidget(
 
 constexpr Widget MakeSpinnerIncreaseWidget(
     const ScreenCoordsXY& origin, const ScreenSize& size, [[maybe_unused]] WindowWidgetType type, WindowColour colour,
-    [[maybe_unused]] uint32_t content = 0xFFFFFFFF, StringId tooltip = STR_NONE)
+    [[maybe_unused]] uint32_t content = kWidgetContentEmpty, StringId tooltip = STR_NONE)
 {
     const int16_t xPos = origin.x + size.width - 13;
     const int16_t yPos = origin.y + 1;
@@ -118,14 +119,14 @@ constexpr Widget MakeSpinnerIncreaseWidget(
 
 constexpr Widget MakeDropdownBoxWidget(
     const ScreenCoordsXY& origin, const ScreenSize& size, [[maybe_unused]] WindowWidgetType type, WindowColour colour,
-    [[maybe_unused]] uint32_t content = 0xFFFFFFFF, StringId tooltip = STR_NONE)
+    [[maybe_unused]] uint32_t content = kWidgetContentEmpty, StringId tooltip = STR_NONE)
 {
     return MakeWidget(origin, size, type, colour, content);
 }
 
 constexpr Widget MakeDropdownButtonWidget(
     const ScreenCoordsXY& origin, const ScreenSize& size, [[maybe_unused]] WindowWidgetType type, WindowColour colour,
-    [[maybe_unused]] uint32_t content = 0xFFFFFFFF, StringId tooltip = STR_NONE)
+    [[maybe_unused]] uint32_t content = kWidgetContentEmpty, StringId tooltip = STR_NONE)
 {
     const int16_t xPos = origin.x + size.width - 11;
     const int16_t yPos = origin.y + 1;
